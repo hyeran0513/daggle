@@ -2,13 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { breakpoint } from "../styles/mixins";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <HeaderContainer>
       <HeaderInner>
         {/* 로고 */}
-        <Logo>
+        <Logo to="/">
           <LogoImg src={logo} />
         </Logo>
 
@@ -20,6 +21,7 @@ const Header = () => {
 };
 
 const HeaderContainer = styled.header`
+  display: fixed;
   margin: 0 auto;
   border-bottom: 1px solid ${(props) => props.theme.colors.gray300};
   box-shadow: 0px 9px 10px 0px rgba(232, 232, 232, 0.25);
@@ -33,7 +35,7 @@ const HeaderInner = styled.div`
   ${(props) => breakpoint(props.theme.breakpoints, props.theme.margins)}
 `;
 
-const Logo = styled.div`
+const Logo = styled(Link)`
   width: 150px;
   height: 30px;
   overflow: hidden;

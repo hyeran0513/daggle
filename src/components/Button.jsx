@@ -6,10 +6,17 @@ const Button = ({
   size = "medium",
   variant = "black",
   disabled = false,
+  type = "button",
   ...props
 }) => {
   return (
-    <StyledButton size={size} variant={variant} disabled={disabled} {...props}>
+    <StyledButton
+      size={size}
+      variant={variant}
+      disabled={disabled}
+      type={type}
+      {...props}
+    >
       {children}
     </StyledButton>
   );
@@ -31,6 +38,7 @@ const StyledButton = styled.button`
   height: ${({ theme, size }) => theme.buttons.sizes[size].height};
   background-color: ${({ theme, variant }) =>
     theme.buttons.colors[variant].default};
+  transition: background-color 0.3s ease;
 
   &:hover {
     background-color: ${({ theme, variant }) =>

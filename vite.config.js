@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://api.daggle.io/api",
+        target: "https://api.daggle.io",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

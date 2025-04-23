@@ -3,37 +3,58 @@ import styled from "styled-components";
 import { ellipsis } from "../styles/mixins";
 import { formatDate } from "../utils/format";
 import { BiCommentDetail } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
+import { usePostDetailData } from "../hooks/usePostData";
 
 const PostCard = ({ post }) => {
-  const { title, createdAt, commentCount } = post;
+  const navigate = useNavigate();
+  const { id, title, createdAt, commentCount } = post;
+  const { data, isLoading, isError, error } = usePostDetailData(id);
+
+  const handleLink = () => {
+    if (data) {
+      navigate(`/post/${id}`);
+    } else if (isError) {
+      alert(`${error?.response?.data?.message}`);
+    }
+  };
+
+  if (isLoading) return <>로딩 중...</>;
 
   return (
     <Card>
-      {/* 제목 */}
-      <Title>{title}</Title>
+      <CardLink onClick={handleLink}>
+        {/* 제목 */}
+        <Title>{title}</Title>
 
-      {/* 메타 데이터 */}
-      <Meta>
-        {/* 날짜 */}
-        <Date>{formatDate(createdAt)}</Date>
+        {/* 메타 데이터 */}
+        <Meta>
+          {/* 날짜 */}
+          <Date>{formatDate(createdAt)}</Date>
 
-        {/* 댓글 수 */}
-        <Comment>
-          <BiCommentDetail />
-          <CommentCount>{commentCount}</CommentCount>
-        </Comment>
-      </Meta>
+          {/* 댓글 수 */}
+          <CommentCountWrapper>
+            <BiCommentDetail />
+            <CommentCount>{commentCount}</CommentCount>
+          </CommentCountWrapper>
+        </Meta>
+      </CardLink>
     </Card>
   );
 };
 
-const Card = styled.li`
+const Card = styled.li``;
+
+const CardLink = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  width: 100%;
   padding: 16px 24px;
   border-bottom: 1px solid ${(props) => props.theme.colors.gray300};
+  cursor: pointer;
+  text-align: left;
 `;
 
 const Title = styled.h3`
@@ -53,13 +74,13 @@ const Meta = styled.div`
 
 const Date = styled.div`
   font-weight: 400;
-  size: 16px;
+  font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.3%;
   color: ${(props) => props.theme.colors.gray600};
 `;
 
-const Comment = styled.div`
+const CommentCountWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;

@@ -18,7 +18,7 @@ const MainLayout = () => {
 };
 
 const Main = styled.main`
-  padding: 100px 120px;
+  padding: 100px 0;
 `;
 
 export default MainLayout;
