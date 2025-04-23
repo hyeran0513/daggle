@@ -6,5 +6,5 @@ export const getPosts = async ({ page = 1, limit = 10 }) => {
     params: { page, limit },
   });
 
-  return response.data.items;
+  return response.data;
 };
