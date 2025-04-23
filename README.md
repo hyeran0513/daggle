@@ -6,4 +6,7 @@
 | ---------------------------------- | ------------------------------------------- | ----------------------------------------|
 | **react-router-dom**               | `npm install react-router-dom`              |                                         |
 | **zustand**                        | `npm install zustand`                       |                                         |
-| **axios**                        | `npm install axios`                       |                                         |
+| **axios**                          | `npm install axios`                         |                                         |
+| **styled-components**              | `npm install styled-components`             |                                         |
+| **date-fns**                       | `npm install date-fns`                      |                                         |
+| **react-icons**                    | `npm install react-icons`                   |                                         |
