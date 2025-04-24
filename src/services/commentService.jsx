@@ -15,3 +15,24 @@ export const createComment = async (postId, content) => {
 
   return response.data;
 };
+
+// [댓글] 댓글 수정
+export const editComment = async (postId, commentId, content) => {
+  const response = await axiosInstance.patch(
+    `/api/posts/${postId}/comments/${commentId}`,
+    {
+      content,
+    }
+  );
+
+  return response.data;
+};
+
+// [댓글] 댓글 삭제
+export const deleteComment = async (postId, commentId) => {
+  const response = await axiosInstance.delete(
+    `/api/posts/${postId}/comments/${commentId}`
+  );
+
+  return response.data;
+};

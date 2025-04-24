@@ -43,6 +43,10 @@ export const inputField = css`
   padding: 0 16px;
   width: 100%;
   height: 48px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.3%;
   border: 1px solid ${({ theme }) => theme.colors.line.normal};
   border-radius: 8px;
   background-color: ${({ theme }) => theme.colors.white};

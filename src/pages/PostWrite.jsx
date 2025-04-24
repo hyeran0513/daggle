@@ -177,6 +177,15 @@ const TextareaField = styled.textarea`
   border: none;
   resize: none;
   outline: none;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.3%;
+  font-family: "pretendard";
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.label.alternative};
+  }
 `;
 
 const ErrorMessage = styled.div`

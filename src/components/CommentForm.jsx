@@ -4,11 +4,13 @@ import styled from "styled-components";
 import { useCreateComment } from "../hooks/useCommentData";
 import { useCommentForm } from "../hooks/useCommentForm";
 import { validateForm } from "../utils/validation";
+import authStore from "../stores/authStore";
 
 const CommentForm = ({ postId }) => {
   // [댓글] 댓글 생성
   const { mutate } = useCreateComment(postId);
   const [state, dispatch] = useCommentForm();
+  const { isAuthenticated } = authStore();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,7 +49,7 @@ const CommentForm = ({ postId }) => {
       />
 
       {/* 등록 버튼 */}
-      <Button size="small" onClick={handleSubmit}>
+      <Button size="small" onClick={handleSubmit} disabled={!isAuthenticated}>
         등록
       </Button>
     </FormWrapper>
