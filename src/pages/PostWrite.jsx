@@ -24,11 +24,14 @@ const PostWrite = () => {
   };
 
   // 등록 핸들러
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     const title = state.title;
     const content = state.content;
 
-    const errors = validateForm({ title, content });
+    // 유효성 검사
+    const errors = validateForm({ title, content }, "post");
 
     if (Object.keys(errors).length > 0) {
       dispatch({ type: "SET_ERRORS", payload: errors });

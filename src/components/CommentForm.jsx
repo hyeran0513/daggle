@@ -1,22 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "./Button";
 import styled from "styled-components";
 import { useCreateComment } from "../hooks/useCommentData";
+import { useCommentForm } from "../hooks/useCommentForm";
+import { validateForm } from "../utils/validation";
 
 const CommentForm = ({ postId }) => {
+  // [댓글] 댓글 생성
   const { mutate } = useCreateComment(postId);
-  const [comment, setComment] = useState("");
+  const [state, dispatch] = useCommentForm();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!comment.trim()) {
-      alert("댓글을 입력해 주세요.");
+    const comment = state.comment;
+
+    // 유효성 검사
+    const errors = validateForm({ comment }, "comment");
+
+    if (Object.keys(errors).length > 0) {
+      dispatch({ type: "SET_ERRORS", payload: errors });
+
+      if (state.errors.comment) {
+        alert(`${state.errors.comment}`);
+      }
+
+      return;
     }
 
     mutate(comment);
 
-    setComment("");
+    dispatch({ type: "CLEAR_ERROR", payload: "comment" });
   };
 
   return (
@@ -24,9 +38,12 @@ const CommentForm = ({ postId }) => {
       {/* 댓글 인풋 영역 */}
       <InputField
         type="text"
-        value={comment}
-        placeholder="댓글을 통해 자유롭게 의견을 나눠보세요"
-        onChange={(e) => setComment(e.target.value)}
+        value={state.comment}
+        placeholder={state.placeholder.comment}
+        onChange={(e) => {
+          dispatch({ type: "SET_COMMENT", payload: e.target.value });
+          dispatch({ type: "CLEAR_ERROR", payload: "comment" });
+        }}
       />
 
       {/* 등록 버튼 */}

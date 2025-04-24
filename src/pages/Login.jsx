@@ -4,21 +4,30 @@ import Button from "../components/Button";
 import { useAuthForm } from "../hooks/useAuthForm";
 import { validateForm } from "../utils/validation";
 import { errorMessage, form, formBox, inputField } from "../styles/mixins";
+import { useLogin } from "../hooks/useAuthData";
 
 const Login = () => {
   const [state, dispatch] = useAuthForm();
 
+  // [Auth] 로그인
+  const { mutate } = useLogin();
+
   // 등록 핸들러
-  const handleSubmit = () => {
-    const id = state.id;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const loginId = state.id;
     const password = state.password;
 
-    const errors = validateForm({ id, password });
+    // 유효성 검사
+    const errors = validateForm({ id: loginId, password }, "login");
 
     if (Object.keys(errors).length > 0) {
       dispatch({ type: "SET_ERRORS", payload: errors });
       return;
     }
+
+    mutate({ loginId, password });
   };
 
   return (

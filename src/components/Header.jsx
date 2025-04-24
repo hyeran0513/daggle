@@ -1,20 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../assets/images/logo.png";
 import { breakpoint } from "../styles/mixins";
 import { Link } from "react-router-dom";
+import authStore from "../stores/authStore";
+import { LuCircleUser } from "react-icons/lu";
+import { useLogout } from "../hooks/useAuthData";
+import OutsideClickHandler from "react-outside-click-handler";
 
 const Header = () => {
+  const { isAuthenticated, user } = authStore();
+  const { mutate } = useLogout();
+  const [isPopOverOpen, setIsPopOverOpen] = useState(false);
+
+  const togglePopOver = () => {
+    setIsPopOverOpen((prev) => !prev);
+  };
+
   return (
     <HeaderContainer>
       <HeaderInner>
-        {/* 로고 */}
         <Logo to="/">
           <LogoImg src={logo} />
         </Logo>
 
-        {/* 로그인 버튼 */}
-        <LoginButton to="/login">로그인</LoginButton>
+        {isAuthenticated ? (
+          <PopOverWrapper>
+            <OutsideClickHandler onOutsideClick={() => setIsPopOverOpen(false)}>
+              <PopOverButton onClick={togglePopOver}>
+                <LuCircleUser />
+              </PopOverButton>
+
+              {isPopOverOpen && (
+                <PopOver>
+                  <PopOverItem>
+                    {user?.nickname || "(알 수 없음)"} 님
+                  </PopOverItem>
+                  <PopOverItem>
+                    <button onClick={mutate}>로그아웃</button>
+                  </PopOverItem>
+                </PopOver>
+              )}
+            </OutsideClickHandler>
+          </PopOverWrapper>
+        ) : (
+          <LoginButton to="/login">로그인</LoginButton>
+        )}
       </HeaderInner>
     </HeaderContainer>
   );
@@ -31,6 +62,7 @@ const HeaderContainer = styled.header`
 `;
 
 const HeaderInner = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -54,6 +86,33 @@ const LoginButton = styled(Link)`
   font-weight: 600;
   font-size: 18px;
   line-height: 32px;
+`;
+
+const PopOverWrapper = styled.div`
+  position: relative;
+`;
+
+const PopOverButton = styled.button`
+  svg {
+    font-size: 32px;
+  }
+`;
+
+const PopOver = styled.div`
+  position: absolute;
+  top: calc(100% + 20px);
+  right: 0;
+  width: 190px;
+  border-radius: 12px;
+  background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: 4px 4px 10px 0px rgba(120, 120, 120, 0.25);
+`;
+
+const PopOverItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 24px;
 `;
 
 export default Header;
