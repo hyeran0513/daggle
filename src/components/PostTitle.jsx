@@ -31,7 +31,7 @@ const Wrapper = styled.div`
   height: 96px;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-  border-bottom: 1px solid ${(props) => props.theme.colors.gray300};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray300};
 `;
 
 const Title = styled.h3`

@@ -14,17 +14,20 @@ const Header = () => {
         </Logo>
 
         {/* 로그인 버튼 */}
-        <LoginButton>로그인</LoginButton>
+        <LoginButton to="/login">로그인</LoginButton>
       </HeaderInner>
     </HeaderContainer>
   );
 };
 
 const HeaderContainer = styled.header`
-  display: fixed;
+  position: fixed;
   margin: 0 auto;
-  border-bottom: 1px solid ${(props) => props.theme.colors.gray300};
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray300};
   box-shadow: 0px 9px 10px 0px rgba(232, 232, 232, 0.25);
+  z-index: 100;
 `;
 
 const HeaderInner = styled.div`
@@ -32,7 +35,7 @@ const HeaderInner = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 86px;
-  ${(props) => breakpoint(props.theme.breakpoints, props.theme.margins)}
+  ${({ theme }) => breakpoint(theme.breakpoints, theme.margins)}
 `;
 
 const Logo = styled(Link)`
@@ -47,6 +50,10 @@ const LogoImg = styled.img`
   object-fit: cover;
 `;
 
-const LoginButton = styled.button``;
+const LoginButton = styled(Link)`
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 32px;
+`;
 
 export default Header;

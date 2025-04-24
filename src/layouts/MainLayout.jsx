@@ -17,8 +17,6 @@ const MainLayout = () => {
   );
 };
 
-const Main = styled.main`
-  padding: 100px 0;
-`;
+const Main = styled.main``;
 
 export default MainLayout;

@@ -49,13 +49,13 @@ const InputField = styled.input`
   padding: 0 12px;
   height: 48px;
   border: 0;
-  border-bottom: 1px solid ${(props) => props.theme.colors.gray300};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray300};
   outline: none;
   transition: border-bottom 0.3s ease;
 
   &:focus {
     outline: none;
-    border-bottom: 1px solid ${(props) => props.theme.colors.primary.normal};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.primary.normal};
   }
 `;
 

@@ -28,7 +28,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           <PageButton
             key={page}
             onClick={() => handlePageChange(page)}
-            active={currentPage === page}
+            $active={currentPage === page}
           >
             {page}
           </PageButton>
@@ -65,12 +65,12 @@ const PageButton = styled.button`
   font-size: 16px;
   font-weight: 400;
   line-height: 22px;
-  background-color: ${(props) =>
-    props.active ? props.theme.colors.gray300 : props.theme.colors.white};
+  background-color: ${({ $active, theme }) =>
+    $active ? theme.colors.gray300 : theme.colors.white};
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${(props) => props.theme.colors.gray300};
+    background-color: ${({ theme }) => theme.colors.gray300};
   }
 
   &:disabled {

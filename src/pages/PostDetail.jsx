@@ -62,18 +62,19 @@ const PostDetail = () => {
 };
 
 const Container = styled.div`
-  ${(props) => breakpoint(props.theme.breakpoints, props.theme.margins)}
+  padding: 110px 0 100px;
+  ${({ theme }) => breakpoint(theme.breakpoints, theme.margins)}
 `;
 
 const PostContainer = styled.div`
-  border: 1px solid ${(props) => props.theme.colors.gray300};
-  background-color: ${(props) => props.theme.colors.white};
+  border: 1px solid ${({ theme }) => theme.colors.gray300};
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
 `;
 
 const PostHead = styled.div`
   padding: 24px;
-  border: 1px solid ${(props) => props.theme.colors.gray300};
+  border: 1px solid ${({ theme }) => theme.colors.gray300};
 `;
 
 const Title = styled.div`
@@ -93,7 +94,7 @@ const NickName = styled.div`
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.3%;
-  color: ${(props) => props.theme.colors.gray600};
+  color: ${({ theme }) => theme.colors.gray600};
 `;
 
 const Date = styled.div`
@@ -104,7 +105,7 @@ const Date = styled.div`
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.3%;
-  color: ${(props) => props.theme.colors.gray600};
+  color: ${({ theme }) => theme.colors.gray600};
 
   &::before {
     content: "";
@@ -112,7 +113,7 @@ const Date = styled.div`
     margin-right: 12px;
     width: 2px;
     height: 20px;
-    background-color: ${(props) => props.theme.colors.gray300};
+    background-color: ${({ theme }) => theme.colors.gray300};
   }
 `;
 
@@ -129,14 +130,14 @@ const Content = styled.div`
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.3%;
-  color: ${(props) => props.theme.colors.gray800};
+  color: ${({ theme }) => theme.colors.gray800};
 `;
 
 const CommentCountWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  color: ${(props) => props.theme.colors.gray800};
+  color: ${({ theme }) => theme.colors.gray800};
 
   svg {
     font-size: 18px;
@@ -153,7 +154,7 @@ const CommentCount = styled.span`
 const PostFooter = styled.div``;
 
 const CommentWrapper = styled.div`
-  border-top: 1px solid ${(props) => props.theme.colors.gray300};
+  border-top: 1px solid ${({ theme }) => theme.colors.gray300};
 `;
 
 export default PostDetail;

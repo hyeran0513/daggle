@@ -71,7 +71,8 @@ const Home = () => {
 };
 
 const Container = styled.div`
-  ${(props) => breakpoint(props.theme.breakpoints, props.theme.margins)}
+  padding: 186px 0;
+  ${({ theme }) => breakpoint(theme.breakpoints, theme.margins)}
 `;
 
 const TitleWrapper = styled.div`
@@ -100,7 +101,7 @@ const Subtitle = styled.div`
 
 const PostContainer = styled.div`
   margin-top: 40px;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
   padding: 16px;
 `;

@@ -17,8 +17,8 @@ const CommentItem = styled.div`
   flex-direction: column;
   gap: 16px;
   padding: 24px;
-  background-color: ${(props) => props.theme.colors.gray100};
-  border-bottom: 1px solid ${(props) => props.theme.colors.gray300};
+  background-color: ${({ theme }) => theme.colors.gray100};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray300};
 `;
 
 const NickName = styled.div`
@@ -26,7 +26,7 @@ const NickName = styled.div`
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.3%;
-  color: ${(props) => props.theme.colors.gray900};
+  color: ${({ theme }) => theme.colors.gray900};
 `;
 
 const Content = styled.div`
@@ -34,7 +34,7 @@ const Content = styled.div`
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.3%;
-  color: ${(props) => props.theme.colors.gray800};
+  color: ${({ theme }) => theme.colors.gray800};
 `;
 
 const Date = styled.div`
@@ -42,7 +42,7 @@ const Date = styled.div`
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.3%;
-  color: ${(props) => props.theme.colors.gray600};
+  color: ${({ theme }) => theme.colors.gray600};
 `;
 
 export default Comment;

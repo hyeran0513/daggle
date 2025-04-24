@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { breakpoint } from "../styles/mixins";
+import {
+  breakpoint,
+  errorMessage,
+  form,
+  formBox,
+  inputField,
+} from "../styles/mixins";
 import styled from "styled-components";
 import { usePostForm } from "../hooks/usePostForm";
 import Button from "../components/Button";
@@ -39,7 +45,7 @@ const PostWrite = () => {
 
         <Form>
           {/* 게시글 제목 */}
-          <FieldWrapper>
+          <FormBox>
             <InputField
               type="text"
               value={state.title}
@@ -55,10 +61,10 @@ const PostWrite = () => {
             {state.errors.title && (
               <ErrorMessage>{state.errors.title}</ErrorMessage>
             )}
-          </FieldWrapper>
+          </FormBox>
 
           {/* 게시글 내용 */}
-          <FieldWrapper>
+          <FormBox>
             <TextareaFieldWrapper error={Boolean(state.errors.content)}>
               <TextareaField
                 value={state.content}
@@ -86,7 +92,7 @@ const PostWrite = () => {
             {state.errors.content && (
               <ErrorMessage>{state.errors.content}</ErrorMessage>
             )}
-          </FieldWrapper>
+          </FormBox>
         </Form>
       </PostContainer>
 
@@ -101,13 +107,14 @@ const PostWrite = () => {
 };
 
 const Container = styled.div`
-  ${(props) => breakpoint(props.theme.breakpoints, props.theme.margins)}
+  padding: 110px 0 80px;
+  ${({ theme }) => breakpoint(theme.breakpoints, theme.margins)}
 `;
 
 const PostContainer = styled.div`
   padding: 24px;
-  border: 1px solid ${(props) => props.theme.colors.gray300};
-  background-color: ${(props) => props.theme.colors.white};
+  border: 1px solid ${({ theme }) => theme.colors.gray300};
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
 `;
 
@@ -123,39 +130,15 @@ const Title = styled.div`
 `;
 
 const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  ${form};
 `;
 
-const FieldWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+const FormBox = styled.div`
+  ${formBox};
 `;
 
 const InputField = styled.input`
-  padding: 0 16px;
-  width: 100%;
-  height: 48px;
-  border: 1px solid ${({ theme }) => theme.colors.line.normal};
-  border-radius: 8px;
-  transition: border 0.3s ease;
-
-  ${({ error, theme }) =>
-    error &&
-    `
-      border: 2px solid ${theme.colors.error};
-  `}
-
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.label.alternative};
-  }
-
-  &:focus {
-    outline: none;
-    border: 2px solid ${({ theme }) => theme.colors.primary.normal};
-  }
+  ${inputField};
 `;
 
 const TextareaFieldWrapper = styled.div`
@@ -190,11 +173,7 @@ const TextareaField = styled.textarea`
 `;
 
 const ErrorMessage = styled.div`
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 150%;
-  letter-spacing: -0.3%;
-  color: ${({ theme }) => theme.colors.error};
+  ${errorMessage}
 `;
 
 const ButtonWrapper = styled.div`

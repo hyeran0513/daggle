@@ -1,26 +1,26 @@
 import { useReducer } from "react";
 
 const initialState = {
-  title: "",
-  content: "",
+  id: "",
+  password: "",
   errors: {},
   placeholder: {
-    title: "제목을 입력해주세요",
-    content: "내용을 입력해주세요",
+    id: "아이디를 입력해주세요.",
+    password: "비밀번호를 입력해주세요.",
   },
 };
 
 const formReducer = (state, action) => {
   switch (action.type) {
-    case "SET_TITLE":
+    case "SET_ID":
       return {
         ...state,
-        title: action.payload,
+        id: action.payload,
       };
-    case "SET_CONTENT":
+    case "SET_PASSWORD":
       return {
         ...state,
-        content: action.payload,
+        password: action.payload,
       };
     case "SET_ERRORS":
       return {
@@ -40,6 +40,6 @@ const formReducer = (state, action) => {
   }
 };
 
-export const usePostForm = () => {
+export const useAuthForm = () => {
   return useReducer(formReducer, initialState);
 };

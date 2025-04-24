@@ -39,7 +39,7 @@ const CardLink = styled(Link)`
   gap: 24px;
   width: 100%;
   padding: 16px 24px;
-  border-bottom: 1px solid ${(props) => props.theme.colors.gray300};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray300};
   cursor: pointer;
 `;
 
@@ -63,14 +63,14 @@ const Date = styled.div`
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.3%;
-  color: ${(props) => props.theme.colors.gray600};
+  color: ${({ theme }) => theme.colors.gray600};
 `;
 
 const CommentCountWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
-  color: ${(props) => props.theme.colors.gray600};
+  color: ${({ theme }) => theme.colors.gray600};
 
   svg {
     font-size: 18px;

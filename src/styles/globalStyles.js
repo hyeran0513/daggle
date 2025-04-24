@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: ${(props) => props.theme.colors.gray100};
+    background-color: ${({ theme }) => theme.colors.gray100};
     font-family: "Pretendard";
   }
 
