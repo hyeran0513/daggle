@@ -6,3 +6,12 @@ export const getComments = async (postId) => {
 
   return response.data;
 };
+
+// [댓글] 댓글 생성
+export const createComment = async (postId, content) => {
+  const response = await axiosInstance.post(`/api/posts/${postId}/comments`, {
+    content: content,
+  });
+
+  return response.data;
+};

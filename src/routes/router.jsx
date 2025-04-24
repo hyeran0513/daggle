@@ -3,6 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import PostDetail from "../pages/PostDetail";
 import NotFound from "../pages/error/NotFound";
+import PostWrite from "../pages/PostWrite";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "post/:id", element: <PostDetail /> },
+      { path: "post/write", element: <PostWrite /> },
       { path: "*", element: <NotFound /> },
     ],
   },

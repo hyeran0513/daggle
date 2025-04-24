@@ -3,27 +3,14 @@ import styled from "styled-components";
 import { ellipsis } from "../styles/mixins";
 import { formatDate } from "../utils/format";
 import { BiCommentDetail } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
-import { usePostDetailData } from "../hooks/usePostData";
+import { Link } from "react-router-dom";
 
 const PostCard = ({ post }) => {
-  const navigate = useNavigate();
   const { id, title, createdAt, commentCount } = post;
-  const { data, isLoading, isError, error } = usePostDetailData(id);
-
-  const handleLink = () => {
-    if (data) {
-      navigate(`/post/${id}`);
-    } else if (isError) {
-      alert(`${error?.response?.data?.message}`);
-    }
-  };
-
-  if (isLoading) return <>로딩 중...</>;
 
   return (
     <Card>
-      <CardLink onClick={handleLink}>
+      <CardLink to={`/post/${id}`}>
         {/* 제목 */}
         <Title>{title}</Title>
 
@@ -45,7 +32,7 @@ const PostCard = ({ post }) => {
 
 const Card = styled.li``;
 
-const CardLink = styled.button`
+const CardLink = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -54,7 +41,6 @@ const CardLink = styled.button`
   padding: 16px 24px;
   border-bottom: 1px solid ${(props) => props.theme.colors.gray300};
   cursor: pointer;
-  text-align: left;
 `;
 
 const Title = styled.h3`

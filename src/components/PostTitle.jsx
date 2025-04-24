@@ -1,15 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
 const PostTitle = () => {
+  const navigate = useNavigate();
+
+  const handleGoToWrite = () => {
+    navigate("/post/write");
+  };
+
   return (
     <Wrapper>
       {/* 제목 */}
       <Title>게시판</Title>
 
       {/* 글쓰기 버튼 */}
-      <Button variant="purple" size="small">
+      <Button variant="purple" size="small" onClick={handleGoToWrite}>
         글쓰기
       </Button>
     </Wrapper>

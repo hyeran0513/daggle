@@ -54,7 +54,7 @@ const PostDetail = () => {
           </CommentWrapper>
 
           {/* 댓글 폼 영역 */}
-          <CommentForm />
+          <CommentForm postId={id} />
         </PostFooter>
       </PostContainer>
     </Container>
