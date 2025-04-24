@@ -2,12 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import authStore from "../stores/authStore";
 
 const PostTitle = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = authStore();
 
   const handleGoToWrite = () => {
-    navigate("/post/write");
+    if (isAuthenticated) {
+      navigate("/post/write");
+    } else {
+      alert("로그인 후 글을 작성할 수 있습니다.");
+    }
   };
 
   return (

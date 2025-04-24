@@ -116,7 +116,13 @@ const PostEdit = () => {
 
       {/* 수정 버튼 */}
       <ButtonWrapper>
-        <Button size="large" onClick={handleSubmit}>
+        <Button
+          size="large"
+          onClick={handleSubmit}
+          disabled={
+            post?.title === state.title && post?.content === state.content
+          }
+        >
           수정하기
         </Button>
       </ButtonWrapper>
