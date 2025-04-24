@@ -5,6 +5,7 @@ import PostTitle from "../components/PostTitle";
 import Pagination from "../components/Pagination";
 import styled from "styled-components";
 import { breakpoint } from "../styles/mixins";
+import PortfolioCarousel from "../components/PortfolioCarousel";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,6 +40,9 @@ const Home = () => {
         </Subtitle>
       </TitleWrapper>
 
+      {/* 포트폴리오 영역 */}
+      <PortfolioCarousel />
+
       {/* 포스트 영역 */}
       <PostContainer>
         {/* 포스트 제목 */}
@@ -47,7 +51,7 @@ const Home = () => {
         {/* 포스트 목록 */}
         {posts?.items?.length > 0 ? (
           <PostCardWrapper>
-            {posts.items.map((post) => (
+            {posts?.items?.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}
           </PostCardWrapper>
@@ -95,6 +99,7 @@ const Subtitle = styled.div`
 `;
 
 const PostContainer = styled.div`
+  margin-top: 40px;
   background-color: ${(props) => props.theme.colors.white};
   border-radius: 12px;
   padding: 16px;

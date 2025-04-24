@@ -23,6 +23,7 @@ export const theme = {
     },
     line: {
       normal: "#EEEFF1",
+      strong: "#D6D7DC",
     },
   },
   breakpoints: {
