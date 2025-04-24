@@ -9,7 +9,7 @@ import PortfolioCarousel from "../components/PortfolioCarousel";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const limit = 8;
+  const limit = 10;
 
   // [게시판] 리스트 조회
   const {

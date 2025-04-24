@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Button from "../components/Button";
 import { useAuthForm } from "../hooks/useAuthForm";
 import { validateForm } from "../utils/validation";
 import { errorMessage, form, formBox, inputField } from "../styles/mixins";
 import { useLogin } from "../hooks/useAuthData";
+import { useNavigate } from "react-router-dom";
+import authStore from "../stores/authStore";
 
 const Login = () => {
   const [state, dispatch] = useAuthForm();
+  const navigate = useNavigate();
+  const { isAuthenticated } = authStore();
 
   // [Auth] 로그인
   const { mutate } = useLogin();
+
+  // 로그인 상태일 경우 로그인 페이지 접근 불가능
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   // 등록 핸들러
   const handleSubmit = (e) => {

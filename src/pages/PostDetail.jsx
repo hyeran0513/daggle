@@ -17,8 +17,10 @@ const PostDetail = () => {
   const navigate = useNavigate();
 
   const deletePost = () => {
-    mutate(id);
-    navigate("/");
+    if (confirm("정말 삭제하시겠습니까?")) {
+      mutate(id);
+      navigate("/");
+    }
   };
 
   if (isLoading) return <>로딩 중...</>;
