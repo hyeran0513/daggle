@@ -10,3 +10,4 @@
 | **styled-components**              | `npm install styled-components`             |                                         |
 | **date-fns**                       | `npm install date-fns`                      |                                         |
 | **react-icons**                    | `npm install react-icons`                   |                                         |
+| **react-outside-click-handler**    | `npm install react-outside-click-handler`   |                                         |
