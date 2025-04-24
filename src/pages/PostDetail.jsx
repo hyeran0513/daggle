@@ -1,6 +1,6 @@
 import React from "react";
-import { usePostDetailData } from "../hooks/usePostData";
-import { useParams } from "react-router-dom";
+import { usePostDetailData, usePostDelete } from "../hooks/usePostData";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { formatDate } from "../utils/format";
 import { BiCommentDetail } from "react-icons/bi";
 import { breakpoint } from "../styles/mixins";
@@ -13,6 +13,13 @@ const PostDetail = () => {
   const { id } = useParams();
   const { data: post } = usePostDetailData(id);
   const { data: comments, isLoading } = useCommentsData(id);
+  const { mutate } = usePostDelete();
+  const navigate = useNavigate();
+
+  const deletePost = () => {
+    mutate(id);
+    navigate("/");
+  };
 
   if (isLoading) return <>로딩 중...</>;
 
@@ -27,6 +34,11 @@ const PostDetail = () => {
           <Meta>
             <NickName>{post?.nickname || "(알 수 없음)"}</NickName>
             <Date>{formatDate(post?.createdAt)}</Date>
+
+            <ButtonWrapper>
+              <EditButton to={`/post/edit/${id}`}>수정</EditButton>
+              <DeleteButton onClick={deletePost}>삭제</DeleteButton>
+            </ButtonWrapper>
           </Meta>
         </PostHead>
 
@@ -115,6 +127,29 @@ const Date = styled.div`
     height: 20px;
     background-color: ${({ theme }) => theme.colors.gray300};
   }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+`;
+
+const EditButton = styled(Link)`
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.3%;
+  color: ${({ theme }) => theme.colors.gray700};
+`;
+
+const DeleteButton = styled.button`
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.3%;
+  color: ${({ theme }) => theme.colors.gray700};
 `;
 
 const PostContent = styled.div`

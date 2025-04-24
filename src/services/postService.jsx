@@ -17,3 +17,30 @@ export const getPostDetail = async (id) => {
 
   return response.data;
 };
+
+// [게시판] 게시글 생성
+export const createPost = async (title, content) => {
+  const response = await axiosInstance.patch("/api/posts", {
+    title,
+    content,
+  });
+
+  return response.data;
+};
+
+// [게시판] 게시글 수정
+export const editPost = async (id, title, content) => {
+  const response = await axiosInstance.patch(`/api/posts/${id}`, {
+    title,
+    content,
+  });
+
+  return response.data;
+};
+
+// [게시판] 게시글 삭제
+export const deletePost = async (id) => {
+  const response = await axiosInstance.delete(`/api/posts/${id}`);
+
+  return response.data;
+};

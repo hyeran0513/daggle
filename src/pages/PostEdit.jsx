@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   breakpoint,
   errorMessage,
@@ -11,13 +11,16 @@ import { usePostForm } from "../hooks/usePostForm";
 import Button from "../components/Button";
 import { FiXCircle } from "react-icons/fi";
 import { validateForm } from "../utils/validation";
-import { usePostCreate } from "../hooks/usePostData";
+import { useParams } from "react-router-dom";
+import { usePostDetailData, usePostEdit } from "../hooks/usePostData";
 
-const PostWrite = () => {
+const PostEdit = () => {
   const [state, dispatch] = usePostForm();
   const [currentLength, setCurrentLength] = useState(0);
   const maxLength = 300;
-  const { mutate } = usePostCreate();
+  const { id } = useParams();
+  const { data: post } = usePostDetailData(id);
+  const { mutate } = usePostEdit(id);
 
   // 내용 삭제 버튼 핸들러
   const handleDeleteContent = () => {
@@ -25,7 +28,7 @@ const PostWrite = () => {
     setCurrentLength(0);
   };
 
-  // 등록 핸들러
+  // 수정 핸들러
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -43,11 +46,19 @@ const PostWrite = () => {
     mutate({ title, content });
   };
 
+  useEffect(() => {
+    if (post) {
+      dispatch({ type: "SET_TITLE", payload: post.title });
+      dispatch({ type: "SET_CONTENT", payload: post.content });
+      setCurrentLength(post.content?.length || 0);
+    }
+  }, [post]);
+
   return (
     <Container>
       <PostContainer>
         <PostHead>
-          <Title>게시글 작성</Title>
+          <Title>게시글 수정</Title>
         </PostHead>
 
         <Form>
@@ -103,10 +114,10 @@ const PostWrite = () => {
         </Form>
       </PostContainer>
 
-      {/* 등록 버튼 */}
+      {/* 수정 버튼 */}
       <ButtonWrapper>
         <Button size="large" onClick={handleSubmit}>
-          등록하기
+          수정하기
         </Button>
       </ButtonWrapper>
     </Container>
@@ -212,4 +223,4 @@ const DeleteButton = styled.button`
   }
 `;
 
-export default PostWrite;
+export default PostEdit;
