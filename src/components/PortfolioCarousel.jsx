@@ -114,6 +114,11 @@ const CarouselContainer = styled.div`
   position: relative;
   width: 100%;
   overflow: hidden;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    background-color: ${({ theme }) => theme.colors.white};
+  }
 `;
 
 const Slider = styled.div`
@@ -149,6 +154,11 @@ const Slide = styled.a`
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.2);
     z-index: 1;
+  }
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 328px;
   }
 `;
 

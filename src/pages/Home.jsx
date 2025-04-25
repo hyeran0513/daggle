@@ -6,6 +6,7 @@ import Pagination from "../components/Pagination";
 import styled from "styled-components";
 import { breakpoint } from "../styles/mixins";
 import PortfolioCarousel from "../components/PortfolioCarousel";
+import FoatingButton from "../components/FoatingButton";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,7 +42,9 @@ const Home = () => {
       </TitleWrapper>
 
       {/* 포트폴리오 영역 */}
-      <PortfolioCarousel />
+      <PortfoiloWrapper>
+        <PortfolioCarousel />
+      </PortfoiloWrapper>
 
       {/* 포스트 영역 */}
       <PostContainer>
@@ -66,6 +69,8 @@ const Home = () => {
           onPageChange={handlePageChange}
         />
       </PostContainer>
+
+      <FoatingButton />
     </Container>
   );
 };
@@ -73,14 +78,23 @@ const Home = () => {
 const Container = styled.div`
   padding: 186px 0;
   ${({ theme }) => breakpoint(theme.breakpoints, theme.margins)}
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 56px 0 0;
+  }
 `;
 
 const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 40px;
   text-align: center;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    background-color: ${({ theme }) => theme.colors.white};
+  }
 `;
 
 const Title = styled.div`
@@ -89,6 +103,11 @@ const Title = styled.div`
   line-height: 150%;
   letter-spacing: -0.3%;
   color: ${({ theme }) => theme.colors.label.natural};
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 16px;
+  }
 `;
 
 const Subtitle = styled.div`
@@ -97,13 +116,33 @@ const Subtitle = styled.div`
   line-height: 160%;
   letter-spacing: -1.5%;
   color: ${({ theme }) => theme.colors.label.strong};
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 24px;
+  }
+`;
+
+const PortfoiloWrapper = styled.div`
+  padding-top: 40px;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 24px 0;
+    background-color: ${({ theme }) => theme.colors.white};
+  }
 `;
 
 const PostContainer = styled.div`
   margin-top: 40px;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
-  padding: 16px;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-top: 12px;
+    border-radius: 0;
+  }
 `;
 
 const PostCardWrapper = styled.ul``;

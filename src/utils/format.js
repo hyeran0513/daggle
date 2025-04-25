@@ -1,5 +1,7 @@
 import { format } from "date-fns";
 
 export const formatDate = (date) => {
-  return format(new Date(date), "yy.MM.dd");
+  if (date) {
+    return format(new Date(date), "yy.MM.dd");
+  }
 };

@@ -7,6 +7,7 @@ import authStore from "../stores/authStore";
 import { LuCircleUser } from "react-icons/lu";
 import { useLogout } from "../hooks/useAuthData";
 import OutsideClickHandler from "react-outside-click-handler";
+import { FiMenu } from "react-icons/fi";
 
 const Header = () => {
   const { isAuthenticated, user } = authStore();
@@ -46,6 +47,11 @@ const Header = () => {
         ) : (
           <LoginButton to="/login">로그인</LoginButton>
         )}
+
+        {/* 햄버거 버튼 */}
+        <HamburgerButton>
+          <FiMenu />
+        </HamburgerButton>
       </HeaderInner>
     </HeaderContainer>
   );
@@ -59,6 +65,12 @@ const HeaderContainer = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray300};
   box-shadow: 0px 9px 10px 0px rgba(232, 232, 232, 0.25);
   z-index: 100;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    border-bottom: 0;
+    box-shadow: none;
+  }
 `;
 
 const HeaderInner = styled.div`
@@ -68,12 +80,23 @@ const HeaderInner = styled.div`
   align-items: center;
   height: 86px;
   ${({ theme }) => breakpoint(theme.breakpoints, theme.margins)}
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 0 16px;
+    height: 56px;
+  }
 `;
 
 const Logo = styled(Link)`
   width: 150px;
   height: 30px;
   overflow: hidden;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    display: none;
+  }
 `;
 
 const LogoImg = styled.img`
@@ -86,10 +109,20 @@ const LoginButton = styled(Link)`
   font-weight: 600;
   font-size: 18px;
   line-height: 32px;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    display: none;
+  }
 `;
 
 const PopOverWrapper = styled.div`
   position: relative;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    display: none;
+  }
 `;
 
 const PopOverButton = styled.button`
@@ -113,6 +146,19 @@ const PopOverItem = styled.div`
   align-items: center;
   gap: 12px;
   padding: 20px 24px;
+`;
+
+const HamburgerButton = styled.button`
+  display: none;
+
+  svg {
+    font-size: 24px;
+  }
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    display: block;
+  }
 `;
 
 export default Header;

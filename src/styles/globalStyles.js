@@ -10,6 +10,11 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${({ theme }) => theme.colors.gray100};
     font-family: "Pretendard";
+
+     /* 모바일 */
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      background-color: ${({ theme }) => theme.colors.component.alternative};
+    }
   }
 
   ul, ol {

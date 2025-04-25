@@ -10,6 +10,7 @@ export const theme = {
     error: "#D11111",
     component: {
       natural: "#D9D9D9",
+      alternative: "#F4F4F6",
     },
     primary: {
       normal: "#6025E1",
@@ -34,7 +35,7 @@ export const theme = {
   margins: {
     web: "120px",
     tablet: "30px",
-    mobile: "16px",
+    mobile: "0",
   },
   buttons: {
     sizes: {

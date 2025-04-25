@@ -41,15 +41,28 @@ const CardLink = styled(Link)`
   padding: 16px 24px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray300};
   cursor: pointer;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+  }
 `;
 
 const Title = styled.h3`
-  font-weight: 400;
+  font-weight: 600;
   font-size: 18px;
   line-height: 150%;
   letter-spacing: 0.3%;
   flex: 1;
   ${ellipsis}
+
+  /* 모바일 */
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 16px;
+  }
 `;
 
 const Meta = styled.div`
@@ -64,6 +77,11 @@ const Date = styled.div`
   line-height: 150%;
   letter-spacing: -0.3%;
   color: ${({ theme }) => theme.colors.gray600};
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 14px;
+  }
 `;
 
 const CommentCountWrapper = styled.div`
@@ -75,6 +93,13 @@ const CommentCountWrapper = styled.div`
   svg {
     font-size: 18px;
   }
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    svg {
+      font-size: 20px;
+    }
+  }
 `;
 
 const CommentCount = styled.span`
@@ -82,6 +107,11 @@ const CommentCount = styled.span`
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.3%;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 14px;
+  }
 `;
 
 export default PostCard;

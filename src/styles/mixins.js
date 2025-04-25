@@ -77,13 +77,13 @@ export const breakpoint = (breakpoints, margins) => `
   }
 
   /* 태블릿 */
-  @media (max-width: ${breakpoints.web}) and (min-width: ${breakpoints.tablet}) {
+  @media (max-width: ${breakpoints.tablet}) {
     margin-left: ${margins.tablet};
     margin-right: ${margins.tablet};
   }
 
   /* 모바일 */
-  @media (max-width: ${breakpoints.tablet}) and (min-width: ${breakpoints.mobile}) {
+  @media (max-width: ${breakpoints.mobile}) {
     margin-left: ${margins.mobile};
     margin-right: ${margins.mobile};
   }
