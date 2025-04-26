@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import logo from "../assets/images/logo.png";
-import { breakpoint } from "../styles/mixins";
+import logo from "../../assets/images/logo.png";
+import { breakpoint } from "../../styles/mixins";
 import { Link } from "react-router-dom";
-import authStore from "../stores/authStore";
+import authStore from "../../stores/authStore";
 import { LuCircleUser } from "react-icons/lu";
-import { useLogout } from "../hooks/useAuthData";
+import { useLogout } from "../../hooks/useAuthData";
 import OutsideClickHandler from "react-outside-click-handler";
 
 const Header = () => {

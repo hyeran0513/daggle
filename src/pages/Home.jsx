@@ -3,13 +3,13 @@ import {
   useInfinitePostsWithAuthors,
   usePostsWithAuthors,
 } from "../hooks/usePostData";
-import PostCard from "../components/PostCard";
-import PostTitle from "../components/PostTitle";
-import Pagination from "../components/Pagination";
+import PostCard from "../components/molecules/PostCard";
+import PostTitle from "../components/atoms/PostTitle";
+import Pagination from "../components/molecules/Pagination";
 import styled from "styled-components";
 import { breakpoint } from "../styles/mixins";
-import PortfolioCarousel from "../components/PortfolioCarousel";
-import FoatingButton from "../components/FoatingButton";
+import PortfolioCarousel from "../components/organisms/PortfolioCarousel";
+import FoatingButton from "../components/atoms/FoatingButton";
 import { useQueryClient } from "@tanstack/react-query";
 
 const Home = () => {
@@ -144,7 +144,9 @@ const Home = () => {
 
       <FoatingButton />
 
-      <div ref={observerRef}>{isFetchingNextPage && <>로딩 중...</>}</div>
+      {isMobile && (
+        <div ref={observerRef}>{isFetchingNextPage && <>로딩 중...</>}</div>
+      )}
     </Container>
   );
 };

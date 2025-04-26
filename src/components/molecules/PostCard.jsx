@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { ellipsis } from "../styles/mixins";
-import { formatToYYMMDD } from "../utils/format";
+import { ellipsis } from "../../styles/mixins";
+import { formatToYYMMDD } from "../../utils/format";
 import { BiCommentDetail } from "react-icons/bi";
 import { Link } from "react-router-dom";
 

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { formatToYYMMDD } from "../utils/format";
+import { formatToYYMMDD } from "../../utils/format";
 import { useParams } from "react-router-dom";
-import { useDeleteComment, useEditComment } from "../hooks/useCommentData";
-import { inputField } from "../styles/mixins";
-import authStore from "../stores/authStore";
-import { useCommentForm } from "../hooks/useCommentForm";
+import { useDeleteComment, useEditComment } from "../../hooks/useCommentData";
+import { inputField } from "../../styles/mixins";
+import authStore from "../../stores/authStore";
+import { useCommentForm } from "../../hooks/useCommentForm";
 
 const Comment = ({ comment }) => {
   const [state, dispatch] = useCommentForm();

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import authStore from "../stores/authStore";
+import authStore from "../../stores/authStore";
 import { LuPencil } from "react-icons/lu";
 
 const FoatingButton = () => {

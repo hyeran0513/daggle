@@ -1,10 +1,10 @@
 import React from "react";
-import Button from "./Button";
+import Button from "../atoms/Button";
 import styled from "styled-components";
-import { useCreateComment } from "../hooks/useCommentData";
-import { useCommentForm } from "../hooks/useCommentForm";
-import { validateForm } from "../utils/validation";
-import authStore from "../stores/authStore";
+import { useCreateComment } from "../../hooks/useCommentData";
+import { useCommentForm } from "../../hooks/useCommentForm";
+import { validateForm } from "../../utils/validation";
+import authStore from "../../stores/authStore";
 
 const CommentForm = ({ postId }) => {
   // [댓글] 댓글 생성

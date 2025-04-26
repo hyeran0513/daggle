@@ -6,8 +6,8 @@ import { BiCommentDetail } from "react-icons/bi";
 import { breakpoint } from "../styles/mixins";
 import styled from "styled-components";
 import { useCommentsData } from "../hooks/useCommentData";
-import Comment from "../components/Comment";
-import CommentForm from "../components/CommentForm";
+import Comment from "../components/molecules/Comment";
+import CommentForm from "../components/molecules/CommentForm";
 import authStore from "../stores/authStore";
 import { FiChevronLeft } from "react-icons/fi";
 

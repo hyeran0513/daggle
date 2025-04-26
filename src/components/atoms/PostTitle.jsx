@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
-import authStore from "../stores/authStore";
+import authStore from "../../stores/authStore";
 
 const PostTitle = () => {
   const navigate = useNavigate();

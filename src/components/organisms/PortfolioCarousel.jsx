@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import printy from "../assets/images/portfolio/printy.png";
-import sparta from "../assets/images/portfolio/sparta.png";
-import kosta from "../assets/images/portfolio/kosta.png";
-import sweet from "../assets/images/portfolio/sweet.png";
-import { multiEllipsis } from "../styles/mixins";
+import printy from "../../assets/images/portfolio/printy.png";
+import sparta from "../../assets/images/portfolio/sparta.png";
+import kosta from "../../assets/images/portfolio/kosta.png";
+import sweet from "../../assets/images/portfolio/sweet.png";
+import { multiEllipsis } from "../../styles/mixins";
 
 const portfolios = [
   {

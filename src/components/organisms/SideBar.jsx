@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { HiMiniXMark } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
-import authStore from "../stores/authStore";
-import { useLogout } from "../hooks/useAuthData";
+import authStore from "../../stores/authStore";
+import { useLogout } from "../../hooks/useAuthData";
 
 const SideBar = ({ isOpen, setIsOpen, onClose }) => {
   const { isAuthenticated, user } = authStore();

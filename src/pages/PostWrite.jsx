@@ -8,7 +8,7 @@ import {
 } from "../styles/mixins";
 import styled from "styled-components";
 import { usePostForm } from "../hooks/usePostForm";
-import Button from "../components/Button";
+import Button from "../components/atoms/Button";
 import { FiXCircle, FiChevronLeft } from "react-icons/fi";
 import { validateForm } from "../utils/validation";
 import { usePostCreate } from "../hooks/usePostData";

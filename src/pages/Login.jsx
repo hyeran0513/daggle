@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Button from "../components/Button";
+import Button from "../components/atoms/Button";
 import { useAuthForm } from "../hooks/useAuthForm";
 import { validateForm } from "../utils/validation";
 import { errorMessage, form, formBox, inputField } from "../styles/mixins";
