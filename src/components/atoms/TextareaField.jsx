@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FiXCircle } from "react-icons/fi";
 
 const TextareaField = ({
@@ -58,11 +58,18 @@ const TextareaFieldWrapper = styled.div`
   border-radius: 8px;
   overflow: hidden;
   transition: border 0.3s ease;
+  outline: 1px solid transparent;
 
-  ${({ error, theme }) => error && `border: 2px solid ${theme.colors.error};`}
+  ${({ error, theme }) =>
+    error &&
+    css`
+      outline: 1px solid ${theme.colors.error};
+      border: 1px solid ${theme.colors.error};
+    `}
 
   &:focus-within {
-    border: 2px solid ${({ theme }) => theme.colors.primary.normal};
+    outline: 1px solid ${({ theme }) => theme.colors.primary.normal};
+    border: 1px solid ${({ theme }) => theme.colors.primary.normal};
   }
 `;
 

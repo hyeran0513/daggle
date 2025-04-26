@@ -36,23 +36,23 @@ const InputField = styled.input`
   background-color: ${({ theme }) => theme.colors.white};
   transition: border 0.3s ease;
   font-family: "pretendard";
+  outline: 1px solid transparent;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.label.assistive};
   }
 
   &:focus {
-    outline: none;
-    border: 2px solid ${({ theme }) => theme.colors.primary.normal};
+    outline: 1px solid ${({ theme }) => theme.colors.primary.normal};
+    border: 1px solid ${({ theme }) => theme.colors.primary.normal};
   }
 
   ${({ error, theme }) =>
     error &&
     css`
-      border: 2px solid ${theme.colors.error};
+      outline: 1px solid ${theme.colors.error};
+      border: 1px solid ${theme.colors.error};
     `}
-  border-color: ${({ error, theme }) =>
-    error ? theme.colors.error : theme.colors.gray300};
 `;
 
 const ErrorMessage = styled.div`

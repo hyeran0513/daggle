@@ -93,7 +93,7 @@ const PostEdit = () => {
             onChange={handleInputChange("content", {
               onChange: (value) => setCurrentLength(value.length),
             })}
-            error={Boolean(state.errors.content)}
+            error={state.errors.content}
             maxLength={maxLength}
             currentLength={currentLength}
             onDeleteContent={handleDeleteContent}
@@ -117,7 +117,7 @@ const Container = styled.div`
 
   /* 모바일 */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 56px 0;
+    padding: 57px 0 56px;
     min-height: 100vh;
     background-color: ${({ theme }) => theme.colors.white};
   }
