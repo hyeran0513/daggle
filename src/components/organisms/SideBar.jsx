@@ -82,7 +82,9 @@ const SideBar = ({ isOpen, onClose }) => {
   );
 };
 
-const SidebarContainer = styled.aside`
+const SidebarContainer = styled.aside.withConfig({
+  shouldForwardProp: (prop) => !["isOpen"].includes(prop),
+})`
   position: fixed;
   top: 0;
   left: 0;

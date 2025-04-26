@@ -32,6 +32,8 @@ const Login = () => {
 
       const loginId = state.id;
       const password = state.password;
+
+      // 유효성 검사
       const errors = validateForm({ id: loginId, password }, "login");
 
       if (Object.keys(errors).length > 0) {

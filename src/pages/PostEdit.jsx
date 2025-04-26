@@ -6,7 +6,7 @@ import Button from "../components/atoms/Button";
 import { FiChevronLeft } from "react-icons/fi";
 import { validateForm } from "../utils/validation";
 import { useNavigate, useParams } from "react-router-dom";
-import { usePostDetailData, usePostEdit } from "../hooks/usePostData";
+import { usePostDetailData, useEditPost } from "../hooks/usePostData";
 import useInputChange from "../hooks/useInputChange";
 import TextField from "../components/atoms/TextField";
 import TextareaField from "../components/atoms/TextareaField";
@@ -18,7 +18,7 @@ const PostEdit = () => {
   const maxLength = 300;
   const { id } = useParams();
   const { data: post } = usePostDetailData(id);
-  const { mutate } = usePostEdit(id);
+  const { mutate } = useEditPost(id);
   const navigate = useNavigate();
   const isDisabled =
     post?.title === state.title && post?.content === state.content;
@@ -37,6 +37,7 @@ const PostEdit = () => {
       const title = state.title;
       const content = state.content;
 
+      // 유효성 검사
       const errors = validateForm({ title, content }, "post");
 
       if (Object.keys(errors).length > 0) {

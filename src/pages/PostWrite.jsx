@@ -5,7 +5,7 @@ import { usePostForm } from "../hooks/usePostForm";
 import Button from "../components/atoms/Button";
 import { FiChevronLeft } from "react-icons/fi";
 import { validateForm } from "../utils/validation";
-import { usePostCreate } from "../hooks/usePostData";
+import { useCreatePost } from "../hooks/usePostData";
 import { useNavigate } from "react-router-dom";
 import useInputChange from "../hooks/useInputChange";
 import TextField from "../components/atoms/TextField";
@@ -16,7 +16,7 @@ const PostWrite = () => {
   const handleInputChange = useInputChange(dispatch);
   const [currentLength, setCurrentLength] = useState(0);
   const maxLength = 300;
-  const { mutate } = usePostCreate();
+  const { mutate } = useCreatePost();
   const navigate = useNavigate();
 
   // 내용 삭제 버튼 핸들러
@@ -33,6 +33,7 @@ const PostWrite = () => {
       const title = state.title;
       const content = state.content;
 
+      // 유효성 검사
       const errors = validateForm({ title, content }, "post");
 
       if (Object.keys(errors).length > 0) {

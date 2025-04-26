@@ -1,62 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
-import {
-  useInfinitePostsWithAuthors,
-  usePostsWithAuthors,
-} from "../hooks/usePostData";
 import PostTitle from "../components/atoms/PostTitle";
-import Pagination from "../components/molecules/Pagination";
 import styled from "styled-components";
 import { breakpoint } from "../styles/mixins";
 import PortfolioCarousel from "../components/organisms/PortfolioCarousel";
-import { useQueryClient } from "@tanstack/react-query";
 import useWindowWidth from "../hooks/useWindowWidth";
-import useIntersectionObserver from "../hooks/useIntersectionObserver";
-import PostCardList from "../components/organisms/PostCardList";
 import FloatingButton from "../components/atoms/FloatingButton";
+import PostWithPagination from "../components/organisms/PostWithPagination";
+import PostWithInfiniteScroll from "../components/organisms/PostWithInfiniteScroll";
 
 const Home = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const limit = 10;
-  const queryClient = useQueryClient();
   const isMobile = useWindowWidth(642);
-
-  // [게시판] 리스트 조회
-  const {
-    data: posts,
-    isLoading,
-    isError,
-  } = usePostsWithAuthors({
-    page: currentPage,
-    limit: limit,
-  });
-
-  // [게시판] 리스트 조회_무한 스크롤
-  const {
-    data: infinitePosts,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useInfinitePostsWithAuthors({ limit: 10 });
-
-  // 다른 페이지에서 현재 페이지로 이동될 때, infinitePosts 쿼리 데이터를 초기화
-  useEffect(() => {
-    queryClient.removeQueries(["infinitePosts"]);
-  }, [queryClient]);
-
-  // 페이지가 화면에 보일 때 데이터 조회
-  const observerRef = useIntersectionObserver(
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage
-  );
-
-  // 페이지 번호가 변경 헨들러
-  const handlePageChange = useCallback((page) => {
-    setCurrentPage(page);
-  }, []);
-
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError) return <div>오류 발생</div>;
 
   return (
     <Container>
@@ -80,34 +32,10 @@ const Home = () => {
         <PostTitle />
 
         {/* 포스트 목록 */}
-        {isMobile ? (
-          infinitePosts?.pages.length > 0 ? (
-            <PostCardList
-              posts={infinitePosts?.pages.flatMap((page) => page.items)}
-            />
-          ) : (
-            <div>게시글이 없습니다.</div>
-          )
-        ) : posts?.items?.length > 0 ? (
-          <>
-            <PostCardList posts={posts.items} />
-            {/* 페이지네이션 */}
-            <Pagination
-              currentPage={posts?.meta?.currentPage}
-              totalPages={posts?.meta?.totalPages}
-              onPageChange={handlePageChange}
-            />
-          </>
-        ) : (
-          <div>게시글이 없습니다.</div>
-        )}
+        {isMobile ? <PostWithInfiniteScroll /> : <PostWithPagination />}
       </PostContainer>
 
       <FloatingButton />
-
-      {isMobile && (
-        <div ref={observerRef}>{isFetchingNextPage && <>로딩 중...</>}</div>
-      )}
     </Container>
   );
 };

@@ -95,7 +95,7 @@ const PortfolioCarousel = () => {
             target="_blank"
             rel="noopener noreferrer"
             key={index}
-            backgroundImage={`url(${item.image})`}
+            style={{ backgroundImage: `url(${item.image})` }}
           >
             <Title>{item.title}</Title>
 
@@ -121,7 +121,10 @@ const CarouselContainer = styled.div`
   }
 `;
 
-const Slider = styled.div`
+const Slider = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    !["translateX", "isTransitioning"].includes(prop),
+})`
   display: flex;
   transform: ${({ translateX }) => `translateX(${translateX}px)`};
   transition: ${({ isTransitioning }) =>
@@ -142,7 +145,6 @@ const Slide = styled.a`
   cursor: pointer;
   background-size: cover;
   background-position: center;
-  background-image: ${({ backgroundImage }) => backgroundImage};
   overflow: hidden;
 
   &::before {

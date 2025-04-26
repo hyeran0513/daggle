@@ -51,7 +51,7 @@ export const useInfinitePostsWithAuthors = ({ limit = 10 }) => {
 };
 
 // [게시판] 게시글 생성
-export const usePostCreate = () => {
+export const useCreatePost = () => {
   const navigate = useNavigate();
 
   return useMutation({
@@ -64,7 +64,7 @@ export const usePostCreate = () => {
 };
 
 // [게시판] 게시글 수정
-export const usePostEdit = (postId) => {
+export const useEditPost = (postId) => {
   const navigate = useNavigate();
 
   return useMutation({
@@ -79,7 +79,7 @@ export const usePostEdit = (postId) => {
 };
 
 // [게시판] 게시글 삭제
-export const usePostDelete = () => {
+export const useDeletePost = () => {
   const navigate = useNavigate();
 
   return useMutation({

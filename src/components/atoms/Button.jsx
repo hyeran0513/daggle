@@ -11,8 +11,8 @@ const Button = ({
 }) => {
   return (
     <StyledButton
-      size={size}
-      variant={variant}
+      $size={size}
+      $variant={variant}
       disabled={disabled}
       type={type}
       {...props}
@@ -34,20 +34,20 @@ const StyledButton = styled.button`
   border-radius: 8px;
   cursor: pointer;
   color: ${({ theme }) => theme.colors.white};
-  width: ${({ theme, size }) => theme.buttons.sizes[size].width};
-  height: ${({ theme, size }) => theme.buttons.sizes[size].height};
-  background-color: ${({ theme, variant }) =>
-    theme.buttons.colors[variant].default};
+  width: ${({ theme, $size }) => theme.buttons.sizes[$size].width};
+  height: ${({ theme, $size }) => theme.buttons.sizes[$size].height};
+  background-color: ${({ theme, $variant }) =>
+    theme.buttons.colors[$variant].default};
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${({ theme, variant }) =>
-      theme.buttons.colors[variant].hover};
+    background-color: ${({ theme, $variant }) =>
+      theme.buttons.colors[$variant].hover};
   }
 
   &:active {
-    background-color: ${({ theme, variant }) =>
-      theme.buttons.colors[variant].pressed};
+    background-color: ${({ theme, $variant }) =>
+      theme.buttons.colors[$variant].pressed};
   }
 
   &:disabled {

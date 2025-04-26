@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { usePostDetailData, usePostDelete } from "../hooks/usePostData";
+import { usePostDetailData, useDeletePost } from "../hooks/usePostData";
 import { useNavigate, useParams } from "react-router-dom";
 import { formatToYYYYMMDD } from "../utils/format";
 import { BiCommentDetail } from "react-icons/bi";
@@ -13,9 +13,9 @@ import { FiChevronLeft } from "react-icons/fi";
 
 const PostDetail = () => {
   const { id } = useParams();
-  const { data: post } = usePostDetailData(id);
-  const { data: comments, isLoading } = useCommentsData(id);
-  const { mutate } = usePostDelete();
+  const { data: post, isLoading: postLoading } = usePostDetailData(id);
+  const { data: comments, isLoading: commentsLoading } = useCommentsData(id);
+  const { mutate: deletePost } = useDeletePost();
   const navigate = useNavigate();
   const { user } = authStore();
   const isAuthor = post?.author?.id === user?.id;
@@ -23,10 +23,10 @@ const PostDetail = () => {
   // 삭제 핸들러
   const handleDelete = useCallback(() => {
     if (confirm("정말 삭제하시겠습니까?")) {
-      mutate(id);
+      deletePost(id);
       navigate("/");
     }
-  }, [id, mutate, navigate]);
+  }, [id, deletePost, navigate]);
 
   // 수정 핸들러
   const handleEdit = useCallback(
@@ -45,7 +45,7 @@ const PostDetail = () => {
     [navigate]
   );
 
-  if (isLoading) return <>로딩 중...</>;
+  if (postLoading && commentsLoading) return <>로딩 중...</>;
 
   return (
     <Container>

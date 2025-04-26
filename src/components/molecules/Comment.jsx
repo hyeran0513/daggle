@@ -47,7 +47,7 @@ const Comment = ({ comment }) => {
     if (comment) {
       dispatch({ type: "SET_COMMENT", payload: comment?.content });
     }
-  }, [comment]);
+  }, [comment, dispatch]);
 
   return (
     <CommentItem>
