@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import authStore from "../../stores/authStore";
@@ -8,13 +8,14 @@ const FloatingButton = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = authStore();
 
-  const handleGoToWrite = () => {
+  // 게시글 작성 페이지로 이동
+  const handleGoToWrite = useCallback(() => {
     if (isAuthenticated) {
       navigate("/post/write");
     } else {
       alert("로그인 후 글을 작성할 수 있습니다.");
     }
-  };
+  }, [isAuthenticated, navigate]);
 
   return (
     <WriteButton onClick={handleGoToWrite}>

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { FiXCircle } from "react-icons/fi";
-import { formBox } from "../../styles/mixins";
 
 const TextareaField = ({
   value,
@@ -44,7 +43,9 @@ const TextareaField = ({
 };
 
 const FormBox = styled.div`
-  ${formBox}
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
 
 const TextareaFieldWrapper = styled.div`
@@ -104,6 +105,14 @@ const DeleteButton = styled.button`
     font-size: 18px;
     color: ${({ theme }) => theme.colors.label.alternative};
   }
+`;
+
+const ErrorMessage = styled.div`
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 150%;
+  letter-spacing: -0.3%;
+  color: ${({ theme }) => theme.colors.error};
 `;
 
 export default TextareaField;

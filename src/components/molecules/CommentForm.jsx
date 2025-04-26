@@ -1,40 +1,42 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Button from "../atoms/Button";
 import styled from "styled-components";
 import { useCreateComment } from "../../hooks/useCommentData";
 import { useCommentForm } from "../../hooks/useCommentForm";
 import { validateForm } from "../../utils/validation";
 import authStore from "../../stores/authStore";
+import useInputChange from "../../hooks/useInputChange";
 
 const CommentForm = ({ postId }) => {
   // [댓글] 댓글 생성
   const { mutate } = useCreateComment(postId);
   const [state, dispatch] = useCommentForm();
+  const handleInputChange = useInputChange(dispatch);
   const { isAuthenticated } = authStore();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // 제출 핸들러
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
 
-    const comment = state.comment;
+      const comment = state.comment;
 
-    // 유효성 검사
-    const errors = validateForm({ comment }, "comment");
+      // 유효성 검사
+      const errors = validateForm({ comment }, "comment");
 
-    if (Object.keys(errors).length > 0) {
-      dispatch({ type: "SET_ERRORS", payload: errors });
-
-      if (state.errors.comment) {
-        alert(`${state.errors.comment}`);
+      if (Object.keys(errors).length > 0) {
+        dispatch({ type: "SET_ERRORS", payload: errors });
+        return;
       }
 
-      return;
-    }
+      mutate(comment);
 
-    mutate(comment);
-
-    dispatch({ type: "SET_COMMENT", payload: "" });
-    dispatch({ type: "CLEAR_ERROR", payload: "comment" });
-  };
+      // 댓글 작성 후 초기화
+      dispatch({ type: "SET_COMMENT", payload: "" });
+      dispatch({ type: "CLEAR_ERROR", payload: "comment" });
+    },
+    [dispatch, mutate, state.comment]
+  );
 
   return (
     <FormWrapper>
@@ -43,10 +45,7 @@ const CommentForm = ({ postId }) => {
         type="text"
         value={state.comment}
         placeholder={state.placeholder.comment}
-        onChange={(e) => {
-          dispatch({ type: "SET_COMMENT", payload: e.target.value });
-          dispatch({ type: "CLEAR_ERROR", payload: "comment" });
-        }}
+        onChange={handleInputChange("comment")}
       />
 
       {/* 등록 버튼 */}

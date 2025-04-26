@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { usePostDetailData, usePostDelete } from "../hooks/usePostData";
 import { useNavigate, useParams } from "react-router-dom";
 import { formatToYYYYMMDD } from "../utils/format";
@@ -18,25 +18,32 @@ const PostDetail = () => {
   const { mutate } = usePostDelete();
   const navigate = useNavigate();
   const { user } = authStore();
+  const isAuthor = post?.author?.id === user?.id;
 
   // 삭제 핸들러
-  const handleDelete = () => {
+  const handleDelete = useCallback(() => {
     if (confirm("정말 삭제하시겠습니까?")) {
       mutate(id);
       navigate("/");
     }
-  };
+  }, [id, mutate, navigate]);
 
   // 수정 핸들러
-  const handleEdit = (postId) => {
-    navigate(`/post/edit/${postId}`);
-  };
+  const handleEdit = useCallback(
+    (postId) => {
+      navigate(`/post/edit/${postId}`);
+    },
+    [navigate]
+  );
 
   // 뒤로가기 핸들러
-  const handleBack = (e) => {
-    e.preventDefault();
-    navigate("/");
-  };
+  const handleBack = useCallback(
+    (e) => {
+      e.preventDefault();
+      navigate("/");
+    },
+    [navigate]
+  );
 
   if (isLoading) return <>로딩 중...</>;
 
@@ -59,7 +66,7 @@ const PostDetail = () => {
             <Date>{formatToYYYYMMDD(post?.createdAt)}</Date>
 
             {/* 본인 작성 게시글일 경우 버튼 노출 */}
-            {post?.author?.id === user?.id && (
+            {isAuthor && (
               <ButtonWrapper>
                 <ControlButton onClick={() => handleEdit(id)}>
                   수정

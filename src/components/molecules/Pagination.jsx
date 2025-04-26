@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled, { useTheme } from "styled-components";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const theme = useTheme();
 
-  const handlePageChange = (page) => {
-    if (page > 0 && page <= totalPages) {
-      onPageChange(page);
-    }
-  };
+  // 페이지 변경 핸들러
+  const handlePageChange = useCallback(
+    (page) => {
+      if (page > 0 && page <= totalPages) {
+        onPageChange(page);
+      }
+    },
+    [totalPages, onPageChange]
+  );
 
   return (
     <PaginationWrapper>

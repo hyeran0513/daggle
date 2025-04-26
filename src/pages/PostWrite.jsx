@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { breakpoint, form } from "../styles/mixins";
+import React, { useCallback, useState } from "react";
+import { breakpoint } from "../styles/mixins";
 import styled from "styled-components";
 import { usePostForm } from "../hooks/usePostForm";
 import Button from "../components/atoms/Button";
@@ -20,34 +20,39 @@ const PostWrite = () => {
   const navigate = useNavigate();
 
   // 내용 삭제 버튼 핸들러
-  const handleDeleteContent = () => {
+  const handleDeleteContent = useCallback(() => {
     dispatch({ type: "SET_CONTENT", payload: "" });
     setCurrentLength(0);
-  };
+  }, [dispatch]);
 
   // 등록 핸들러
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
 
-    const title = state.title;
-    const content = state.content;
+      const title = state.title;
+      const content = state.content;
 
-    // 유효성 검사
-    const errors = validateForm({ title, content }, "post");
+      const errors = validateForm({ title, content }, "post");
 
-    if (Object.keys(errors).length > 0) {
-      dispatch({ type: "SET_ERRORS", payload: errors });
-      return;
-    }
+      if (Object.keys(errors).length > 0) {
+        dispatch({ type: "SET_ERRORS", payload: errors });
+        return;
+      }
 
-    mutate({ title, content });
-  };
+      mutate({ title, content });
+    },
+    [state.title, state.content, dispatch, mutate]
+  );
 
   // 뒤로가기 핸들러
-  const handleBack = (e) => {
-    e.preventDefault();
-    navigate("/");
-  };
+  const handleBack = useCallback(
+    (e) => {
+      e.preventDefault();
+      navigate("/");
+    },
+    [navigate]
+  );
 
   return (
     <Container>
@@ -69,7 +74,7 @@ const PostWrite = () => {
             value={state.title}
             placeholder={state.placeholder.title}
             onChange={handleInputChange("title")}
-            error={state.errors.id}
+            error={state.errors.title}
           />
 
           {/* 게시글 내용 */}
@@ -156,7 +161,9 @@ const Title = styled.div`
 `;
 
 const Form = styled.form`
-  ${form};
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
 
 const ButtonWrapper = styled.div`

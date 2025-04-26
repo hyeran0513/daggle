@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Button from "../components/atoms/Button";
 import { useAuthForm } from "../hooks/useAuthForm";
 import { validateForm } from "../utils/validation";
-import { form } from "../styles/mixins";
 import { useLogin } from "../hooks/useAuthData";
 import { useNavigate } from "react-router-dom";
 import authStore from "../stores/authStore";
@@ -146,7 +145,9 @@ const Subtitle = styled.div`
 `;
 
 const Form = styled.form`
-  ${form};
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
 
 const ButtonWrapper = styled.div`

@@ -1,34 +1,34 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import { HiMiniXMark } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import authStore from "../../stores/authStore";
 import { useLogout } from "../../hooks/useAuthData";
 
-const SideBar = ({ isOpen, setIsOpen, onClose }) => {
+const SideBar = ({ isOpen, onClose }) => {
   const { isAuthenticated, user } = authStore();
   const navigate = useNavigate();
   const { mutate: logout } = useLogout();
 
   // 로그아웃 핸들러
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     if (confirm("로그아웃하시겠습니까?")) {
-      setIsOpen(false);
+      onClose();
       logout();
     }
-  };
+  }, [onClose, logout]);
 
   // 로그인 핸들러
-  const handleLogin = () => {
-    setIsOpen(false);
+  const handleLogin = useCallback(() => {
+    onClose();
     navigate("/login");
-  };
+  }, [onClose, navigate]);
 
   // 커뮤니티 핸들러
-  const handleCommunity = () => {
-    setIsOpen(false);
+  const handleCommunity = useCallback(() => {
+    onClose();
     navigate("/");
-  };
+  }, [onClose, navigate]);
 
   return (
     <>

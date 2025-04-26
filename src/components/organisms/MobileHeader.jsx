@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import styled from "styled-components";
 import SideBar from "./SideBar";
@@ -6,9 +6,10 @@ import SideBar from "./SideBar";
 const MobileHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
+  // 사이드바 토글
+  const toggleSidebar = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
 
   return (
     <>
@@ -20,7 +21,7 @@ const MobileHeader = () => {
       </HeaderContainer>
 
       {/* 사이드 바 */}
-      <SideBar isOpen={isOpen} setIsOpen={setIsOpen} onClose={toggleSidebar} />
+      <SideBar isOpen={isOpen} onClose={toggleSidebar} />
     </>
   );
 };

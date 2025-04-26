@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import logo from "../../assets/images/logo.png";
 import { breakpoint } from "../../styles/mixins";
@@ -13,20 +13,22 @@ const Header = () => {
   const { mutate: logout } = useLogout();
   const [isPopOverOpen, setIsPopOverOpen] = useState(false);
 
-  const togglePopOver = () => {
+  // 팝오버 토글
+  const togglePopOver = useCallback(() => {
     setIsPopOverOpen((prev) => !prev);
-  };
+  }, []);
 
   // 로그아웃 핸들러
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     if (confirm("로그아웃하시겠습니까?")) {
       logout();
     }
-  };
+  }, [logout]);
 
   return (
     <HeaderContainer>
       <HeaderInner>
+        {/* 로고 */}
         <Logo to="/">
           <LogoImg src={logo} />
         </Logo>
@@ -34,10 +36,12 @@ const Header = () => {
         {isAuthenticated ? (
           <PopOverWrapper>
             <OutsideClickHandler onOutsideClick={() => setIsPopOverOpen(false)}>
+              {/* 팝오버 버튼 */}
               <PopOverButton onClick={togglePopOver}>
                 <LuCircleUser />
               </PopOverButton>
 
+              {/* 팝오버 */}
               {isPopOverOpen && (
                 <PopOver>
                   <PopOverItem>
