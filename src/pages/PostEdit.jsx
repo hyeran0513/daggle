@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  breakpoint,
-  errorMessage,
-  form,
-  formBox,
-  inputField,
-} from "../styles/mixins";
+import { breakpoint, form, formBox, inputField } from "../styles/mixins";
 import styled from "styled-components";
 import { usePostForm } from "../hooks/usePostForm";
 import Button from "../components/Button";

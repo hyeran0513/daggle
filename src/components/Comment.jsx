@@ -46,7 +46,7 @@ const Comment = ({ comment }) => {
   return (
     <CommentItem>
       <Meta>
-        <NickName>{comment?.user?.nickname || "(알 수 없음)"}</NickName>
+        <NickName>{comment?.user?.nickname || "(닉네임 없음)"}</NickName>
 
         {/* 본인 작성 댓글일 경우 버튼 노출 */}
         {comment?.user?.id === user?.id && (

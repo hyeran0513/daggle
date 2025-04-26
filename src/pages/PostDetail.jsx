@@ -36,7 +36,7 @@ const PostDetail = () => {
 
           {/* 메타 데이터 */}
           <Meta>
-            <NickName>{post?.nickname || "(알 수 없음)"}</NickName>
+            <NickName>{post?.nickname || "(닉네임 없음)"}</NickName>
             <Date>{formatDate(post?.createdAt)}</Date>
 
             {/* 본인 작성 게시글일 경우 버튼 노출 */}
@@ -83,6 +83,11 @@ const PostDetail = () => {
 const Container = styled.div`
   padding: 110px 0 100px;
   ${({ theme }) => breakpoint(theme.breakpoints, theme.margins)}
+
+  /* 모바일 */
+   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 0;
+  }
 `;
 
 const PostContainer = styled.div`
