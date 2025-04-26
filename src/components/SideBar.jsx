@@ -45,11 +45,11 @@ const SideBar = ({ isOpen, setIsOpen, onClose }) => {
           <UserInfo>
             {isAuthenticated ? (
               <>
-                {user?.profileImageUrl ? (
-                  <>있음</>
-                ) : (
-                  <ProfileDefault></ProfileDefault>
-                )}
+                <ProfileImageWrapper>
+                  {user?.profileImageUrl && (
+                    <ProfileImage img={user?.profileImageUrl} alt="" />
+                  )}
+                </ProfileImageWrapper>
                 <NickName>{user?.nickname || "(닉네임 없음)"}</NickName>
               </>
             ) : (
@@ -132,11 +132,18 @@ const UserInfo = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.line.normal};
 `;
 
-const ProfileDefault = styled.div`
+const ProfileImageWrapper = styled.div`
   width: 27px;
   height: 27px;
-  background-color: ${({ theme }) => theme.colors.gray600};
   border-radius: 50%;
+  background-color: ${({ theme }) => theme.colors.gray600};
+  overflow: hidden;
+`;
+
+const ProfileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const NickName = styled.div`

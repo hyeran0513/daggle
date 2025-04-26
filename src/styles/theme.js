@@ -4,6 +4,8 @@ export const theme = {
     black: "#000",
     gray100: "#F9FAFA",
     gray300: "#EEEFF1",
+    gray400: "#D6D7DC",
+    gray500: "#ACACAC",
     gray600: "#A7A9B4",
     gray700: "#4D4D4D",
     gray800: "#474953",
@@ -22,6 +24,7 @@ export const theme = {
       natural: "#5E616E",
       strong: "#000",
       alternative: "#A7A9B4",
+      assistive: "#C8C9D0",
     },
     line: {
       normal: "#EEEFF1",

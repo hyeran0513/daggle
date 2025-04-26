@@ -51,9 +51,10 @@ export const inputField = css`
   border-radius: 8px;
   background-color: ${({ theme }) => theme.colors.white};
   transition: border 0.3s ease;
+  font-family: "pretendard";
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.label.alternative};
+    color: ${({ theme }) => theme.colors.label.assistive};
   }
 
   &:focus {

@@ -1,7 +1,7 @@
 import React from "react";
 import { usePostDetailData, usePostDelete } from "../hooks/usePostData";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { formatDate } from "../utils/format";
+import { useNavigate, useParams } from "react-router-dom";
+import { formatToYYYYMMDD } from "../utils/format";
 import { BiCommentDetail } from "react-icons/bi";
 import { breakpoint } from "../styles/mixins";
 import styled from "styled-components";
@@ -9,6 +9,7 @@ import { useCommentsData } from "../hooks/useCommentData";
 import Comment from "../components/Comment";
 import CommentForm from "../components/CommentForm";
 import authStore from "../stores/authStore";
+import { FiChevronLeft } from "react-icons/fi";
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -18,17 +19,35 @@ const PostDetail = () => {
   const navigate = useNavigate();
   const { user } = authStore();
 
-  const deletePost = () => {
+  // 삭제 핸들러
+  const handleDelete = () => {
     if (confirm("정말 삭제하시겠습니까?")) {
       mutate(id);
       navigate("/");
     }
   };
 
+  // 수정 핸들러
+  const handleEdit = (postId) => {
+    navigate(`/post/edit/${postId}`);
+  };
+
+  // 뒤로가기 핸들러
+  const handleBack = (e) => {
+    e.preventDefault();
+    navigate("/");
+  };
+
   if (isLoading) return <>로딩 중...</>;
 
   return (
     <Container>
+      <NavigatorBar>
+        <BackButton onClick={handleBack}>
+          <FiChevronLeft />
+        </BackButton>
+      </NavigatorBar>
+
       <PostContainer>
         <PostHead>
           {/* 게시글 제목 */}
@@ -37,13 +56,15 @@ const PostDetail = () => {
           {/* 메타 데이터 */}
           <Meta>
             <NickName>{post?.nickname || "(닉네임 없음)"}</NickName>
-            <Date>{formatDate(post?.createdAt)}</Date>
+            <Date>{formatToYYYYMMDD(post?.createdAt)}</Date>
 
             {/* 본인 작성 게시글일 경우 버튼 노출 */}
             {post?.author?.id === user?.id && (
               <ButtonWrapper>
-                <EditButton to={`/post/edit/${id}`}>수정</EditButton>
-                <DeleteButton onClick={deletePost}>삭제</DeleteButton>
+                <ControlButton onClick={() => handleEdit(id)}>
+                  수정
+                </ControlButton>
+                <ControlButton onClick={handleDelete}>삭제</ControlButton>
               </ButtonWrapper>
             )}
           </Meta>
@@ -56,7 +77,7 @@ const PostDetail = () => {
           {/* 댓글 수 */}
           <CommentCountWrapper>
             <BiCommentDetail />
-            <CommentCount>{post?.commentCount}</CommentCount>
+            <CommentCount>{post?.commentCount}개</CommentCount>
           </CommentCountWrapper>
         </PostContent>
 
@@ -66,7 +87,7 @@ const PostDetail = () => {
             {comments?.length > 0 && (
               <>
                 {comments?.map((comment) => (
-                  <Comment key={comment.id} comment={comment} />
+                  <Comment key={comment?.id} comment={comment} />
                 ))}
               </>
             )}
@@ -86,7 +107,31 @@ const Container = styled.div`
 
   /* 모바일 */
    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 0;
+    padding: 56px 0 96px;
+  }
+`;
+
+const NavigatorBar = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 16px;
+  width: 100%;
+  height: 56px;
+  background-color: ${({ theme }) => theme.colors.white};
+  z-index: 101;
+`;
+
+const BackButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    font-size: 24px;
   }
 `;
 
@@ -94,11 +139,24 @@ const PostContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.gray300};
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    min-height: calc(100vh - 152px);
+    border: 0;
+    border-radius: 0;
+  }
 `;
 
 const PostHead = styled.div`
   padding: 24px;
-  border: 1px solid ${({ theme }) => theme.colors.gray300};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray300};
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 16px;
+    border-bottom: 0;
+  }
 `;
 
 const Title = styled.div`
@@ -106,6 +164,12 @@ const Title = styled.div`
   font-weight: 700;
   font-size: 24px;
   line-height: 28px;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
 `;
 
 const Meta = styled.div`
@@ -119,6 +183,11 @@ const NickName = styled.div`
   line-height: 150%;
   letter-spacing: -0.3%;
   color: ${({ theme }) => theme.colors.gray600};
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 14px;
+  }
 `;
 
 const Date = styled.div`
@@ -139,6 +208,11 @@ const Date = styled.div`
     height: 20px;
     background-color: ${({ theme }) => theme.colors.gray300};
   }
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 14px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -148,20 +222,17 @@ const ButtonWrapper = styled.div`
   margin-left: auto;
 `;
 
-const EditButton = styled(Link)`
+const ControlButton = styled.button`
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.3%;
   color: ${({ theme }) => theme.colors.gray700};
-`;
 
-const DeleteButton = styled.button`
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
-  letter-spacing: -0.3%;
-  color: ${({ theme }) => theme.colors.gray700};
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 14px;
+  }
 `;
 
 const PostContent = styled.div`
@@ -170,6 +241,12 @@ const PostContent = styled.div`
   justify-content: space-between;
   padding: 24px;
   min-height: 260px;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 16px;
+    min-height: 183px;
+  }
 `;
 
 const Content = styled.div`
@@ -196,6 +273,11 @@ const CommentCount = styled.span`
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.3%;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 14px;
+  }
 `;
 
 const PostFooter = styled.div``;

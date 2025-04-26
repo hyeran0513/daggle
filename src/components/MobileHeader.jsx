@@ -27,6 +27,8 @@ const MobileHeader = () => {
 
 const HeaderContainer = styled.header`
   position: fixed;
+  top: 0;
+  left: 0;
   display: none;
   margin: 0 auto;
   padding: 0 16px;
@@ -35,12 +37,12 @@ const HeaderContainer = styled.header`
   background-color: ${({ theme }) => theme.colors.white};
   z-index: 100;
 
+  /* 모바일 */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     display: flex;
     align-items: center;
   }
 `;
-
 const HamburgerButton = styled.button`
   background: none;
   border: none;

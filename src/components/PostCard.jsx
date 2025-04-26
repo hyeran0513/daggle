@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ellipsis } from "../styles/mixins";
-import { formatDate } from "../utils/format";
+import { formatToYYMMDD } from "../utils/format";
 import { BiCommentDetail } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
@@ -15,7 +15,7 @@ const PostCard = ({ post }) => {
         {/* 메타 데이터 */}
         <Meta>
           {/* 날짜 */}
-          <Date>{formatDate(post?.createdAt)}</Date>
+          <Date>{formatToYYMMDD(post?.createdAt)}</Date>
 
           {/* 댓글 수 */}
           <CommentCountWrapper>
@@ -24,8 +24,13 @@ const PostCard = ({ post }) => {
           </CommentCountWrapper>
 
           <AuthorInfo>
-            {post?.author?.nickname || "(닉네임 없음)"}
-            {post?.author?.profileImageUrl}
+            <ProfileImageWrapper>
+              {post?.author?.profileImageUrl && (
+                <ProfileImage img={post?.author?.profileImageUrl} alt="" />
+              )}
+            </ProfileImageWrapper>
+
+            <NickName> {post?.author?.nickname || "(닉네임 없음)"}</NickName>
           </AuthorInfo>
         </Meta>
       </CardLink>
@@ -72,6 +77,7 @@ const Meta = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  width: 100%;
 `;
 
 const Date = styled.div`
@@ -117,6 +123,48 @@ const CommentCount = styled.span`
   }
 `;
 
-const AuthorInfo = styled.div``;
+const AuthorInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-left: auto;
+  }
+`;
+
+const ProfileImageWrapper = styled.div`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: ${({ theme }) => theme.colors.gray600};
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    background-color: ${({ theme }) => theme.colors.gray400};
+  }
+`;
+
+const ProfileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const NickName = styled.div`
+  display: none;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  letter-spacing: -0.3%;
+  color: ${({ theme }) => theme.colors.gray900};
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    display: block;
+  }
+`;
 
 export default PostCard;

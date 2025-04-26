@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { formatDate } from "../utils/format";
+import { formatToYYMMDD } from "../utils/format";
 import { useParams } from "react-router-dom";
 import { useDeleteComment, useEditComment } from "../hooks/useCommentData";
 import { inputField } from "../styles/mixins";
@@ -46,7 +46,14 @@ const Comment = ({ comment }) => {
   return (
     <CommentItem>
       <Meta>
-        <NickName>{comment?.user?.nickname || "(닉네임 없음)"}</NickName>
+        <UserInfo>
+          <ProfileImageWrapper>
+            {user?.profileImageUrl && (
+              <ProfileImage img={user?.profileImageUrl} alt="" />
+            )}
+          </ProfileImageWrapper>
+          <NickName>{comment?.user?.nickname || "(닉네임 없음)"}</NickName>
+        </UserInfo>
 
         {/* 본인 작성 댓글일 경우 버튼 노출 */}
         {comment?.user?.id === user?.id && (
@@ -82,7 +89,7 @@ const Comment = ({ comment }) => {
       ) : (
         <>
           <Content>{comment?.content}</Content>
-          <Date>{formatDate(comment?.createdAt)}</Date>
+          <Date>{formatToYYMMDD(comment?.createdAt)}</Date>
         </>
       )}
     </CommentItem>
@@ -96,6 +103,11 @@ const CommentItem = styled.div`
   padding: 24px;
   background-color: ${({ theme }) => theme.colors.gray100};
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray300};
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 16px;
+  }
 `;
 
 const Meta = styled.div`
@@ -104,12 +116,42 @@ const Meta = styled.div`
   align-items: center;
 `;
 
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const ProfileImageWrapper = styled.div`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.colors.gray600};
+  overflow: hidden;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    background-color: ${({ theme }) => theme.colors.gray400};
+  }
+`;
+
+const ProfileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
 const NickName = styled.div`
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.3%;
   color: ${({ theme }) => theme.colors.gray900};
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 14px;
+  }
 `;
 
 const Content = styled.div`
@@ -126,6 +168,11 @@ const Date = styled.div`
   line-height: 150%;
   letter-spacing: -0.3%;
   color: ${({ theme }) => theme.colors.gray600};
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 12px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -139,6 +186,11 @@ const InputField = styled.input`
   ${inputField};
 `;
 
-const ControlButton = styled.button``;
+const ControlButton = styled.button`
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 14px;
+  }
+`;
 
 export default Comment;

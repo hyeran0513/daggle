@@ -9,15 +9,17 @@ import {
 import styled from "styled-components";
 import { usePostForm } from "../hooks/usePostForm";
 import Button from "../components/Button";
-import { FiXCircle } from "react-icons/fi";
+import { FiXCircle, FiChevronLeft } from "react-icons/fi";
 import { validateForm } from "../utils/validation";
 import { usePostCreate } from "../hooks/usePostData";
+import { useNavigate } from "react-router-dom";
 
 const PostWrite = () => {
   const [state, dispatch] = usePostForm();
   const [currentLength, setCurrentLength] = useState(0);
   const maxLength = 300;
   const { mutate } = usePostCreate();
+  const navigate = useNavigate();
 
   // 내용 삭제 버튼 핸들러
   const handleDeleteContent = () => {
@@ -43,11 +45,23 @@ const PostWrite = () => {
     mutate({ title, content });
   };
 
+  // 뒤로가기 핸들러
+  const handleBack = (e) => {
+    e.preventDefault();
+    navigate("/");
+  };
+
   return (
     <Container>
       <PostContainer>
         <PostHead>
+          <BackButton onClick={handleBack}>
+            <FiChevronLeft />
+          </BackButton>
+
           <Title>게시글 작성</Title>
+
+          <SubmitButton onClick={handleSubmit}>등록</SubmitButton>
         </PostHead>
 
         <Form>
@@ -116,6 +130,13 @@ const PostWrite = () => {
 const Container = styled.div`
   padding: 110px 0 80px;
   ${({ theme }) => breakpoint(theme.breakpoints, theme.margins)}
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 56px 0;
+    min-height: 100vh;
+    background-color: ${({ theme }) => theme.colors.white};
+  }
 `;
 
 const PostContainer = styled.div`
@@ -123,10 +144,31 @@ const PostContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.gray300};
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 0 16px;
+    border: 0;
+  }
 `;
 
 const PostHead = styled.div`
   padding-bottom: 24px;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0 16px;
+    width: 100%;
+    height: 56px;
+    background-color: ${({ theme }) => theme.colors.white};
+    z-index: 101;
+  }
 `;
 
 const Title = styled.div`
@@ -134,6 +176,13 @@ const Title = styled.div`
   font-size: 20px;
   line-height: 160%;
   letter-spacing: -0.3%;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-left: 4px;
+    font-size: 16px;
+    line-height: 150%;
+  }
 `;
 
 const Form = styled.form`
@@ -184,7 +233,7 @@ const TextareaField = styled.textarea`
   font-family: "pretendard";
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.label.alternative};
+    color: ${({ theme }) => theme.colors.label.assistive};
   }
 `;
 
@@ -196,6 +245,11 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 48px;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    display: none;
+  }
 `;
 
 const CharCountWrapper = styled.div`
@@ -219,6 +273,24 @@ const DeleteButton = styled.button`
     font-size: 18px;
     color: ${({ theme }) => theme.colors.label.alternative};
   }
+`;
+
+const BackButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    font-size: 24px;
+  }
+`;
+
+const SubmitButton = styled.button`
+  margin-left: auto;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.3%;
 `;
 
 export default PostWrite;

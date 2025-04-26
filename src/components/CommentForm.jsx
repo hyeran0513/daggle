@@ -62,6 +62,18 @@ const FormWrapper = styled.div`
   align-items: center;
   gap: 10px;
   padding: 24px;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    gap: 0;
+    width: 100%;
+    background-color: ${({ theme }) => theme.colors.white};
+    padding: 24px 16px;
+    border-top: 1px solid ${({ theme }) => theme.colors.gray300};
+  }
 `;
 
 const InputField = styled.input`
@@ -76,6 +88,10 @@ const InputField = styled.input`
   &:focus {
     outline: none;
     border-bottom: 1px solid ${({ theme }) => theme.colors.primary.normal};
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray500};
   }
 `;
 
