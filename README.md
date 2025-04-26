@@ -1,16 +1,32 @@
 ## [한다글다글] FE 과제전형
 
+### **📍 프로젝트 설명**
+한다글다글에서 제공한 Swagger UI를 참고하여<br />
+게시글 및 댓글 생성/수정/삭제 기능을 **React**를 활용하여 구현한 프로젝트입니다.
+
+---
+
+### **📍 사용 기술**
+
+| 분류                      | 기술 스택                       | 
+| --------------------------| ------------------------------ |
+| 상태 관리                  | Zustand                        |
+| 스타일링 도구              | styled-components              |
+| 배포 방식                  | Vercel                         |
+
+---
+
 ### **📍 설치 패키지**
 
-| 패키지명                           | 설치 명령어                                 | 참고 문서                                |
-| ---------------------------------- | ------------------------------------------- | ----------------------------------------|
-| **react-router-dom**               | `npm install react-router-dom`              |                                         |
-| **zustand**                        | `npm install zustand`                       |                                         |
-| **axios**                          | `npm install axios`                         |                                         |
-| **styled-components**              | `npm install styled-components`             |                                         |
-| **date-fns**                       | `npm install date-fns`                      |                                         |
-| **react-icons**                    | `npm install react-icons`                   |                                         |
-| **react-outside-click-handler**    | `npm install react-outside-click-handler`   |                                         |
+| 패키지명                       | 설치 명령어                                 | 
+| -----------------------------  | ------------------------------------------- |
+| react-router-dom               | `npm install react-router-dom`              |
+| Zustand                        | `npm install zustand`                       |
+| axios                          | `npm install axios`                         |
+| styled-components              | `npm install styled-components`             |
+| date-fns                       | `npm install date-fns`                      |
+| react-icons                    | `npm install react-icons`                   |
+| react-outside-click-handler    | `npm install react-outside-click-handler`   |
 
 ---
 
@@ -55,8 +71,8 @@
 ##### 모바일
 - [ ] 게시글 무한 스크롤
 - [ ] 페이지 당 10개 데이터 노출
-- [ ] 게시글 클릭 시 상세 페이지로 이동
-- [ ] 로그인 여부에 따른 글 작성 버튼 클릭 핸들링
+- [x] 게시글 클릭 시 상세 페이지로 이동
+- [x] 로그인 여부에 따른 글 작성 버튼 클릭 핸들링
 
 #### 📁 상세 페이지
 
