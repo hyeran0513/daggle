@@ -1,23 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   useInfinitePostsWithAuthors,
   usePostsWithAuthors,
 } from "../hooks/usePostData";
-import PostCard from "../components/molecules/PostCard";
 import PostTitle from "../components/atoms/PostTitle";
 import Pagination from "../components/molecules/Pagination";
 import styled from "styled-components";
 import { breakpoint } from "../styles/mixins";
 import PortfolioCarousel from "../components/organisms/PortfolioCarousel";
-import FoatingButton from "../components/atoms/FoatingButton";
 import { useQueryClient } from "@tanstack/react-query";
+import useWindowWidth from "../hooks/useWindowWidth";
+import useIntersectionObserver from "../hooks/useIntersectionObserver";
+import PostCardList from "../components/organisms/PostCardList";
+import FloatingButton from "../components/atoms/FloatingButton";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 10;
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 642);
-  const observerRef = useRef(null);
   const queryClient = useQueryClient();
+  const isMobile = useWindowWidth(642);
 
   // [게시판] 리스트 조회
   const {
@@ -29,11 +30,6 @@ const Home = () => {
     limit: limit,
   });
 
-  // 페이지 번호가 변경 헨들러
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
   // [게시판] 리스트 조회_무한 스크롤
   const {
     data: infinitePosts,
@@ -42,44 +38,22 @@ const Home = () => {
     isFetchingNextPage,
   } = useInfinitePostsWithAuthors({ limit: 10 });
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 642);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
+  // 다른 페이지에서 현재 페이지로 이동될 때, infinitePosts 쿼리 데이터를 초기화
   useEffect(() => {
     queryClient.removeQueries(["infinitePosts"]);
   }, [queryClient]);
 
-  useEffect(() => {
-    if (!infinitePosts) return;
+  // 페이지가 화면에 보일 때 데이터 조회
+  const observerRef = useIntersectionObserver(
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+  );
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage();
-        }
-      },
-      {
-        rootMargin: "100px",
-      }
-    );
-
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
-    }
-
-    return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current);
-      }
-    };
-  }, [infinitePosts, hasNextPage, isFetchingNextPage, fetchNextPage]);
+  // 페이지 번호가 변경 헨들러
+  const handlePageChange = useCallback((page) => {
+    setCurrentPage(page);
+  }, []);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>오류 발생</div>;
@@ -107,31 +81,16 @@ const Home = () => {
 
         {/* 포스트 목록 */}
         {isMobile ? (
+          infinitePosts?.pages.length > 0 ? (
+            <PostCardList
+              posts={infinitePosts?.pages.flatMap((page) => page.items)}
+            />
+          ) : (
+            <div>게시글이 없습니다.</div>
+          )
+        ) : posts?.items?.length > 0 ? (
           <>
-            {infinitePosts?.pages.length > 0 ? (
-              <PostCardWrapper>
-                {infinitePosts?.pages.map((page) =>
-                  page.items.map((post) => (
-                    <PostCard key={post.id} post={post} />
-                  ))
-                )}
-              </PostCardWrapper>
-            ) : (
-              <div>게시글이 없습니다.</div>
-            )}
-          </>
-        ) : (
-          <>
-            {posts?.items?.length > 0 ? (
-              <PostCardWrapper>
-                {posts?.items?.map((post) => (
-                  <PostCard key={post.id} post={post} />
-                ))}
-              </PostCardWrapper>
-            ) : (
-              <div>게시글이 없습니다.</div>
-            )}
-
+            <PostCardList posts={posts.items} />
             {/* 페이지네이션 */}
             <Pagination
               currentPage={posts?.meta?.currentPage}
@@ -139,10 +98,12 @@ const Home = () => {
               onPageChange={handlePageChange}
             />
           </>
+        ) : (
+          <div>게시글이 없습니다.</div>
         )}
       </PostContainer>
 
-      <FoatingButton />
+      <FloatingButton />
 
       {isMobile && (
         <div ref={observerRef}>{isFetchingNextPage && <>로딩 중...</>}</div>
@@ -220,7 +181,5 @@ const PostContainer = styled.div`
     border-radius: 0;
   }
 `;
-
-const PostCardWrapper = styled.ul``;
 
 export default Home;

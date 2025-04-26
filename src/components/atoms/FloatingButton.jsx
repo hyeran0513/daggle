@@ -4,7 +4,7 @@ import styled from "styled-components";
 import authStore from "../../stores/authStore";
 import { LuPencil } from "react-icons/lu";
 
-const FoatingButton = () => {
+const FloatingButton = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = authStore();
 
@@ -51,4 +51,4 @@ const WriteButton = styled.button`
   }
 `;
 
-export default FoatingButton;
+export default FloatingButton;
