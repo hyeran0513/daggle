@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createComment,
   deleteComment,
@@ -17,26 +17,39 @@ export const useCommentsData = (postId) => {
 
 // [댓글] 댓글 생성
 export const useCreateComment = (postId) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationKey: ["comment", postId],
     mutationFn: (content) => createComment(postId, content),
-    enabled: !!postId,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["comments", postId]);
+    },
   });
 };
 
 // [댓글] 댓글 수정
 export const useEditComment = (postId, commentId) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationKey: ["edit", postId],
     mutationFn: ({ content }) => editComment(postId, commentId, content),
-    enabled: !!postId,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["comments", postId]);
+    },
   });
 };
 
 // [댓글] 댓글 삭제
-export const useDeleteComment = () => {
+export const useDeleteComment = (postId, commentId) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationKey: ["delete"],
-    mutationFn: (postId, commentId) => deleteComment(postId, commentId),
+    mutationFn: () => deleteComment(postId, commentId),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["comments", postId]);
+    },
   });
 };

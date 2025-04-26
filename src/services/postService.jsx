@@ -20,7 +20,7 @@ export const getPostDetail = async (id) => {
 
 // [게시판] 게시글 생성
 export const createPost = async (title, content) => {
-  const response = await axiosInstance.patch("/api/posts", {
+  const response = await axiosInstance.post("/api/posts", {
     title,
     content,
   });

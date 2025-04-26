@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { formatDate } from "../utils/format";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDeleteComment, useEditComment } from "../hooks/useCommentData";
 import { inputField } from "../styles/mixins";
+import authStore from "../stores/authStore";
+import { useCommentForm } from "../hooks/useCommentForm";
 
 const Comment = ({ comment }) => {
+  const [state, dispatch] = useCommentForm();
   const { id: postId } = useParams();
-  const { mutate: deleteMutate } = useDeleteComment();
-  const { mutate: editMutate } = useEditComment();
-  const navigate = useNavigate();
+  const { mutate: deleteMutate } = useDeleteComment(postId, comment?.id);
+  const { mutate: editMutate } = useEditComment(postId, comment?.id);
   const [isEdit, setIsEdit] = useState(false);
-  const [initComment, setInitComment] = useState("");
+  const { user } = authStore();
 
   const deleteComment = () => {
     if (confirm("정말 삭제하시겠습니까?")) {
-      deleteMutate(comment?.id);
-      navigate("/");
+      deleteMutate();
     }
   };
 
@@ -26,19 +27,19 @@ const Comment = ({ comment }) => {
 
   const handleCancel = () => {
     setIsEdit(false);
-    setInitComment(comment?.content);
+    dispatch({ type: "SET_COMMENT", payload: comment?.content });
   };
 
   const handleConfirm = () => {
     if (confirm("댓글을 수정하시겠습니까?")) {
-      editMutate(postId, comment?.id);
+      editMutate({ content: state.comment });
       setIsEdit(false);
     }
   };
 
   useEffect(() => {
     if (comment) {
-      setInitComment(comment?.content);
+      dispatch({ type: "SET_COMMENT", payload: comment?.content });
     }
   }, [comment]);
 
@@ -47,27 +48,36 @@ const Comment = ({ comment }) => {
       <Meta>
         <NickName>{comment?.user?.nickname || "(알 수 없음)"}</NickName>
 
-        <ButtonWrapper>
-          {isEdit ? (
-            <>
-              <ControlButton onClick={handleCancel}>취소</ControlButton>
-              <ControlButton onClick={handleConfirm}>확인</ControlButton>
-            </>
-          ) : (
-            <>
-              <ControlButton onClick={handleEdit}>수정</ControlButton>
-              <ControlButton onClick={deleteComment}>삭제</ControlButton>
-            </>
-          )}
-        </ButtonWrapper>
+        {/* 본인 작성 댓글일 경우 버튼 노출 */}
+        {comment?.user?.id === user?.id && (
+          <ButtonWrapper>
+            {isEdit ? (
+              <>
+                <ControlButton onClick={handleCancel}>취소</ControlButton>
+                <ControlButton onClick={handleConfirm}>확인</ControlButton>
+              </>
+            ) : (
+              <>
+                <>
+                  <ControlButton onClick={handleEdit}>수정</ControlButton>
+                  <ControlButton onClick={deleteComment}>삭제</ControlButton>
+                </>
+              </>
+            )}
+          </ButtonWrapper>
+        )}
       </Meta>
 
       {isEdit ? (
         <InputField
           type="text"
-          value={initComment}
+          value={state.comment}
           placeholder="댓글을 입력해 주세요."
-          onChange={(e) => setInitComment(e.target.value)}
+          onChange={(e) => {
+            dispatch({ type: "SET_COMMENT", payload: e.target.value });
+            dispatch({ type: "CLEAR_ERROR", payload: "comment" });
+          }}
+          error={Boolean(state.errors.comment)}
         />
       ) : (
         <>

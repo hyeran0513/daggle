@@ -27,7 +27,7 @@ const WriteButton = styled.button`
   position: fixed;
   bottom: 50px;
   right: 16px;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   width: 56px;
@@ -43,6 +43,11 @@ const WriteButton = styled.button`
 
   svg {
     font-size: 24px;
+  }
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    display: flex;
   }
 `;
 

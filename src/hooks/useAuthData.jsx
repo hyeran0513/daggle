@@ -16,10 +16,11 @@ export const useLogin = () => {
       return data;
     },
     onSuccess: (data) => {
-      login(data.user, data.token);
+      login(data.user, data.tokens.accessToken);
     },
     onError: (error) => {
       console.error("로그인 오류:", error);
+      alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해 주세요.");
     },
   });
 };

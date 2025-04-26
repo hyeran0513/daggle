@@ -6,6 +6,7 @@ import {
   getPostDetail,
   getPosts,
 } from "../services/postService";
+import { useNavigate } from "react-router-dom";
 
 // [게시판] 리스트 조회
 export const usePostsData = ({ page = 1, limit = 10 }) => {
@@ -28,25 +29,41 @@ export const usePostDetailData = (postId) => {
 
 // [게시판] 게시글 생성
 export const usePostCreate = () => {
+  const navigate = useNavigate();
+
   return useMutation({
     mutationKey: ["create"],
     mutationFn: ({ title, content }) => createPost(title, content),
+    onSuccess: () => {
+      navigate("/");
+    },
   });
 };
 
 // [게시판] 게시글 수정
 export const usePostEdit = (postId) => {
+  const navigate = useNavigate();
+
   return useMutation({
     mutationKey: ["edit", postId],
     mutationFn: ({ title, content }) => editPost(postId, title, content),
-    enabled: !!postId,
+    onSuccess: (data) => {
+      if (data) {
+        navigate(`/post/${data.id}`);
+      }
+    },
   });
 };
 
 // [게시판] 게시글 삭제
 export const usePostDelete = () => {
+  const navigate = useNavigate();
+
   return useMutation({
     mutationKey: ["delete"],
     mutationFn: (postId) => deletePost(postId),
+    onSuccess: () => {
+      navigate("/");
+    },
   });
 };

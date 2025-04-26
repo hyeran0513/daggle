@@ -11,11 +11,18 @@ import { FiMenu } from "react-icons/fi";
 
 const Header = () => {
   const { isAuthenticated, user } = authStore();
-  const { mutate } = useLogout();
+  const { mutate: logout } = useLogout();
   const [isPopOverOpen, setIsPopOverOpen] = useState(false);
 
   const togglePopOver = () => {
     setIsPopOverOpen((prev) => !prev);
+  };
+
+  // 로그아웃 핸들러
+  const handleLogout = () => {
+    if (confirm("로그아웃하시겠습니까?")) {
+      logout();
+    }
   };
 
   return (
@@ -38,7 +45,7 @@ const Header = () => {
                     {user?.nickname || "(알 수 없음)"} 님
                   </PopOverItem>
                   <PopOverItem>
-                    <button onClick={mutate}>로그아웃</button>
+                    <button onClick={handleLogout}>로그아웃</button>
                   </PopOverItem>
                 </PopOver>
               )}
@@ -133,7 +140,7 @@ const PopOverButton = styled.button`
 
 const PopOver = styled.div`
   position: absolute;
-  top: calc(100% + 20px);
+  top: calc(100% + 50px);
   right: 0;
   width: 190px;
   border-radius: 12px;

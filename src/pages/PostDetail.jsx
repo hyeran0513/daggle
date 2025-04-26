@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { useCommentsData } from "../hooks/useCommentData";
 import Comment from "../components/Comment";
 import CommentForm from "../components/CommentForm";
+import authStore from "../stores/authStore";
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -15,6 +16,7 @@ const PostDetail = () => {
   const { data: comments, isLoading } = useCommentsData(id);
   const { mutate } = usePostDelete();
   const navigate = useNavigate();
+  const { user } = authStore();
 
   const deletePost = () => {
     if (confirm("정말 삭제하시겠습니까?")) {
@@ -37,10 +39,13 @@ const PostDetail = () => {
             <NickName>{post?.nickname || "(알 수 없음)"}</NickName>
             <Date>{formatDate(post?.createdAt)}</Date>
 
-            <ButtonWrapper>
-              <EditButton to={`/post/edit/${id}`}>수정</EditButton>
-              <DeleteButton onClick={deletePost}>삭제</DeleteButton>
-            </ButtonWrapper>
+            {/* 본인 작성 게시글일 경우 버튼 노출 */}
+            {post?.author?.id === user?.id && (
+              <ButtonWrapper>
+                <EditButton to={`/post/edit/${id}`}>수정</EditButton>
+                <DeleteButton onClick={deletePost}>삭제</DeleteButton>
+              </ButtonWrapper>
+            )}
           </Meta>
         </PostHead>
 
