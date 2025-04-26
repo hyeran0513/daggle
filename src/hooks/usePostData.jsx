@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import {
   createPost,
   deletePost,
@@ -33,6 +33,20 @@ export const usePostsWithAuthors = ({ page = 1, limit = 10 }) => {
   return useQuery({
     queryKey: ["authors", page, limit],
     queryFn: () => getPostsWithAuthors({ page, limit }),
+  });
+};
+
+// [게시판] 게시글 리스트 조회 시 Author 정보 포함 및 무한 스크롤
+export const useInfinitePostsWithAuthors = ({ limit = 10 }) => {
+  return useInfiniteQuery({
+    queryKey: ["infinitePosts"],
+    queryFn: ({ pageParam = 1 }) =>
+      getPostsWithAuthors({ page: pageParam, limit }),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.meta.currentPage < lastPage.meta.totalPages) {
+        return lastPage.meta.currentPage + 1;
+      }
+    },
   });
 };
 

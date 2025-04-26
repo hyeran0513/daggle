@@ -1,5 +1,8 @@
-import React, { useState } from "react";
-import { usePostsWithAuthors } from "../hooks/usePostData";
+import { useEffect, useRef, useState } from "react";
+import {
+  useInfinitePostsWithAuthors,
+  usePostsWithAuthors,
+} from "../hooks/usePostData";
 import PostCard from "../components/PostCard";
 import PostTitle from "../components/PostTitle";
 import Pagination from "../components/Pagination";
@@ -7,10 +10,14 @@ import styled from "styled-components";
 import { breakpoint } from "../styles/mixins";
 import PortfolioCarousel from "../components/PortfolioCarousel";
 import FoatingButton from "../components/FoatingButton";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 10;
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 642);
+  const observerRef = useRef(null);
+  const queryClient = useQueryClient();
 
   // [게시판] 리스트 조회
   const {
@@ -26,6 +33,53 @@ const Home = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
+  // [게시판] 리스트 조회_무한 스크롤
+  const {
+    data: infinitePosts,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfinitePostsWithAuthors({ limit: 10 });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 642);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    queryClient.removeQueries(["infinitePosts"]);
+  }, [queryClient]);
+
+  useEffect(() => {
+    if (!infinitePosts) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      {
+        rootMargin: "100px",
+      }
+    );
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observer.unobserve(observerRef.current);
+      }
+    };
+  }, [infinitePosts, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>오류 발생</div>;
@@ -52,25 +106,45 @@ const Home = () => {
         <PostTitle />
 
         {/* 포스트 목록 */}
-        {posts?.items?.length > 0 ? (
-          <PostCardWrapper>
-            {posts?.items?.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
-          </PostCardWrapper>
+        {isMobile ? (
+          <>
+            {infinitePosts?.pages.length > 0 ? (
+              <PostCardWrapper>
+                {infinitePosts?.pages.map((page) =>
+                  page.items.map((post) => (
+                    <PostCard key={post.id} post={post} />
+                  ))
+                )}
+              </PostCardWrapper>
+            ) : (
+              <div>게시글이 없습니다.</div>
+            )}
+          </>
         ) : (
-          <div>게시글이 없습니다.</div>
-        )}
+          <>
+            {posts?.items?.length > 0 ? (
+              <PostCardWrapper>
+                {posts?.items?.map((post) => (
+                  <PostCard key={post.id} post={post} />
+                ))}
+              </PostCardWrapper>
+            ) : (
+              <div>게시글이 없습니다.</div>
+            )}
 
-        {/* 페이지네이션 */}
-        <Pagination
-          currentPage={posts?.meta?.currentPage}
-          totalPages={posts?.meta?.totalPages}
-          onPageChange={handlePageChange}
-        />
+            {/* 페이지네이션 */}
+            <Pagination
+              currentPage={posts?.meta?.currentPage}
+              totalPages={posts?.meta?.totalPages}
+              onPageChange={handlePageChange}
+            />
+          </>
+        )}
       </PostContainer>
 
       <FoatingButton />
+
+      <div ref={observerRef}>{isFetchingNextPage && <>로딩 중...</>}</div>
     </Container>
   );
 };
