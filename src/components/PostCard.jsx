@@ -60,15 +60,15 @@ const CardLink = styled(Link)`
 `;
 
 const Title = styled.h3`
+  width: 100%;
   font-weight: 600;
   font-size: 18px;
   line-height: 150%;
   letter-spacing: 0.3%;
-  flex: 1;
   ${ellipsis}
 
   /* 모바일 */
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 16px;
   }
 `;
@@ -77,7 +77,11 @@ const Meta = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  width: 100%;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 100%;
+  }
 `;
 
 const Date = styled.div`

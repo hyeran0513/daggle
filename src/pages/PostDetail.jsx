@@ -55,7 +55,7 @@ const PostDetail = () => {
 
           {/* 메타 데이터 */}
           <Meta>
-            <NickName>{post?.nickname || "(닉네임 없음)"}</NickName>
+            <NickName>{post?.author?.nickname || "(닉네임 없음)"}</NickName>
             <Date>{formatToYYYYMMDD(post?.createdAt)}</Date>
 
             {/* 본인 작성 게시글일 경우 버튼 노출 */}
