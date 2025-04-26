@@ -14,8 +14,25 @@ export const getPostDetail = async (id) => {
   const response = await axiosInstance.get(`/api/posts/${id}`, {
     params: { id },
   });
-
   return response.data;
+};
+
+// [게시판] 게시글 리스트 조회 시 Author 정보 포함
+// 현재 get:/api/post 응답에 author 정보가 누락되어 있어, 백엔드에서 author 필드를 포함해주시면 좋겠습니다.
+export const getPostsWithAuthors = async ({ page = 1, limit = 10 }) => {
+  const posts = await getPosts({ page, limit });
+
+  const postsWithAuthors = await Promise.all(
+    posts.items.map(async (post) => {
+      const detail = await getPostDetail(post.id);
+      return { ...post, author: detail.author };
+    })
+  );
+
+  return {
+    items: postsWithAuthors,
+    meta: posts.meta,
+  };
 };
 
 // [게시판] 게시글 생성

@@ -32,6 +32,7 @@ const CommentForm = ({ postId }) => {
 
     mutate(comment);
 
+    dispatch({ type: "SET_COMMENT", payload: "" });
     dispatch({ type: "CLEAR_ERROR", payload: "comment" });
   };
 

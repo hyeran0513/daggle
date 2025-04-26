@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { usePostsData } from "../hooks/usePostData";
+import { usePostsWithAuthors } from "../hooks/usePostData";
 import PostCard from "../components/PostCard";
 import PostTitle from "../components/PostTitle";
 import Pagination from "../components/Pagination";
@@ -17,7 +17,7 @@ const Home = () => {
     data: posts,
     isLoading,
     isError,
-  } = usePostsData({
+  } = usePostsWithAuthors({
     page: currentPage,
     limit: limit,
   });

@@ -108,6 +108,13 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    align-items: flex-start;
+    padding: 56px 0;
+    background-color: ${({ theme }) => theme.colors.white};
+  }
 `;
 
 const FormContainer = styled.div`
@@ -116,6 +123,13 @@ const FormContainer = styled.div`
   border-radius: 12px;
   border: 1px solid ${({ theme }) => theme.colors.gray300};
   background-color: ${({ theme }) => theme.colors.white};
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 24px 16px;
+    border-radius: 0;
+    border: 0;
+  }
 `;
 
 const TitleWrapper = styled.div`

@@ -6,7 +6,7 @@ import {
   requestRefreshToken,
 } from "../services/authService";
 
-// 로그인
+// [Auth] 로그인
 export const useLogin = () => {
   const { login } = authStore();
 
@@ -25,7 +25,7 @@ export const useLogin = () => {
   });
 };
 
-// 로그아웃
+// [Auth] 로그아웃
 export const useLogout = () => {
   const { logout, token } = authStore();
 
@@ -40,7 +40,7 @@ export const useLogout = () => {
   });
 };
 
-// 토큰 갱신
+// [Auth] 토큰 갱신
 export const useRefreshToken = () => {
   const { updateToken } = authStore();
 

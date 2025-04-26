@@ -5,6 +5,7 @@ import {
   editPost,
   getPostDetail,
   getPosts,
+  getPostsWithAuthors,
 } from "../services/postService";
 import { useNavigate } from "react-router-dom";
 
@@ -20,10 +21,18 @@ export const usePostsData = ({ page = 1, limit = 10 }) => {
 // [게시판] 게시글 상세
 export const usePostDetailData = (postId) => {
   return useQuery({
-    queryKey: ["postDetail", postId],
+    queryKey: ["detail", postId],
     queryFn: () => getPostDetail(postId),
     enabled: !!postId,
     retry: false,
+  });
+};
+
+// [게시판] 게시글 리스트 조회 시 Author 정보 포함
+export const usePostsWithAuthors = ({ page = 1, limit = 10 }) => {
+  return useQuery({
+    queryKey: ["authors", page, limit],
+    queryFn: () => getPostsWithAuthors({ page, limit }),
   });
 };
 

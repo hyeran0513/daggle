@@ -13,6 +13,7 @@ const SideBar = ({ isOpen, setIsOpen, onClose }) => {
   // 로그아웃 핸들러
   const handleLogout = () => {
     if (confirm("로그아웃하시겠습니까?")) {
+      setIsOpen(false);
       logout();
     }
   };

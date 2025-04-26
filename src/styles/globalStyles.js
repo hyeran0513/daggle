@@ -5,11 +5,11 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "pretandard";
   }
 
   body {
     background-color: ${({ theme }) => theme.colors.gray100};
-    font-family: "Pretendard";
 
      /* 모바일 */
     @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {

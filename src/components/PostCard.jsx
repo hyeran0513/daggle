@@ -6,24 +6,27 @@ import { BiCommentDetail } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 const PostCard = ({ post }) => {
-  const { id, title, createdAt, commentCount } = post;
-
   return (
     <Card>
-      <CardLink to={`/post/${id}`}>
+      <CardLink to={`/post/${post?.id}`}>
         {/* 제목 */}
-        <Title>{title}</Title>
+        <Title>{post?.title}</Title>
 
         {/* 메타 데이터 */}
         <Meta>
           {/* 날짜 */}
-          <Date>{formatDate(createdAt)}</Date>
+          <Date>{formatDate(post?.createdAt)}</Date>
 
           {/* 댓글 수 */}
           <CommentCountWrapper>
             <BiCommentDetail />
-            <CommentCount>{commentCount}</CommentCount>
+            <CommentCount>{post?.commentCount}</CommentCount>
           </CommentCountWrapper>
+
+          <AuthorInfo>
+            {post?.author?.nickname || "(닉네임 없음)"}
+            {post?.author?.profileImageUrl}
+          </AuthorInfo>
         </Meta>
       </CardLink>
     </Card>
@@ -113,5 +116,7 @@ const CommentCount = styled.span`
     font-size: 14px;
   }
 `;
+
+const AuthorInfo = styled.div``;
 
 export default PostCard;
