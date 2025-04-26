@@ -1,21 +1,19 @@
 import React, { useState } from "react";
-import {
-  breakpoint,
-  errorMessage,
-  form,
-  formBox,
-  inputField,
-} from "../styles/mixins";
+import { breakpoint, form } from "../styles/mixins";
 import styled from "styled-components";
 import { usePostForm } from "../hooks/usePostForm";
 import Button from "../components/atoms/Button";
-import { FiXCircle, FiChevronLeft } from "react-icons/fi";
+import { FiChevronLeft } from "react-icons/fi";
 import { validateForm } from "../utils/validation";
 import { usePostCreate } from "../hooks/usePostData";
 import { useNavigate } from "react-router-dom";
+import useInputChange from "../hooks/useInputChange";
+import TextField from "../components/atoms/TextField";
+import TextareaField from "../components/atoms/TextareaField";
 
 const PostWrite = () => {
   const [state, dispatch] = usePostForm();
+  const handleInputChange = useInputChange(dispatch);
   const [currentLength, setCurrentLength] = useState(0);
   const maxLength = 300;
   const { mutate } = usePostCreate();
@@ -66,54 +64,26 @@ const PostWrite = () => {
 
         <Form>
           {/* 게시글 제목 */}
-          <FormBox>
-            <InputField
-              type="text"
-              value={state.title}
-              placeholder={state.placeholder.title}
-              onChange={(e) => {
-                dispatch({ type: "SET_TITLE", payload: e.target.value });
-                dispatch({ type: "CLEAR_ERROR", payload: "title" });
-              }}
-              error={Boolean(state.errors.title)}
-            />
-
-            {/* 게시글 제목 오류 메시지 */}
-            {state.errors.title && (
-              <ErrorMessage>{state.errors.title}</ErrorMessage>
-            )}
-          </FormBox>
+          <TextField
+            type="text"
+            value={state.title}
+            placeholder={state.placeholder.title}
+            onChange={handleInputChange("title")}
+            error={state.errors.id}
+          />
 
           {/* 게시글 내용 */}
-          <FormBox>
-            <TextareaFieldWrapper error={Boolean(state.errors.content)}>
-              <TextareaField
-                value={state.content}
-                placeholder={state.placeholder.content}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  dispatch({ type: "SET_CONTENT", payload: value });
-                  setCurrentLength(value.length);
-                  dispatch({ type: "CLEAR_ERROR", payload: "content" });
-                }}
-              />
-
-              {/* 글자 수 */}
-              <CharCountWrapper isOver={currentLength > maxLength}>
-                {currentLength} / {maxLength}
-              </CharCountWrapper>
-
-              {/* 삭제 버튼 */}
-              <DeleteButton type="button" onClick={handleDeleteContent}>
-                <FiXCircle />
-              </DeleteButton>
-            </TextareaFieldWrapper>
-
-            {/* 게시글 내용 오류 메시지 */}
-            {state.errors.content && (
-              <ErrorMessage>{state.errors.content}</ErrorMessage>
-            )}
-          </FormBox>
+          <TextareaField
+            value={state.content}
+            placeholder={state.placeholder.content}
+            onChange={handleInputChange("content", {
+              onChange: (value) => setCurrentLength(value.length),
+            })}
+            error={Boolean(state.errors.content)}
+            maxLength={maxLength}
+            currentLength={currentLength}
+            onDeleteContent={handleDeleteContent}
+          />
         </Form>
       </PostContainer>
 
@@ -189,58 +159,6 @@ const Form = styled.form`
   ${form};
 `;
 
-const FormBox = styled.div`
-  ${formBox};
-`;
-
-const InputField = styled.input`
-  ${inputField};
-`;
-
-const TextareaFieldWrapper = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 306px;
-  border: 1px solid ${({ theme }) => theme.colors.line.normal};
-  border-radius: 8px;
-  overflow: hidden;
-  transition: border 0.3s ease;
-
-  ${({ error, theme }) =>
-    error &&
-    `
-      border: 2px solid ${theme.colors.error};
-  `}
-
-  &:focus-within {
-    border: 2px solid ${({ theme }) => theme.colors.primary.normal};
-  }
-`;
-
-const TextareaField = styled.textarea`
-  padding: 16px;
-  width: 100%;
-  flex: 1;
-  border: none;
-  resize: none;
-  outline: none;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
-  letter-spacing: -0.3%;
-  font-family: "pretendard";
-
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.label.assistive};
-  }
-`;
-
-const ErrorMessage = styled.div`
-  ${errorMessage}
-`;
-
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -249,29 +167,6 @@ const ButtonWrapper = styled.div`
   /* 모바일 */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     display: none;
-  }
-`;
-
-const CharCountWrapper = styled.div`
-  margin: 8px 16px 16px;
-  text-align: right;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 140%;
-  letter-spacing: -0.3%;
-  color: ${({ isOver, theme }) =>
-    isOver ? theme.colors.error : theme.colors.label.natural};
-`;
-
-const DeleteButton = styled.button`
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background-color: ${({ theme }) => theme.colors.white};
-
-  svg {
-    font-size: 18px;
-    color: ${({ theme }) => theme.colors.label.alternative};
   }
 `;
 
