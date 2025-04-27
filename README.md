@@ -1,8 +1,10 @@
-## [한다글다글] FE 과제전형
+## [한다글다글] FE 과제전형 
 
 ### **📍 프로젝트 설명**
 한다글다글에서 제공한 Swagger UI를 참고하여<br />
 게시글 및 댓글 생성/수정/삭제 기능을 **React**를 활용하여 구현한 프로젝트입니다.
+
+##### **📆 기간: 24-04-23 (수) ~ 24-04-28 (월)**
 
 ---
 
@@ -121,7 +123,7 @@
 **[CORS 관련 이슈]** <br />
 
 2025-04-24 (목) 08:47:53 <br />
-CORS 이슈 발생하여 메일로 수정 요청 드림
+localhost에서 CORS 이슈 발생하여 메일로 수정 요청 드림
 
 →
 
@@ -142,13 +144,27 @@ refreshToken 오류 및 게시판 리스트 조회 API 개선 요청 관련 문�
 또한, 토큰 갱신 500 에러로 인해 401 에러 발생 시 별도 대응이 어려운 상황 <br />
 해당 부분을 해결하여 회신 주시면, 수정하여 반영할 예정
 
+<br/><br/>
+
+**[배포 URL에 대한 CORS 관련 요청사항]**
+
+2025-04-27 (일) 오후 5:18 <br />
+배포 URL의 `Access-Control-Allow-Origin` 설정 추가를 메일로 요청
+
+→
+
+아직 회신을 받지 못하여, 배포 URL에선 CORS 이슈로 인해 데이터 조회, 생성, 삭제 기능이 정상 동작X <br />
+로컬 환경에서 정상 동작하는 화면을 녹화하여 시연 영상을 대신 README.md에 첨부
+
 ---
 
-### **📍 배포 링크**
+### **📍배포 링크 및 시연 영상**
 
-[daggle.vercel.app/](https://daggle.vercel.app/)
+- **배포 URL** : ~~[daggle.vercel.app](https://daggle.vercel.app)~~  
+  (※ 백엔드에서 배포 URL을 `Access-Control-Allow-Origin` 설정을 추가하지 않아 CORS 이슈로 인해 데이터 조회, 생성, 삭제 기능이 정상 동작하지 않습니다.)
 
-![image](https://github.com/user-attachments/assets/b27d491d-0170-4f75-8779-7dfe9cd5df2c)
+- **시연 영상** : [YouTube 시연 영상 바로가기](https://www.youtube.com/watch?v=VAaO_U4vjuM)  
+  (※ 로컬 환경에서 녹화한 시연 영상입니다.)
 
 ---
 
