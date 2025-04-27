@@ -32,6 +32,125 @@
 
 ---
 
+### **📍 폴더 구조**
+
+```
+📦daggle
+┣ 📂src
+┃ ┣ 📂api # api 폴더
+┃ ┃ ┗ 📜axiosInstance.js  # axios 인스턴스 설정 파일
+┃ ┣ 📂assets  # 정적 자원 폴더
+┃ ┃ ┗ 📂images  # 이미지 폴더
+┃ ┃ ┃ ┣ 📂portfolio  # 포트폴리오 이미지 폴더
+┃ ┃ ┃ ┃ ┣ 📜kosta.png
+┃ ┃ ┃ ┃ ┣ 📜printy.png
+┃ ┃ ┃ ┃ ┣ 📜sparta.png
+┃ ┃ ┃ ┃ ┗ 📜sweet.png
+┃ ┃ ┃ ┗ 📜logo.png  # 로고 이미지
+┃ ┣ 📂components  # 컴포넌트 폴더
+┃ ┃ ┣ 📂atoms  # 가장 작은 단위의 컴포넌트들 (Atomic Design 패턴)
+┃ ┃ ┃ ┣ 📜Button.jsx  # 버튼 컴포넌트
+┃ ┃ ┃ ┣ 📜FloatingButton.jsx  # 글쓰기 버튼 컴포넌트
+┃ ┃ ┃ ┣ 📜Loading.jsx  # 로딩 컴포넌트
+┃ ┃ ┃ ┣ 📜PopOver.jsx  # 팝오버 컴포넌트
+┃ ┃ ┃ ┣ 📜PostTitle.jsx  # 게시글 제목 컴포넌트
+┃ ┃ ┃ ┣ 📜SEO.jsx  # SEO 최적화 관련 컴포넌트
+┃ ┃ ┃ ┣ 📜TextareaField.jsx  # textarea 입력 필드 컴포넌트
+┃ ┃ ┃ ┗ 📜TextField.jsx  # input 입력 필드 컴포넌트
+┃ ┃ ┣ 📂molecules  # 여러 개의 atom 컴포넌트를 합친 중간 단위의 컴포넌트들
+┃ ┃ ┃ ┣ 📜Comment.jsx  # 댓글 컴포넌트
+┃ ┃ ┃ ┣ 📜CommentForm.jsx  # 댓글 작성 폼 컴포넌트
+┃ ┃ ┃ ┣ 📜Pagination.jsx  # 페이지네이션 컴포넌트
+┃ ┃ ┃ ┗ 📜PostCard.jsx  # 게시글 카드 컴포넌트
+┃ ┃ ┗ 📂organisms  # 복잡한 컴포넌트들
+┃ ┃ ┃ ┣ 📜Header.jsx  # 헤더 컴포넌트
+┃ ┃ ┃ ┣ 📜MobileHeader.jsx  # 모바일용 헤더 컴포넌트
+┃ ┃ ┃ ┣ 📜PortfolioCarousel.jsx  # 포트폴리오 캐러셀 컴포넌트
+┃ ┃ ┃ ┣ 📜PostCardList.jsx  # 게시글 카드 목록 컴포넌트
+┃ ┃ ┃ ┣ 📜PostWithInfiniteScroll.jsx  # 무한 스크롤 기능이 있는 게시글 컴포넌트
+┃ ┃ ┃ ┣ 📜PostWithPagination.jsx  # 페이지네이션이 있는 게시글 컴포넌트
+┃ ┃ ┃ ┗ 📜SideBar.jsx  # 사이드바 컴포넌트
+┃ ┣ 📂hooks  # 커스텀 훅 폴더
+┃ ┃ ┣ 📜useAuthData.jsx  # 인증 관련 데이터를 처리하는 훅
+┃ ┃ ┣ 📜useAuthForm.jsx  # 인증 폼을 처리하는 훅
+┃ ┃ ┣ 📜useCommentData.jsx  # 댓글 데이터를 처리하는 훅
+┃ ┃ ┣ 📜useCommentForm.jsx  # 댓글 작성 폼을 처리하는 훅
+┃ ┃ ┣ 📜useInputChange.jsx  # 입력값 변경을 처리하는 훅
+┃ ┃ ┣ 📜useIntersectionObserver.jsx  # Intersection Observer를 활용한 훅
+┃ ┃ ┣ 📜usePostData.jsx  # 게시글 데이터를 처리하는 훅
+┃ ┃ ┣ 📜usePostForm.jsx  # 게시글 폼을 처리하는 훅
+┃ ┃ ┗ 📜useWindowWidth.jsx  # 창 크기를 처리하는 훅
+┃ ┣ 📂layouts  # 레이아웃 폴더
+┃ ┃ ┗ 📜MainLayout.jsx  # 메인 레이아웃 컴포넌트
+┃ ┣ 📂pages  # 페이지 폴더
+┃ ┃ ┣ 📜Home.jsx  # 홈 페이지
+┃ ┃ ┣ 📜Login.jsx  # 로그인 페이지
+┃ ┃ ┣ 📜NotFound.jsx  # 404 페이지
+┃ ┃ ┣ 📜PostDetail.jsx  # 게시글 상세 페이지
+┃ ┃ ┣ 📜PostEdit.jsx  # 게시글 수정 페이지
+┃ ┃ ┗ 📜PostWrite.jsx  # 게시글 작성 페이지
+┃ ┣ 📂routes  # 라우팅 폴더
+┃ ┃ ┗ 📜router.jsx  # 라우터 설정 파일
+┃ ┣ 📂services  # API 호출 및 서비스 로직 폴더
+┃ ┃ ┣ 📜authService.jsx  # 인증 관련 서비스 파일
+┃ ┃ ┣ 📜commentService.jsx  # 댓글 관련 서비스 파일
+┃ ┃ ┗ 📜postService.jsx  # 게시글 관련 서비스 파일
+┃ ┣ 📂stores  # 상태 관리 폴더 (Zustand)
+┃ ┃ ┗ 📜authStore.js  # 인증 상태를 관리하는 파일
+┃ ┣ 📂styles  # 스타일 폴더
+┃ ┃ ┣ 📜globalStyles.js  # 글로벌 스타일 파일
+┃ ┃ ┣ 📜mixins.js  # 믹스인 파일
+┃ ┃ ┗ 📜theme.js  # 테마 스타일 파일
+┃ ┣ 📂utils  # 유틸리티 폴더
+┃ ┃ ┣ 📜format.js  # 포맷팅 유틸리티 파일
+┃ ┃ ┗ 📜validation.js  # 검증 유틸리티 파일
+┃ ┣ 📜App.jsx 
+┃ ┗ 📜main.jsx
+┣ 📜.gitignore  # Git에서 무시할 파일 목록
+┣ 📜favicon.ico  # 파비콘 파일
+┣ 📜index.html
+┣ 📜README.md
+┗ 📜vite.config.js  # Vite 설정 파일
+```
+
+---
+
+### **📍 미구현 사항 혹은 전달 사항**
+
+**[CORS 관련 이슈]** <br />
+
+2025-04-24 (목) 08:47:53 <br />
+CORS 이슈 발생하여 메일로 수정 요청 드림
+
+→
+
+2025-04-25 (금) 15:57:07 <br />
+한다글다글 담당자님께서 문제 해결 후 회신
+
+<br /><br />
+
+**[토큰 갱신 500 에러 이슈 및 게시판 리스트 API에서 author 정보 누락]** <br />
+
+2025-04-27 (일) 08:00:00 <br />
+refreshToken 오류 및 게시판 리스트 조회 API 개선 요청 관련 문의 <br />
+
+→
+
+회신을 아직 받지 못하여, 커뮤니티 리스트 UI에서는 author 정보를 제거 <br />
+게시판 상세 조회 시 author 정보를 별도 API로 가져오게 처리하면, 로딩 시간이 약 6초 소요됨 → 이에 따라 author 정보를 표시하지 않기로 결정 <br />
+또한, 토큰 갱신 500 에러로 인해 401 에러 발생 시 별도 대응이 어려운 상황 <br />
+해당 부분을 해결하여 회신 주시면, 수정하여 반영할 예정
+
+---
+
+### **📍 배포 링크**
+
+[daggle.vercel.app/](https://daggle.vercel.app/)
+
+![image](https://github.com/user-attachments/assets/b27d491d-0170-4f75-8779-7dfe9cd5df2c)
+
+---
+
 ### **📍 구현 사항**
 
 #### 📁 Banner
