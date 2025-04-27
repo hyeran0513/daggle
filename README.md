@@ -28,7 +28,8 @@
 | react-icons                    | `npm install react-icons`                   |
 | react-outside-click-handler    | `npm install react-outside-click-handler`   |
 | react-spinners                 | `npm install react-spinners`                |
-| react-helmet                   | `npm install react-helmet`                |
+| react-helmet                   | `npm install react-helmet`                  |
+| framer-motion                  | `npm install framer-motion`                 |
 
 ---
 
