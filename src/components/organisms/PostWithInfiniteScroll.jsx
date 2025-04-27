@@ -39,10 +39,27 @@ const PostWithInfiniteScroll = () => {
       )}
 
       <div ref={observerRef}>{isFetchingNextPage && <>로딩 중...</>}</div>
+
+      <Observer />
     </>
   );
 };
 
 const NoData = styled.div``;
+
+const Observer = styled.div`
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 106px;
+  padding: 0 16px 50px 16px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 100%
+  );
+  pointer-events: none;
+`;
 
 export default PostWithInfiniteScroll;

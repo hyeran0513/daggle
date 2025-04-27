@@ -1,14 +1,14 @@
 import React, { useCallback, useState } from "react";
 
 import { LuCircleUser } from "react-icons/lu";
-import { useLogout } from "../../hooks/useAuthData";
+import { useLogoutUser } from "../../hooks/useAuthData";
 import OutsideClickHandler from "react-outside-click-handler";
 import styled from "styled-components";
 import authStore from "../../stores/authStore";
 
 const PopOver = () => {
   const { user } = authStore();
-  const { mutate: logout } = useLogout();
+  const { mutate: logout } = useLogoutUser();
   const [isPopOverOpen, setIsPopOverOpen] = useState(false);
 
   // 팝오버 토글

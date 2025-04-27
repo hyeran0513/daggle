@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Button from "../components/atoms/Button";
 import { useAuthForm } from "../hooks/useAuthForm";
 import { validateForm } from "../utils/validation";
-import { useLogin } from "../hooks/useAuthData";
+import { useLoginUser } from "../hooks/useAuthData";
 import { useNavigate } from "react-router-dom";
 import authStore from "../stores/authStore";
 import useInputChange from "../hooks/useInputChange";
@@ -16,7 +16,7 @@ const Login = () => {
   const { isAuthenticated } = authStore();
 
   // [Auth] 로그인
-  const { mutate } = useLogin();
+  const { mutate } = useLoginUser();
 
   // 로그인 상태일 경우 로그인 페이지 접근 불가능
   useEffect(() => {

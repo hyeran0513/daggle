@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import { ellipsis } from "../../styles/mixins";
 import { formatToYYMMDD } from "../../utils/format";
 import { BiCommentDetail } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import authStore from "../../stores/authStore";
 
 const PostCard = ({ post }) => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = authStore();
+
+  // 게시글 상세 페이지로 이동
+  const handleGoToDetail = useCallback(() => {
+    if (isAuthenticated) {
+      navigate(`/post/${post?.id}`);
+    } else {
+      alert("로그인 후 게시글을 확인할 수 있습니다.");
+    }
+  }, [isAuthenticated, navigate, post?.id]);
+
   return (
     <Card>
-      <CardLink to={`/post/${post?.id}`}>
+      <CardButton onClick={handleGoToDetail}>
         {/* 제목 */}
         <Title>{post?.title}</Title>
 
@@ -23,7 +36,10 @@ const PostCard = ({ post }) => {
             <CommentCount>{post?.commentCount}</CommentCount>
           </CommentCountWrapper>
 
-          <AuthorInfo>
+          {/* Get: /api/posts에서 author 정보 누락으로 주석 처리 */}
+          {/* 상세 조회 API로 author 정보를 가져오려 했으나 성능 이슈 발생 */}
+          {/* GET /api/posts에 author 정보 포함 요청 메일 보냈으나 회신 없음 */}
+          {/* <AuthorInfo>
             <ProfileImageWrapper>
               {post?.author?.profileImageUrl && (
                 <ProfileImage img={post?.author?.profileImageUrl} alt="" />
@@ -31,16 +47,16 @@ const PostCard = ({ post }) => {
             </ProfileImageWrapper>
 
             <NickName> {post?.author?.nickname || "(닉네임 없음)"}</NickName>
-          </AuthorInfo>
+          </AuthorInfo> */}
         </Meta>
-      </CardLink>
+      </CardButton>
     </Card>
   );
 };
 
 const Card = styled.li``;
 
-const CardLink = styled(Link)`
+const CardButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -48,6 +64,7 @@ const CardLink = styled(Link)`
   width: 100%;
   padding: 16px 24px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray300};
+  text-align: left;
   cursor: pointer;
 
   /* 모바일 */

@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { HiMiniXMark } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import authStore from "../../stores/authStore";
-import { useLogout } from "../../hooks/useAuthData";
+import { useLogoutUser } from "../../hooks/useAuthData";
 
 const SideBar = ({ isOpen, onClose }) => {
   const { isAuthenticated, user } = authStore();
   const navigate = useNavigate();
-  const { mutate: logout } = useLogout();
+  const { mutate: logout } = useLogoutUser();
 
   // 로그아웃 핸들러
   const handleLogout = useCallback(() => {

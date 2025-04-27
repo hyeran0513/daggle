@@ -5,7 +5,6 @@ import {
   editPost,
   getPostDetail,
   getPosts,
-  getPostsWithAuthors,
 } from "../services/postService";
 import { useNavigate } from "react-router-dom";
 
@@ -32,7 +31,7 @@ export const usePostDetailData = (postId) => {
 export const usePostsWithAuthors = ({ page = 1, limit = 10 }) => {
   return useQuery({
     queryKey: ["authors", page, limit],
-    queryFn: () => getPostsWithAuthors({ page, limit }),
+    queryFn: () => getPosts({ page, limit }),
   });
 };
 
@@ -40,8 +39,7 @@ export const usePostsWithAuthors = ({ page = 1, limit = 10 }) => {
 export const useInfinitePostsWithAuthors = ({ limit = 10 }) => {
   return useInfiniteQuery({
     queryKey: ["infinitePosts"],
-    queryFn: ({ pageParam = 1 }) =>
-      getPostsWithAuthors({ page: pageParam, limit }),
+    queryFn: ({ pageParam = 1 }) => getPosts({ page: pageParam, limit }),
     getNextPageParam: (lastPage) => {
       if (lastPage.meta.currentPage < lastPage.meta.totalPages) {
         return lastPage.meta.currentPage + 1;

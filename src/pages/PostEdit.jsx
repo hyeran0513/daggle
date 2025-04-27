@@ -56,7 +56,7 @@ const PostEdit = () => {
       dispatch({ type: "SET_CONTENT", payload: post.content });
       setCurrentLength(post.content?.length || 0);
     }
-  }, [post]);
+  }, [post, dispatch]);
 
   // 뒤로가기 핸들러
   const handleBack = useCallback(() => {

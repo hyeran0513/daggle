@@ -7,7 +7,7 @@ import {
 } from "../services/authService";
 
 // [Auth] 로그인
-export const useLogin = () => {
+export const useLoginUser = () => {
   const { login } = authStore();
 
   return useMutation({
@@ -16,7 +16,7 @@ export const useLogin = () => {
       return data;
     },
     onSuccess: (data) => {
-      login(data.user, data.tokens.accessToken);
+      login(data.user, data.tokens);
     },
     onError: (error) => {
       console.error("로그인 오류:", error);
@@ -26,7 +26,7 @@ export const useLogin = () => {
 };
 
 // [Auth] 로그아웃
-export const useLogout = () => {
+export const useLogoutUser = () => {
   const { logout, token } = authStore();
 
   return useMutation({
