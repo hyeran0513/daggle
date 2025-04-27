@@ -32,14 +32,13 @@ export const theme = {
     },
   },
   breakpoints: {
-    web: "1025px",
-    tablet: "642px",
-    mobile: "360px",
+    tablet: "1024px",
+    mobile: "641px",
   },
   margins: {
     web: "120px",
     tablet: "30px",
-    mobile: "0",
+    mobile: "0px",
   },
   buttons: {
     sizes: {
