@@ -27,6 +27,7 @@
 | date-fns                       | `npm install date-fns`                      |
 | react-icons                    | `npm install react-icons`                   |
 | react-outside-click-handler    | `npm install react-outside-click-handler`   |
+| react-spinners                 | `npm install react-spinners`                |
 
 ---
 
