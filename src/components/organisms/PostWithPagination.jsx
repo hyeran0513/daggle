@@ -2,8 +2,8 @@ import React, { useCallback, useState } from "react";
 import { usePostsWithAuthors } from "../../hooks/usePostData";
 import PostCardList from "./PostCardList";
 import Pagination from "../molecules/Pagination";
-import styled from "styled-components";
 import Loading from "../atoms/Loading";
+import NoData from "../atoms/NoData";
 
 const PostWithPagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,12 +34,10 @@ const PostWithPagination = () => {
           />
         </>
       ) : (
-        <NoData>게시글이 없습니다.</NoData>
+        <NoData text="게시글이 없습니다." />
       )}
     </>
   );
 };
-
-const NoData = styled.div``;
 
 export default PostWithPagination;

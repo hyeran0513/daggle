@@ -5,6 +5,7 @@ import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import PostCardList from "./PostCardList";
 import styled from "styled-components";
 import Loading from "../atoms/Loading";
+import NoData from "../atoms/NoData";
 
 const PostWithInfiniteScroll = () => {
   const queryClient = useQueryClient();
@@ -36,7 +37,7 @@ const PostWithInfiniteScroll = () => {
           posts={infinitePosts?.pages.flatMap((page) => page.items)}
         />
       ) : (
-        <NoData>게시글이 없습니다.</NoData>
+        <NoData text="게시글이 없습니다." />
       )}
 
       {/* 감시 대상 */}
@@ -47,8 +48,6 @@ const PostWithInfiniteScroll = () => {
     </>
   );
 };
-
-const NoData = styled.div``;
 
 const Observer = styled.div``;
 
