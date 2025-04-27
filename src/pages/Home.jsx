@@ -23,63 +23,60 @@ const Home = () => {
 
       <Container>
         {/* 페이지 제목 */}
-        <TitleWrapper
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0, y: 50 },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: {
-                duration: 1,
-                ease: [0.22, 1, 0.36, 1],
-              },
-            },
-          }}
-        >
-          <Title
+        <TitleWrapper>
+          <TitleContainer
+            initial="hidden"
+            animate="visible"
             variants={{
-              hidden: { opacity: 0, scale: 0.8 },
-              visible: {
-                opacity: 1,
-                scale: 1,
-                transition: {
-                  duration: 1,
-                  ease: [0.22, 1, 0.36, 1],
-                  delay: 0.2,
-                },
-              },
-            }}
-          >
-            다글제작소
-          </Title>
-          <Subtitle
-            variants={{
-              hidden: { opacity: 0, y: 20 },
+              hidden: { opacity: 0, y: 50 },
               visible: {
                 opacity: 1,
                 y: 0,
                 transition: {
                   duration: 1,
                   ease: [0.22, 1, 0.36, 1],
-                  delay: 0.4,
                 },
               },
             }}
           >
-            다글제작소의 과제전형에
-            <br /> 오신 것을 환영합니다.
-          </Subtitle>
+            <Title
+              variants={{
+                hidden: { opacity: 0, scale: 0.8 },
+                visible: {
+                  opacity: 1,
+                  scale: 1,
+                  transition: {
+                    duration: 1,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: 0.2,
+                  },
+                },
+              }}
+            >
+              다글제작소
+            </Title>
+            <Subtitle
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 1,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: 0.4,
+                  },
+                },
+              }}
+            >
+              다글제작소의 과제전형에
+              <br /> 오신 것을 환영합니다.
+            </Subtitle>
+          </TitleContainer>
         </TitleWrapper>
 
         {/* 포트폴리오 영역 */}
-        <PortfoiloWrapper
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
-        >
+        <PortfoiloWrapper>
           <PortfolioCarousel />
         </PortfoiloWrapper>
 
@@ -108,7 +105,7 @@ const Container = styled.div`
   }
 `;
 
-const TitleWrapper = styled(motion.div)`
+const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -119,6 +116,8 @@ const TitleWrapper = styled(motion.div)`
     background-color: ${({ theme }) => theme.colors.white};
   }
 `;
+
+const TitleContainer = styled(motion.div)``;
 
 const Title = styled(motion.h3)`
   font-weight: 700;
@@ -146,7 +145,7 @@ const Subtitle = styled(motion.p)`
   }
 `;
 
-const PortfoiloWrapper = styled(motion.div)`
+const PortfoiloWrapper = styled.div`
   padding-top: 40px;
 
   /* 모바일 */

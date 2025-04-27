@@ -5,6 +5,7 @@ import sparta from "../../assets/images/portfolio/sparta.png";
 import kosta from "../../assets/images/portfolio/kosta.png";
 import sweet from "../../assets/images/portfolio/sweet.png";
 import { multiEllipsis } from "../../styles/mixins";
+import { motion } from "framer-motion";
 
 const portfolios = [
   {
@@ -87,6 +88,10 @@ const PortfolioCarousel = () => {
     <CarouselContainer
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
     >
       <Slider translateX={translateX} isTransitioning={isTransitioning}>
         {repeatedData?.map((item, index) => (
@@ -110,7 +115,7 @@ const PortfolioCarousel = () => {
   );
 };
 
-const CarouselContainer = styled.div`
+const CarouselContainer = styled(motion.div)`
   position: relative;
   width: 100%;
   overflow: hidden;
