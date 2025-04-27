@@ -7,6 +7,7 @@ import FloatingButton from "../components/atoms/FloatingButton";
 import PostWithPagination from "../components/organisms/PostWithPagination";
 import PostWithInfiniteScroll from "../components/organisms/PostWithInfiniteScroll";
 import SEO from "../components/atoms/SEO";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const isMobile = useWindowWidth(642);
@@ -22,16 +23,63 @@ const Home = () => {
 
       <Container>
         {/* 페이지 제목 */}
-        <TitleWrapper>
-          <Title>다글제작소</Title>
-          <Subtitle>
+        <TitleWrapper
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0, y: 50 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 1,
+                ease: [0.22, 1, 0.36, 1],
+              },
+            },
+          }}
+        >
+          <Title
+            variants={{
+              hidden: { opacity: 0, scale: 0.8 },
+              visible: {
+                opacity: 1,
+                scale: 1,
+                transition: {
+                  duration: 1,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: 0.2,
+                },
+              },
+            }}
+          >
+            다글제작소
+          </Title>
+          <Subtitle
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 1,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: 0.4,
+                },
+              },
+            }}
+          >
             다글제작소의 과제전형에
             <br /> 오신 것을 환영합니다.
           </Subtitle>
         </TitleWrapper>
 
         {/* 포트폴리오 영역 */}
-        <PortfoiloWrapper>
+        <PortfoiloWrapper
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
+        >
           <PortfolioCarousel />
         </PortfoiloWrapper>
 
@@ -60,7 +108,7 @@ const Container = styled.div`
   }
 `;
 
-const TitleWrapper = styled.div`
+const TitleWrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -72,7 +120,7 @@ const TitleWrapper = styled.div`
   }
 `;
 
-const Title = styled.div`
+const Title = styled(motion.h3)`
   font-weight: 700;
   font-size: 18px;
   line-height: 150%;
@@ -85,7 +133,7 @@ const Title = styled.div`
   }
 `;
 
-const Subtitle = styled.div`
+const Subtitle = styled(motion.p)`
   font-weight: 700;
   font-size: 32px;
   line-height: 160%;
@@ -98,7 +146,7 @@ const Subtitle = styled.div`
   }
 `;
 
-const PortfoiloWrapper = styled.div`
+const PortfoiloWrapper = styled(motion.div)`
   padding-top: 40px;
 
   /* 모바일 */
