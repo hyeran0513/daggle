@@ -29,7 +29,6 @@ export const validateForm = (state, mode) => {
 
   // CommentForm.jsx
   if (mode === "comment") {
-    console.log("??무지");
     // 댓글
     if (!state.comment || state.comment.trim() === "") {
       errors.comment = "댓글을 입력해 주세요.";

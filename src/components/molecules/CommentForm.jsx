@@ -1,6 +1,6 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import Button from "../atoms/Button";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useCreateComment } from "../../hooks/useCommentData";
 import { useCommentForm } from "../../hooks/useCommentForm";
 import { validateForm } from "../../utils/validation";
@@ -37,6 +37,12 @@ const CommentForm = ({ postId }) => {
     },
     [dispatch, mutate, state.comment]
   );
+
+  useEffect(() => {
+    if (state.errors.comment) {
+      alert(state.errors.comment);
+    }
+  }, [state.errors.comment]);
 
   return (
     <FormWrapper>
