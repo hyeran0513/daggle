@@ -3,17 +3,14 @@ import { usePostsWithAuthors } from "../../hooks/usePostData";
 import PostCardList from "./PostCardList";
 import Pagination from "../molecules/Pagination";
 import styled from "styled-components";
+import Loading from "../atoms/Loading";
 
 const PostWithPagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 10;
 
   // [게시판] 리스트 조회
-  const {
-    data: posts,
-    isLoading,
-    isError,
-  } = usePostsWithAuthors({
+  const { data: posts, isLoading } = usePostsWithAuthors({
     page: currentPage,
     limit: limit,
   });
@@ -23,8 +20,7 @@ const PostWithPagination = () => {
     setCurrentPage(page);
   }, []);
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError) return <div>오류 발생</div>;
+  if (isLoading) return <Loading />;
 
   return (
     <>

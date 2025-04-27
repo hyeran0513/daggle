@@ -10,6 +10,7 @@ import Comment from "../components/molecules/Comment";
 import CommentForm from "../components/molecules/CommentForm";
 import authStore from "../stores/authStore";
 import { FiChevronLeft } from "react-icons/fi";
+import Loading from "../components/atoms/Loading";
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -45,7 +46,7 @@ const PostDetail = () => {
     [navigate]
   );
 
-  if (postLoading && commentsLoading) return <>로딩 중...</>;
+  if (postLoading && commentsLoading) return <Loading />;
 
   return (
     <Container>

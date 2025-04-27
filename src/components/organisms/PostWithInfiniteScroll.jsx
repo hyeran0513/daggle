@@ -4,6 +4,7 @@ import { useInfinitePostsWithAuthors } from "../../hooks/usePostData";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import PostCardList from "./PostCardList";
 import styled from "styled-components";
+import Loading from "../atoms/Loading";
 
 const PostWithInfiniteScroll = () => {
   const queryClient = useQueryClient();
@@ -38,16 +39,20 @@ const PostWithInfiniteScroll = () => {
         <NoData>게시글이 없습니다.</NoData>
       )}
 
-      <div ref={observerRef}>{isFetchingNextPage && <>로딩 중...</>}</div>
+      {/* 감시 대상 */}
+      <Observer ref={observerRef}>{isFetchingNextPage && <Loading />}</Observer>
 
-      <Observer />
+      {/* 오버레이 */}
+      <OverLay />
     </>
   );
 };
 
 const NoData = styled.div``;
 
-const Observer = styled.div`
+const Observer = styled.div``;
+
+const OverLay = styled.div`
   position: fixed;
   left: 0;
   bottom: 0;
