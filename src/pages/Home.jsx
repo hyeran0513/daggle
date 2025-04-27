@@ -6,37 +6,47 @@ import useWindowWidth from "../hooks/useWindowWidth";
 import FloatingButton from "../components/atoms/FloatingButton";
 import PostWithPagination from "../components/organisms/PostWithPagination";
 import PostWithInfiniteScroll from "../components/organisms/PostWithInfiniteScroll";
+import SEO from "../components/atoms/SEO";
 
 const Home = () => {
   const isMobile = useWindowWidth(642);
 
   return (
-    <Container>
-      {/* 페이지 제목 */}
-      <TitleWrapper>
-        <Title>다글제작소</Title>
-        <Subtitle>
-          다글제작소의 과제전형에
-          <br /> 오신 것을 환영합니다.
-        </Subtitle>
-      </TitleWrapper>
+    <>
+      {/* SEO 설정 */}
+      <SEO
+        title="다글제작소 - 홈"
+        description="다글제작소 커뮤니티의 홈 페이지"
+        keywords="다글제작소, 커뮤니티, FE 과제, 포트폴리오, React, 프론트엔드"
+      />
 
-      {/* 포트폴리오 영역 */}
-      <PortfoiloWrapper>
-        <PortfolioCarousel />
-      </PortfoiloWrapper>
+      <Container>
+        {/* 페이지 제목 */}
+        <TitleWrapper>
+          <Title>다글제작소</Title>
+          <Subtitle>
+            다글제작소의 과제전형에
+            <br /> 오신 것을 환영합니다.
+          </Subtitle>
+        </TitleWrapper>
 
-      {/* 포스트 영역 */}
-      <PostContainer>
-        {/* 포스트 제목 */}
-        <PostTitle />
+        {/* 포트폴리오 영역 */}
+        <PortfoiloWrapper>
+          <PortfolioCarousel />
+        </PortfoiloWrapper>
 
-        {/* 포스트 목록 */}
-        {isMobile ? <PostWithInfiniteScroll /> : <PostWithPagination />}
-      </PostContainer>
+        {/* 포스트 영역 */}
+        <PostContainer>
+          {/* 포스트 제목 */}
+          <PostTitle />
 
-      <FloatingButton />
-    </Container>
+          {/* 포스트 목록 */}
+          {isMobile ? <PostWithInfiniteScroll /> : <PostWithPagination />}
+        </PostContainer>
+
+        <FloatingButton />
+      </Container>
+    </>
   );
 };
 

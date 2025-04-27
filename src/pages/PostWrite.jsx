@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import useInputChange from "../hooks/useInputChange";
 import TextField from "../components/atoms/TextField";
 import TextareaField from "../components/atoms/TextareaField";
+import SEO from "../components/atoms/SEO";
 
 const PostWrite = () => {
   const [state, dispatch] = usePostForm();
@@ -56,50 +57,59 @@ const PostWrite = () => {
   );
 
   return (
-    <Container>
-      <PostContainer>
-        <PostHead>
-          <BackButton onClick={handleBack}>
-            <FiChevronLeft />
-          </BackButton>
+    <>
+      {/* SEO 설정 */}
+      <SEO
+        title="다글제작소 - 게시글 작성"
+        description="다글제작소 커뮤니티에서 새 게시글을 작성"
+        keywords="다글제작소, 게시글 작성, 커뮤니티, 글쓰기, React"
+      />
 
-          <Title>게시글 작성</Title>
+      <Container>
+        <PostContainer>
+          <PostHead>
+            <BackButton onClick={handleBack}>
+              <FiChevronLeft />
+            </BackButton>
 
-          <SubmitButton onClick={handleSubmit}>등록</SubmitButton>
-        </PostHead>
+            <Title>게시글 작성</Title>
 
-        <Form>
-          {/* 게시글 제목 */}
-          <TextField
-            type="text"
-            value={state.title}
-            placeholder={state.placeholder.title}
-            onChange={handleInputChange("title")}
-            error={state.errors.title}
-          />
+            <SubmitButton onClick={handleSubmit}>등록</SubmitButton>
+          </PostHead>
 
-          {/* 게시글 내용 */}
-          <TextareaField
-            value={state.content}
-            placeholder={state.placeholder.content}
-            onChange={handleInputChange("content", {
-              onChange: (value) => setCurrentLength(value.length),
-            })}
-            error={state.errors.content}
-            maxLength={maxLength}
-            currentLength={currentLength}
-            onDeleteContent={handleDeleteContent}
-          />
-        </Form>
-      </PostContainer>
+          <Form>
+            {/* 게시글 제목 */}
+            <TextField
+              type="text"
+              value={state.title}
+              placeholder={state.placeholder.title}
+              onChange={handleInputChange("title")}
+              error={state.errors.title}
+            />
 
-      {/* 등록 버튼 */}
-      <ButtonWrapper>
-        <Button size="large" onClick={handleSubmit}>
-          등록하기
-        </Button>
-      </ButtonWrapper>
-    </Container>
+            {/* 게시글 내용 */}
+            <TextareaField
+              value={state.content}
+              placeholder={state.placeholder.content}
+              onChange={handleInputChange("content", {
+                onChange: (value) => setCurrentLength(value.length),
+              })}
+              error={state.errors.content}
+              maxLength={maxLength}
+              currentLength={currentLength}
+              onDeleteContent={handleDeleteContent}
+            />
+          </Form>
+        </PostContainer>
+
+        {/* 등록 버튼 */}
+        <ButtonWrapper>
+          <Button size="large" onClick={handleSubmit}>
+            등록하기
+          </Button>
+        </ButtonWrapper>
+      </Container>
+    </>
   );
 };
 
@@ -179,21 +189,32 @@ const ButtonWrapper = styled.div`
 `;
 
 const BackButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: none;
 
   svg {
     font-size: 24px;
   }
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const SubmitButton = styled.button`
+  display: none;
   margin-left: auto;
   font-weight: 700;
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.3%;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    display: block;
+  }
 `;
 
 export default PostWrite;

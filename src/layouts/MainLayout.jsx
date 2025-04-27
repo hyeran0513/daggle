@@ -7,10 +7,13 @@ import MobileHeader from "../components/organisms/MobileHeader";
 const MainLayout = () => {
   return (
     <>
+      {/* PC 헤더 */}
       <Header />
 
+      {/* mobile 헤더 */}
       <MobileHeader />
 
+      {/* 메인 */}
       <Main>
         <Outlet />
       </Main>

@@ -11,6 +11,7 @@ import CommentForm from "../components/molecules/CommentForm";
 import authStore from "../stores/authStore";
 import { FiChevronLeft } from "react-icons/fi";
 import Loading from "../components/atoms/Loading";
+import SEO from "../components/atoms/SEO";
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -49,63 +50,72 @@ const PostDetail = () => {
   if (postLoading && commentsLoading) return <Loading />;
 
   return (
-    <Container>
-      <NavigatorBar>
-        <BackButton onClick={handleBack}>
-          <FiChevronLeft />
-        </BackButton>
-      </NavigatorBar>
+    <>
+      {/* SEO 설정 */}
+      <SEO
+        title="다글제작소 - 커뮤니티 상세 페이지"
+        description="다글제작소 커뮤니티에서 다양한 게시글 확인"
+        keywords="다글제작소, 커뮤니티, 게시글, 상세 페이지, 댓글, React"
+      />
 
-      <PostContainer>
-        <PostHead>
-          {/* 게시글 제목 */}
-          <Title>{post?.title}</Title>
+      <Container>
+        <NavigatorBar>
+          <BackButton onClick={handleBack}>
+            <FiChevronLeft />
+          </BackButton>
+        </NavigatorBar>
 
-          {/* 메타 데이터 */}
-          <Meta>
-            <NickName>{post?.author?.nickname || "(닉네임 없음)"}</NickName>
-            <Date>{formatToYYYYMMDD(post?.createdAt)}</Date>
+        <PostContainer>
+          <PostHead>
+            {/* 게시글 제목 */}
+            <Title>{post?.title}</Title>
 
-            {/* 본인 작성 게시글일 경우 버튼 노출 */}
-            {isAuthor && (
-              <ButtonWrapper>
-                <ControlButton onClick={() => handleEdit(id)}>
-                  수정
-                </ControlButton>
-                <ControlButton onClick={handleDelete}>삭제</ControlButton>
-              </ButtonWrapper>
-            )}
-          </Meta>
-        </PostHead>
+            {/* 메타 데이터 */}
+            <Meta>
+              <NickName>{post?.author?.nickname || "(닉네임 없음)"}</NickName>
+              <Date>{formatToYYYYMMDD(post?.createdAt)}</Date>
 
-        <PostContent>
-          {/* 게시글 내용 */}
-          <Content>{post?.content}</Content>
+              {/* 본인 작성 게시글일 경우 버튼 노출 */}
+              {isAuthor && (
+                <ButtonWrapper>
+                  <ControlButton onClick={() => handleEdit(id)}>
+                    수정
+                  </ControlButton>
+                  <ControlButton onClick={handleDelete}>삭제</ControlButton>
+                </ButtonWrapper>
+              )}
+            </Meta>
+          </PostHead>
 
-          {/* 댓글 수 */}
-          <CommentCountWrapper>
-            <BiCommentDetail />
-            <CommentCount>{post?.commentCount}개</CommentCount>
-          </CommentCountWrapper>
-        </PostContent>
+          <PostContent>
+            {/* 게시글 내용 */}
+            <Content>{post?.content}</Content>
 
-        <PostFooter>
-          {/* 댓글 목록 */}
-          <CommentWrapper>
-            {comments?.length > 0 && (
-              <>
-                {comments?.map((comment) => (
-                  <Comment key={comment?.id} comment={comment} />
-                ))}
-              </>
-            )}
-          </CommentWrapper>
+            {/* 댓글 수 */}
+            <CommentCountWrapper>
+              <BiCommentDetail />
+              <CommentCount>{post?.commentCount}개</CommentCount>
+            </CommentCountWrapper>
+          </PostContent>
 
-          {/* 댓글 폼 영역 */}
-          <CommentForm postId={id} />
-        </PostFooter>
-      </PostContainer>
-    </Container>
+          <PostFooter>
+            {/* 댓글 목록 */}
+            <CommentWrapper>
+              {comments?.length > 0 && (
+                <>
+                  {comments?.map((comment) => (
+                    <Comment key={comment?.id} comment={comment} />
+                  ))}
+                </>
+              )}
+            </CommentWrapper>
+
+            {/* 댓글 폼 영역 */}
+            <CommentForm postId={id} />
+          </PostFooter>
+        </PostContainer>
+      </Container>
+    </>
   );
 };
 

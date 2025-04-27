@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import Button from "../atoms/Button";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useCreateComment } from "../../hooks/useCommentData";
 import { useCommentForm } from "../../hooks/useCommentForm";
 import { validateForm } from "../../utils/validation";

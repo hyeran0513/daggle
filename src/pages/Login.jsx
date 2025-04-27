@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import authStore from "../stores/authStore";
 import useInputChange from "../hooks/useInputChange";
 import TextField from "../components/atoms/TextField";
+import SEO from "../components/atoms/SEO";
 
 const Login = () => {
   const [state, dispatch] = useAuthForm();
@@ -47,46 +48,55 @@ const Login = () => {
   );
 
   return (
-    <Container>
-      <FormContainer>
-        <TitleWrapper>
-          <Title>
-            안녕하세요
-            <br />
-            <Brand>한다글다글</Brand>입니다.
-          </Title>
+    <>
+      {/* SEO 설정 */}
+      <SEO
+        title="다글제작소 - 로그인"
+        description="다글제작소 커뮤니티에 로그인"
+        keywords="다글제작소, 로그인, 커뮤니티, FE 과제, React"
+      />
 
-          <Subtitle>로그인을 통해 더 많은 기능을 이용하세요</Subtitle>
-        </TitleWrapper>
+      <Container>
+        <FormContainer>
+          <TitleWrapper>
+            <Title>
+              안녕하세요
+              <br />
+              <Brand>한다글다글</Brand>입니다.
+            </Title>
 
-        <Form onSubmit={handleSubmit}>
-          {/* 아이디 */}
-          <TextField
-            type="text"
-            value={state.id}
-            placeholder={state.placeholder.id}
-            onChange={handleInputChange("id")}
-            error={state.errors.id}
-          />
+            <Subtitle>로그인을 통해 더 많은 기능을 이용하세요</Subtitle>
+          </TitleWrapper>
 
-          {/* 비밀번호 */}
-          <TextField
-            type="password"
-            value={state.password}
-            placeholder={state.placeholder.password}
-            onChange={handleInputChange("password")}
-            error={state.errors.password}
-          />
+          <Form onSubmit={handleSubmit}>
+            {/* 아이디 */}
+            <TextField
+              type="text"
+              value={state.id}
+              placeholder={state.placeholder.id}
+              onChange={handleInputChange("id")}
+              error={state.errors.id}
+            />
 
-          {/* 로그인 버튼 */}
-          <ButtonWrapper>
-            <Button type="submit" size="full">
-              로그인
-            </Button>
-          </ButtonWrapper>
-        </Form>
-      </FormContainer>
-    </Container>
+            {/* 비밀번호 */}
+            <TextField
+              type="password"
+              value={state.password}
+              placeholder={state.placeholder.password}
+              onChange={handleInputChange("password")}
+              error={state.errors.password}
+            />
+
+            {/* 로그인 버튼 */}
+            <ButtonWrapper>
+              <Button type="submit" size="full">
+                로그인
+              </Button>
+            </ButtonWrapper>
+          </Form>
+        </FormContainer>
+      </Container>
+    </>
   );
 };
 
