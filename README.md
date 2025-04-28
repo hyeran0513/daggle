@@ -30,7 +30,7 @@
 | react-icons                    | `npm install react-icons`                   |
 | react-outside-click-handler    | `npm install react-outside-click-handler`   |
 | react-spinners                 | `npm install react-spinners`                |
-| react-helmet                   | `npm install react-helmet`                  |
+| react-helmet-async             | `npm install react-helmet-async`            |
 | framer-motion                  | `npm install framer-motion`                 |
 
 ---
@@ -148,6 +148,8 @@ author 정보는 사용하지 말고 '익명의유저' 문구로 출력하도록
 ### **📍배포 링크**
 
 - **배포 URL** : [daggle.vercel.app](https://daggle.vercel.app)
+
+![image](https://github.com/user-attachments/assets/015e8965-bf8f-45b4-b6ed-ac70717700c3)
 
 ---
 
