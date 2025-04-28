@@ -50,7 +50,12 @@ axiosInstance.interceptors.response.use(
         } catch (error) {
           console.error("토큰 갱신 오류: ", error);
           authStore.getState().logout();
-          alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+
+          // alert가 한 번만 뜨도록 설정
+          if (!authStore.getState().alertShown) {
+            authStore.getState().setAlertShown(true);
+            alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+          }
         }
       }
     }

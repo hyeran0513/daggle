@@ -4,6 +4,7 @@ const authStore = create((set) => ({
   user: JSON.parse(localStorage.getItem("user")) || null,
   token: localStorage.getItem("accessToken") || null,
   isAuthenticated: !!localStorage.getItem("accessToken"),
+  alertShown: false,
 
   login: (user, tokens) => {
     set({ user, token: tokens.accessToken, isAuthenticated: true });
@@ -13,8 +14,9 @@ const authStore = create((set) => ({
   },
 
   logout: () => {
-    set({ user: null, token: null, isAuthenticated: false });
+    set({ user: null, token: null, isAuthenticated: false, alertShown: false }); // 로그아웃 시 alertShown 리셋
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     localStorage.removeItem("user");
   },
 
@@ -25,6 +27,10 @@ const authStore = create((set) => ({
       user: state.user,
     }));
     localStorage.setItem("accessToken", token);
+  },
+
+  setAlertShown: (value) => {
+    set({ alertShown: value });
   },
 }));
 
