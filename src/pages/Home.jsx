@@ -113,11 +113,11 @@ const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding-top: 56px;
   text-align: center;
 
   /* 모바일 */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding-top: 56px;
     background-color: ${({ theme }) => theme.colors.white};
   }
 `;
