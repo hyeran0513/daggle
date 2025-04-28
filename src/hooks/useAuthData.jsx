@@ -1,10 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import authStore from "../stores/authStore";
-import {
-  loginUser,
-  logoutUser,
-  requestRefreshToken,
-} from "../services/authService";
+import { loginUser, logoutUser } from "../services/authService";
 
 // [Auth] 로그인
 export const useLoginUser = () => {
@@ -36,24 +32,6 @@ export const useLogoutUser = () => {
     },
     onError: (error) => {
       console.error("로그아웃 오류:", error);
-    },
-  });
-};
-
-// [Auth] 토큰 갱신
-export const useRefreshToken = () => {
-  const { updateToken } = authStore();
-
-  return useMutation({
-    mutationFn: async (currentToken) => {
-      const data = await requestRefreshToken(currentToken);
-      return data;
-    },
-    onSuccess: (data) => {
-      updateToken(data.token);
-    },
-    onError: (error) => {
-      console.error("토큰 갱신 오류:", error);
     },
   });
 };
