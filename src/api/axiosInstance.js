@@ -48,11 +48,9 @@ axiosInstance.interceptors.response.use(
             return axiosInstance(config);
           }
         } catch (error) {
-          // 토큰 갱신 실패 시 로그인 페이지로 리디렉션
           console.error("토큰 갱신 오류: ", error);
           authStore.getState().logout();
           alert("세션이 만료되었습니다. 다시 로그인해주세요.");
-          window.location.href = "/login";
           return Promise.reject(error);
         }
       }
