@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { usePostsData } from "../../hooks/usePostData";
 import PostCardList from "./PostCardList";
 import Pagination from "../molecules/Pagination";
@@ -10,7 +10,11 @@ const PostWithPagination = () => {
   const limit = 10;
 
   // [게시판] 리스트 조회
-  const { data: posts, isLoading } = usePostsData({
+  const {
+    data: posts,
+    isLoading,
+    isFetching,
+  } = usePostsData({
     page: currentPage,
     limit: limit,
   });
@@ -18,10 +22,14 @@ const PostWithPagination = () => {
   // 페이지 번호가 변경 헨들러
   const handlePageChange = useCallback((page) => {
     setCurrentPage(page);
-
-    // 스크롤 위치 유지
-    window.scrollTo(0, window.scrollY);
   }, []);
+
+  // 스크롤 위치 유지
+  useEffect(() => {
+    if (!isFetching) {
+      window.scrollTo(0, window.scrollY);
+    }
+  }, [isFetching]);
 
   if (isLoading) return <Loading />;
 
