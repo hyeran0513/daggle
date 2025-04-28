@@ -26,7 +26,7 @@ const TextareaField = ({
         />
 
         {/* 글자 수 */}
-        <CharCountWrapper isOver={currentLength > maxLength}>
+        <CharCountWrapper isOver={currentLength > maxLength} error={!!error}>
           {currentLength} / {maxLength}
         </CharCountWrapper>
 
@@ -92,7 +92,7 @@ const TextareaFieldInput = styled.textarea`
 `;
 
 const CharCountWrapper = styled.aside.withConfig({
-  shouldForwardProp: (prop) => !["isOver"].includes(prop),
+  shouldForwardProp: (prop) => !["isOver", "error"].includes(prop),
 })`
   margin: 8px 16px 16px;
   text-align: right;
@@ -100,8 +100,8 @@ const CharCountWrapper = styled.aside.withConfig({
   font-size: 12px;
   line-height: 140%;
   letter-spacing: -0.3%;
-  color: ${({ isOver, theme }) =>
-    isOver ? theme.colors.error : theme.colors.label.natural};
+  color: ${({ isOver, error, theme }) =>
+    isOver || error ? theme.colors.error : theme.colors.label.natural};
 `;
 
 const DeleteButton = styled.button`
