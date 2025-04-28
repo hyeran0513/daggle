@@ -4,6 +4,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const theme = useTheme();
+  const maxVisiblePages = 10;
 
   // 페이지 변경 핸들러
   const handlePageChange = useCallback(
@@ -14,6 +15,13 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     },
     [totalPages, onPageChange]
   );
+
+  // 페이지네이션 범위 계산
+  let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+  if (endPage - startPage + 1 < maxVisiblePages) {
+    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+  }
 
   return (
     <PaginationWrapper>
@@ -26,8 +34,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       </PageButton>
 
       {/* 페이지네이션 숫자 */}
-      {[...Array(totalPages).keys()].map((_, index) => {
-        const page = index + 1;
+      {Array.from(
+        { length: endPage - startPage + 1 },
+        (_, i) => startPage + i
+      ).map((page) => {
         return (
           <PageButton
             key={page}
