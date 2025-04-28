@@ -150,7 +150,8 @@ author 정보는 사용하지 말고 '익명의유저' 문구로 출력하도록
 2025-04-28 (월) <br />
 배포 URL에서 GET, POST, DELETE 요청은 정상 작동하지만, <br />
 PATCH 요청에서 CORS 오류가 발생합니다. <br />
-로컬 환경에서는 CORS 이슈 없이 정상 작동하여, 로컬 환경에서 시연한 영상 링크를 첨부하였으니 확인 부탁드립니다.
+로컬 환경에서는 CORS 이슈 없이 정상 작동하여, <br />
+로컬 환경에서 시연한 영상 링크를 첨부하였으니 확인 부탁드립니다.
 
 
 ---
@@ -160,8 +161,8 @@ PATCH 요청에서 CORS 오류가 발생합니다. <br />
 **⚠️주의**: 배포 URL에서 PATCH CORS 이슈로 인해, 게시판 및 댓글 수정이 정상적으로 작동하지 않습니다. <br />
 로컬 환경에서 시연한 영상 링크를 첨부하였으니 확인 부탁드립니다. <br />
 
-- **시연 영상**: [https://youtu.be/l4HBXBr3gew](https://youtu.be/l4HBXBr3gew)
-- 
+- **시연 영상**: [https://youtu.be/jY0Jdc1yty0](https://youtu.be/jY0Jdc1yty0)
+  
 - **배포 URL** : [daggle.vercel.app](https://daggle.vercel.app)
 
 ![image](https://github.com/user-attachments/assets/015e8965-bf8f-45b4-b6ed-ac70717700c3)
