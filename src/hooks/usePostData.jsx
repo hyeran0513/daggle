@@ -17,26 +17,8 @@ export const usePostsData = ({ page = 1, limit = 10 }) => {
   });
 };
 
-// [게시판] 게시글 상세
-export const usePostDetailData = (postId) => {
-  return useQuery({
-    queryKey: ["detail", postId],
-    queryFn: () => getPostDetail(postId),
-    enabled: !!postId,
-    retry: false,
-  });
-};
-
-// [게시판] 게시글 리스트 조회 시 Author 정보 포함
-export const usePostsWithAuthors = ({ page = 1, limit = 10 }) => {
-  return useQuery({
-    queryKey: ["authors", page, limit],
-    queryFn: () => getPosts({ page, limit }),
-  });
-};
-
-// [게시판] 게시글 리스트 조회 시 Author 정보 포함 및 무한 스크롤
-export const useInfinitePostsWithAuthors = ({ limit = 10 }) => {
+// [게시판] 게시글 리스트 조회_무한 스크롤
+export const useInfinitePosts = ({ limit = 10 }) => {
   return useInfiniteQuery({
     queryKey: ["infinitePosts"],
     queryFn: ({ pageParam = 1 }) => getPosts({ page: pageParam, limit }),
@@ -45,6 +27,16 @@ export const useInfinitePostsWithAuthors = ({ limit = 10 }) => {
         return lastPage.meta.currentPage + 1;
       }
     },
+  });
+};
+
+// [게시판] 게시글 상세
+export const usePostDetailData = (postId) => {
+  return useQuery({
+    queryKey: ["detail", postId],
+    queryFn: () => getPostDetail(postId),
+    enabled: !!postId,
+    retry: false,
   });
 };
 

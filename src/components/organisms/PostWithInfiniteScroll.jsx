@@ -1,13 +1,13 @@
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect } from "react";
-import { useInfinitePostsWithAuthors } from "../../hooks/usePostData";
+import { useInfinitePosts } from "../../hooks/usePostData";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import PostCardList from "./PostCardList";
 import styled from "styled-components";
 import Loading from "../atoms/Loading";
 import NoData from "../atoms/NoData";
 
-const PostWithInfiniteScroll = () => {
+const PostWithInfiniteScroll = ({ isMobile }) => {
   const queryClient = useQueryClient();
 
   // [게시판] 리스트 조회_무한 스크롤
@@ -16,12 +16,20 @@ const PostWithInfiniteScroll = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useInfinitePostsWithAuthors({ limit: 10 });
+    refetch,
+  } = useInfinitePosts({ limit: 10 });
 
   // 다른 페이지에서 현재 페이지로 이동될 때, infinitePosts 쿼리 데이터를 초기화
   useEffect(() => {
     queryClient.removeQueries(["infinitePosts"]);
   }, [queryClient]);
+
+  // 화면 크기 변경 시 데이터 리패칭
+  useEffect(() => {
+    if (isMobile) {
+      refetch();
+    }
+  }, [isMobile, refetch]);
 
   // 페이지가 화면에 보일 때 데이터 조회
   const observerRef = useIntersectionObserver(

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { usePostsWithAuthors } from "../../hooks/usePostData";
+import { usePostsData } from "../../hooks/usePostData";
 import PostCardList from "./PostCardList";
 import Pagination from "../molecules/Pagination";
 import Loading from "../atoms/Loading";
@@ -10,7 +10,7 @@ const PostWithPagination = () => {
   const limit = 10;
 
   // [게시판] 리스트 조회
-  const { data: posts, isLoading } = usePostsWithAuthors({
+  const { data: posts, isLoading } = usePostsData({
     page: currentPage,
     limit: limit,
   });

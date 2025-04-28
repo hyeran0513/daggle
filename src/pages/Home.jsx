@@ -86,7 +86,11 @@ const Home = () => {
           <PostTitle />
 
           {/* 포스트 목록 */}
-          {isMobile ? <PostWithInfiniteScroll /> : <PostWithPagination />}
+          {isMobile ? (
+            <PostWithInfiniteScroll isMobile />
+          ) : (
+            <PostWithPagination />
+          )}
         </PostContainer>
 
         <FloatingButton />
