@@ -36,18 +36,12 @@ const PostCard = ({ post }) => {
             <CommentCount>{post?.commentCount}</CommentCount>
           </CommentCountWrapper>
 
-          {/* Get: /api/posts에서 author 정보 누락으로 주석 처리 */}
-          {/* 상세 조회 API로 author 정보를 가져오려 했으나 성능 이슈 발생 */}
-          {/* GET /api/posts에 author 정보 포함 요청 메일 보냈으나 회신 없음 */}
-          {/* <AuthorInfo>
-            <ProfileImageWrapper>
-              {post?.author?.profileImageUrl && (
-                <ProfileImage img={post?.author?.profileImageUrl} alt="" />
-              )}
-            </ProfileImageWrapper>
+          {/* 한다글다글 담당자님께서 author 정보가 아닌 '익명의유저'로 출력해달라고 요청 */}
+          <AuthorInfo>
+            <ProfileImageWrapper></ProfileImageWrapper>
 
-            <NickName> {post?.author?.nickname || "(닉네임 없음)"}</NickName>
-          </AuthorInfo> */}
+            <NickName>익명의유저</NickName>
+          </AuthorInfo>
         </Meta>
       </CardButton>
     </Card>

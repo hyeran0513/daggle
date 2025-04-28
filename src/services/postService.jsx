@@ -17,29 +17,6 @@ export const getPostDetail = async (id) => {
   return response.data;
 };
 
-// [게시판] 게시글 리스트 조회 시 Author 정보 포함
-// - Get: /api/posts에서 author 정보 누락
-// - 상세 조회 API로 author 정보를 가져오려 했으나 성능 이슈 발생하여 주석 처리
-// - GET /api/posts에 author 정보 포함 요청 메일 보냈으나 회신 없음
-// export const getPostsWithAuthors = async ({ page = 1, limit = 10 }) => {
-//   const postsResponse = await getPosts({ page, limit });
-
-//   const posts = postsResponse.items.map((post) => ({
-//     ...post,
-//     author: null,
-//   }));
-
-//   for (const post of posts) {
-//     const detail = await getPostDetail(post.id);
-//     post.author = detail.author;
-//   }
-
-//   return {
-//     items: posts,
-//     meta: postsResponse.meta,
-//   };
-// };
-
 // [게시판] 게시글 생성
 export const createPost = async (title, content) => {
   const response = await axiosInstance.post("/api/posts", {
