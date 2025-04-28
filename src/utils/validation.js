@@ -22,7 +22,7 @@ export const validateForm = (state, mode) => {
     }
 
     // 내용
-    if (!state.content || state.content.trim() === "") {
+    if (!state.content || state.content.trim().length < 10) {
       errors.content = "최소 10자 이상 입력해주세요.";
     }
   }
