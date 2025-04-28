@@ -72,7 +72,7 @@ const PortfolioCarousel = () => {
       setIsTransitioning(false);
       setTranslateX(-oneSetWidth);
     }
-  }, [translateX]);
+  }, [translateX, oneSetWidth]);
 
   // 애니메이션이 끝난 후, 잠시 후 애니메이션 활성화
   useEffect(() => {
@@ -83,6 +83,36 @@ const PortfolioCarousel = () => {
       return () => clearTimeout(timer);
     }
   }, [isTransitioning]);
+
+  // 마우스 휠에 따른 슬라이드 넘기기
+  const handleWheel = (e) => {
+    if (isHovered) {
+      e.preventDefault();
+
+      if (e.deltaY > 0) {
+        // 아래로 스크롤: 왼쪽으로 넘기기
+        setTranslateX((prev) => prev - slideWidth - gap);
+      } else {
+        // 위로 스크롤: 오른쪽으로 넘기기
+        setTranslateX((prev) => prev + slideWidth + gap);
+      }
+    }
+  };
+
+  // 컴포넌트에 마우스가 올라가 있거나 떼었을 때, 휠 이벤트 제어
+  useEffect(() => {
+    const wheelHandler = (e) => handleWheel(e);
+
+    if (isHovered) {
+      window.addEventListener("wheel", wheelHandler, { passive: false });
+    } else {
+      window.removeEventListener("wheel", wheelHandler);
+    }
+
+    return () => {
+      window.removeEventListener("wheel", wheelHandler);
+    };
+  }, [isHovered]);
 
   return (
     <CarouselContainer
