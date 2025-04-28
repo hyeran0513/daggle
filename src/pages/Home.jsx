@@ -100,12 +100,12 @@ const Home = () => {
 };
 
 const Container = styled.div`
-  padding: 186px 0;
+  padding: 186px 0 120px;
   ${({ theme }) => breakpoint(theme.breakpoints, theme.margins)}
 
   /* 모바일 */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 56px 0 0;
+    padding: 0;
   }
 `;
 
@@ -113,6 +113,7 @@ const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding-top: 56px;
   text-align: center;
 
   /* 모바일 */

@@ -47,7 +47,10 @@ const SideBar = ({ isOpen, onClose }) => {
               <>
                 <ProfileImageWrapper>
                   {user?.profileImageUrl && (
-                    <ProfileImage img={user?.profileImageUrl} alt="" />
+                    <ProfileImage
+                      img={user?.profileImageUrl}
+                      alt={`${user?.nickname}의 프로필 이미지`}
+                    />
                   )}
                 </ProfileImageWrapper>
                 <NickName>{user?.nickname || "(닉네임 없음)"}</NickName>

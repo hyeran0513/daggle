@@ -9,6 +9,7 @@ const TextField = ({ type = "text", value, placeholder, onChange, error }) => {
         placeholder={placeholder}
         onChange={onChange}
         error={error}
+        autoComplete={type === "password" ? "current-password" : undefined}
       />
 
       {/* 오류 메시지 */}

@@ -13,7 +13,7 @@ const Header = () => {
       <HeaderInner>
         {/* 로고 */}
         <Logo to="/">
-          <LogoImg src={logo} />
+          <LogoImg src={logo} alt="다글제작소" />
         </Logo>
 
         {isAuthenticated ? (
@@ -50,8 +50,8 @@ const HeaderInner = styled.div`
 `;
 
 const Logo = styled(Link)`
-  width: 150px;
-  height: 30px;
+  width: 100px;
+  height: 20.2px;
   overflow: hidden;
 `;
 

@@ -91,7 +91,9 @@ const TextareaFieldInput = styled.textarea`
   }
 `;
 
-const CharCountWrapper = styled.div`
+const CharCountWrapper = styled.aside.withConfig({
+  shouldForwardProp: (prop) => !["isOver"].includes(prop),
+})`
   margin: 8px 16px 16px;
   text-align: right;
   font-weight: 400;
