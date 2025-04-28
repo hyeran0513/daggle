@@ -12,6 +12,13 @@ const PostCardList = ({ posts }) => {
   );
 };
 
-const PostCardWrapper = styled.ul``;
+const PostCardWrapper = styled.ul`
+  min-height: 598px;
+
+  /* 모바일 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    min-height: auto;
+  }
+`;
 
 export default PostCardList;

@@ -18,6 +18,9 @@ const PostWithPagination = () => {
   // 페이지 번호가 변경 헨들러
   const handlePageChange = useCallback((page) => {
     setCurrentPage(page);
+
+    // 스크롤 위치 유지
+    window.scrollTo(0, window.scrollY);
   }, []);
 
   if (isLoading) return <Loading />;
