@@ -163,6 +163,8 @@ const Content = styled.div`
   line-height: 150%;
   letter-spacing: -0.3%;
   color: ${({ theme }) => theme.colors.gray800};
+  word-wrap: break-word;
+  white-space: normal;
 `;
 
 const Date = styled.div`
