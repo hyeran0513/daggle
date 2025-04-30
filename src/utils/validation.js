@@ -24,6 +24,8 @@ export const validateForm = (state, mode) => {
     // 내용
     if (!state.content || state.content.trim().length < 10) {
       errors.content = "최소 10자 이상 입력해주세요.";
+    } else if (state.content.trim().length > 300) {
+      errors.content = "내용은 300자 이하로 입력해 주세요.";
     }
   }
 
