@@ -8,7 +8,6 @@ import styled from "styled-components";
 import { useCommentsData } from "../hooks/useCommentData";
 import Comment from "../components/molecules/Comment";
 import CommentForm from "../components/molecules/CommentForm";
-import authStore from "../stores/authStore";
 import { FiChevronLeft } from "react-icons/fi";
 import Loading from "../components/atoms/Loading";
 import SEO from "../components/atoms/SEO";
@@ -19,8 +18,6 @@ const PostDetail = () => {
   const { data: comments, isLoading: commentsLoading } = useCommentsData(id);
   const { mutate: deletePost } = useDeletePost();
   const navigate = useNavigate();
-  const { user } = authStore();
-  const isAuthor = post?.author?.id === user?.id;
 
   // 삭제 핸들러
   const handleDelete = useCallback(() => {
@@ -76,7 +73,7 @@ const PostDetail = () => {
               <Date>{formatToYYYYMMDD(post?.createdAt)}</Date>
 
               {/* 본인 작성 게시글일 경우 버튼 노출 */}
-              {isAuthor && (
+              {post?.isAuthor && (
                 <ButtonWrapper>
                   <ControlButton onClick={() => handleEdit(id)}>
                     수정
