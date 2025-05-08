@@ -4,10 +4,12 @@ const useIntersectionObserver = (callback, hasNextPage, isFetchingNextPage) => {
   const observerRef = useRef(null);
 
   useEffect(() => {
+    // 다음 페이지가 없거나 데이터를 가져오는 중이면 실행X
     if (!hasNextPage || isFetchingNextPage) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
+        // 대상 요소가 뷰포트에 진입했는지 확인
         if (entries[0].isIntersecting) {
           callback();
         }

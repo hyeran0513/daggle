@@ -14,7 +14,7 @@ const authStore = create((set) => ({
   },
 
   logout: () => {
-    set({ user: null, token: null, isAuthenticated: false, alertShown: false }); // 로그아웃 시 alertShown 리셋
+    set({ user: null, token: null, isAuthenticated: false, alertShown: false });
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("user");

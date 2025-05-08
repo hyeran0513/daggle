@@ -1,15 +1,18 @@
 import React, { useCallback } from "react";
 import styled, { useTheme } from "styled-components";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const theme = useTheme();
   const maxVisiblePages = 10;
+  const navigate = useNavigate();
 
   // 페이지 변경 핸들러
   const handlePageChange = useCallback(
     (page) => {
       if (page > 0 && page <= totalPages) {
+        navigate(`?page=${page}`);
         onPageChange(page);
       }
     },

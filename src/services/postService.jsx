@@ -11,9 +11,7 @@ export const getPosts = async ({ page = 1, limit = 10 }) => {
 
 // [게시판] 게시글 상세
 export const getPostDetail = async (id) => {
-  const response = await axiosInstance.get(`/api/posts/${id}`, {
-    params: { id },
-  });
+  const response = await axiosInstance.get(`/api/posts/${id}`);
   return response.data;
 };
 
