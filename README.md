@@ -39,6 +39,7 @@ https://blush-acoustic-105.notion.site/1f09af6ec6bf8069bcbad6dac819283f
 | react-spinners              | `npm install react-spinners`              |
 | react-helmet-async          | `npm install react-helmet-async`          |
 | framer-motion               | `npm install framer-motion`               |
+| lodash                      | `npm install lodash`                      |
 
 ---
 

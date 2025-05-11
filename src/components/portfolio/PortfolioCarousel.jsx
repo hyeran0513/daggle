@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import printy from "../../assets/images/portfolio/printy.png";
 import sparta from "../../assets/images/portfolio/sparta.png";
@@ -6,6 +6,7 @@ import kosta from "../../assets/images/portfolio/kosta.png";
 import sweet from "../../assets/images/portfolio/sweet.png";
 import { multiEllipsis } from "../../styles/mixins";
 import { motion } from "framer-motion";
+import { throttle } from "lodash";
 
 const portfolios = [
   {
@@ -84,35 +85,37 @@ const PortfolioCarousel = () => {
     }
   }, [isTransitioning]);
 
-  // 마우스 휠에 따른 슬라이드 넘기기
-  const handleWheel = (e) => {
-    if (isHovered) {
-      e.preventDefault();
-
-      if (e.deltaY > 0) {
-        // 아래로 스크롤: 왼쪽으로 넘기기
-        setTranslateX((prev) => prev - slideWidth - gap);
-      } else {
-        // 위로 스크롤: 오른쪽으로 넘기기
-        setTranslateX((prev) => prev + slideWidth + gap);
-      }
-    }
-  };
+  // throttle 처리하여, 100ms마다 한 번만 실행되도록 제한
+  const throttledSlide = useMemo(
+    () =>
+      throttle((e) => {
+        const delta = Math.sign(e.deltaY);
+        if (delta > 0) {
+          // 아래로 스크롤: 왼쪽으로 넘기기
+          setTranslateX((prev) => prev - slideWidth - gap);
+        } else {
+          // 위로 스크롤: 오른쪽으로 넘기기
+          setTranslateX((prev) => prev + slideWidth + gap);
+        }
+      }, 100),
+    []
+  );
 
   // 컴포넌트에 마우스가 올라가 있거나 떼었을 때, 휠 이벤트 제어
   useEffect(() => {
-    const wheelHandler = (e) => handleWheel(e);
-
-    if (isHovered) {
-      window.addEventListener("wheel", wheelHandler, { passive: false });
-    } else {
-      window.removeEventListener("wheel", wheelHandler);
-    }
-
-    return () => {
-      window.removeEventListener("wheel", wheelHandler);
+    const onWheel = (e) => {
+      if (isHovered) {
+        e.preventDefault();
+        throttledSlide(e);
+      }
     };
-  }, [isHovered]);
+
+    window.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      throttledSlide.cancel();
+    };
+  }, [isHovered, throttledSlide]);
 
   return (
     <CarouselContainer
