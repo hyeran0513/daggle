@@ -1,12 +1,12 @@
-import PostTitle from "../components/atoms/PostTitle";
+import PostTitle from "../components/posts/PostTitle";
 import styled from "styled-components";
 import { breakpoint } from "../styles/mixins";
-import PortfolioCarousel from "../components/organisms/PortfolioCarousel";
+import PortfolioCarousel from "../components/portfolio/PortfolioCarousel";
 import useWindowWidth from "../hooks/useWindowWidth";
-import FloatingButton from "../components/atoms/FloatingButton";
-import PostWithPagination from "../components/organisms/PostWithPagination";
-import PostWithInfiniteScroll from "../components/organisms/PostWithInfiniteScroll";
-import SEO from "../components/atoms/SEO";
+import FloatingButton from "../components/ui/FloatingButton";
+import PostWithPagination from "../components/pagination/PostWithPagination";
+import PostWithInfiniteScroll from "../components/pagination/PostWithInfiniteScroll";
+import SEO from "../components/SEO/SEO";
 import { motion } from "framer-motion";
 
 const Home = () => {

@@ -2,15 +2,15 @@ import React, { useCallback, useState } from "react";
 import { breakpoint } from "../styles/mixins";
 import styled from "styled-components";
 import { usePostForm } from "../hooks/usePostForm";
-import Button from "../components/atoms/Button";
+import Button from "../components/ui/Button";
 import { FiChevronLeft } from "react-icons/fi";
 import { validateForm } from "../utils/validation";
 import { useCreatePost } from "../hooks/usePostData";
 import { useNavigate } from "react-router-dom";
 import useInputChange from "../hooks/useInputChange";
-import TextField from "../components/atoms/TextField";
-import TextareaField from "../components/atoms/TextareaField";
-import SEO from "../components/atoms/SEO";
+import TextField from "../components/ui/TextField";
+import TextareaField from "../components/ui/TextareaField";
+import SEO from "../components/SEO/SEO";
 
 const PostWrite = () => {
   const [state, dispatch] = usePostForm();

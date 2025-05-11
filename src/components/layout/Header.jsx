@@ -3,7 +3,7 @@ import logo from "../../assets/images/logo.png";
 import { breakpoint } from "../../styles/mixins";
 import { Link } from "react-router-dom";
 import authStore from "../../stores/authStore";
-import PopOver from "../atoms/PopOver";
+import PopOver from "../ui/PopOver";
 
 const Header = () => {
   const { isAuthenticated } = authStore();

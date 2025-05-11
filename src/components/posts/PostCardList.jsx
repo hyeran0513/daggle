@@ -1,5 +1,5 @@
 import React from "react";
-import PostCard from "../molecules/PostCard";
+import PostCard from "./PostCard";
 import styled from "styled-components";
 
 const PostCardList = ({ posts }) => {

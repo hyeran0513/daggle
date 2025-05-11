@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useDeleteComment, useEditComment } from "../../hooks/useCommentData";
 import authStore from "../../stores/authStore";
 import { useCommentForm } from "../../hooks/useCommentForm";
-import TextField from "../atoms/TextField";
+import TextField from "../ui/TextField";
 import useInputChange from "../../hooks/useInputChange";
 
 const Comment = ({ comment }) => {

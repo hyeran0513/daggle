@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { usePostsData } from "../../hooks/usePostData";
-import PostCardList from "./PostCardList";
-import Pagination from "../molecules/Pagination";
-import Loading from "../atoms/Loading";
-import NoData from "../atoms/NoData";
+import PostCardList from "../posts/PostCardList";
+import Pagination from "../ui/Pagination";
+import Loading from "../ui/Loading";
+import NoData from "../ui/NoData";
 
 const PostWithPagination = () => {
   const [currentPage, setCurrentPage] = useState(1);

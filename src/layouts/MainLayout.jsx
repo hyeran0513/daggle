@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import Header from "../components/organisms/Header";
-import MobileHeader from "../components/organisms/MobileHeader";
+import Header from "../components/layout/Header";
+import MobileHeader from "../components/layout/MobileHeader";
 
 const MainLayout = () => {
   return (

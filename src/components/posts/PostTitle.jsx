@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "../ui/Button";
 import { useNavigate } from "react-router-dom";
 import authStore from "../../stores/authStore";
 

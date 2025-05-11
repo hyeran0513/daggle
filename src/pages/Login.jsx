@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect } from "react";
 import styled from "styled-components";
-import Button from "../components/atoms/Button";
+import Button from "../components/ui/Button";
 import { useAuthForm } from "../hooks/useAuthForm";
 import { validateForm } from "../utils/validation";
 import { useLoginUser } from "../hooks/useAuthData";
 import { useNavigate } from "react-router-dom";
 import authStore from "../stores/authStore";
 import useInputChange from "../hooks/useInputChange";
-import TextField from "../components/atoms/TextField";
-import SEO from "../components/atoms/SEO";
+import TextField from "../components/ui/TextField";
+import SEO from "../components/SEO/SEO";
 
 const Login = () => {
   const [state, dispatch] = useAuthForm();

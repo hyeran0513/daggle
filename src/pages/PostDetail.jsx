@@ -6,11 +6,11 @@ import { BiCommentDetail } from "react-icons/bi";
 import { breakpoint } from "../styles/mixins";
 import styled from "styled-components";
 import { useCommentsData } from "../hooks/useCommentData";
-import Comment from "../components/molecules/Comment";
-import CommentForm from "../components/molecules/CommentForm";
+import Comment from "../components/comments/Comment";
+import CommentForm from "../components/comments/CommentForm";
 import { FiChevronLeft } from "react-icons/fi";
-import Loading from "../components/atoms/Loading";
-import SEO from "../components/atoms/SEO";
+import Loading from "../components/ui/Loading";
+import SEO from "../components/SEO/SEO";
 
 const PostDetail = () => {
   const { id } = useParams();

@@ -2,10 +2,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import { useInfinitePosts } from "../../hooks/usePostData";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
-import PostCardList from "./PostCardList";
+import PostCardList from "../posts/PostCardList";
 import styled from "styled-components";
-import Loading from "../atoms/Loading";
-import NoData from "../atoms/NoData";
+import Loading from "../ui/Loading";
+import NoData from "../ui/NoData";
 
 const PostWithInfiniteScroll = ({ isMobile }) => {
   const queryClient = useQueryClient();
