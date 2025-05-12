@@ -16,9 +16,10 @@ export const multiEllipsis = (lineClamp) => css`
 `;
 
 // 브레이크포인트
-export const breakpoint = (breakpoints, margins) => `
-  margin-left: ${margins.web};
-  margin-right: ${margins.web};
+export const breakpoint = (breakpoints, margins) => `;
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
 
   /* 태블릿 */
   @media (max-width: ${breakpoints.tablet}) {
