@@ -11,6 +11,7 @@ import useInputChange from "../hooks/useInputChange";
 import TextField from "../components/ui/TextField";
 import TextareaField from "../components/ui/TextareaField";
 import SEO from "../components/SEO/SEO";
+import { useResponsive } from "../hooks/useResponsive";
 
 const PostEdit = () => {
   const [state, dispatch] = usePostForm();
@@ -21,6 +22,7 @@ const PostEdit = () => {
   const { data: post } = usePostDetailData(id);
   const { mutate } = useEditPost(id);
   const navigate = useNavigate();
+  const { isMobile } = useResponsive();
   const isDisabled =
     post?.title === state.title && post?.content === state.content;
 
@@ -76,13 +78,17 @@ const PostEdit = () => {
       <Container>
         <PostContainer>
           <PostHead>
-            <BackButton onClick={handleBack}>
-              <FiChevronLeft />
-            </BackButton>
+            {isMobile && (
+              <BackButton onClick={handleBack}>
+                <FiChevronLeft />
+              </BackButton>
+            )}
 
             <Title>게시글 수정</Title>
 
-            <SubmitButton onClick={handleSubmit}>수정</SubmitButton>
+            {isMobile && (
+              <SubmitButton onClick={handleSubmit}>수정</SubmitButton>
+            )}
           </PostHead>
 
           <Form>
@@ -111,11 +117,13 @@ const PostEdit = () => {
         </PostContainer>
 
         {/* 수정 버튼 */}
-        <ButtonWrapper>
-          <Button size="large" onClick={handleSubmit} disabled={isDisabled}>
-            수정하기
-          </Button>
-        </ButtonWrapper>
+        {!isMobile && (
+          <ButtonWrapper>
+            <Button size="large" onClick={handleSubmit} disabled={isDisabled}>
+              수정하기
+            </Button>
+          </ButtonWrapper>
+        )}
       </Container>
     </>
   );
@@ -189,16 +197,9 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 48px;
-
-  /* 모바일 */
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    display: none;
-  }
 `;
 
 const BackButton = styled.button`
-  display: none;
-
   svg {
     font-size: 24px;
   }
@@ -212,7 +213,6 @@ const BackButton = styled.button`
 `;
 
 const SubmitButton = styled.button`
-  display: none;
   margin-left: auto;
   font-weight: 700;
   font-size: 16px;

@@ -93,7 +93,7 @@ const Home = () => {
           )}
         </PostContainer>
 
-        <FloatingButton />
+        {isMobile && <FloatingButton />}
       </Container>
     </>
   );

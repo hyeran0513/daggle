@@ -1,17 +1,16 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/layout/Header";
 import MobileHeader from "../components/layout/MobileHeader";
+import { useResponsive } from "../hooks/useResponsive";
 
 const MainLayout = () => {
+  const { isMobile } = useResponsive();
+
   return (
     <>
-      {/* PC 헤더 */}
-      <Header />
-
-      {/* mobile 헤더 */}
-      <MobileHeader />
+      {/* 헤더 */}
+      {isMobile ? <MobileHeader /> : <Header />}
 
       {/* 메인 */}
       <Main>

@@ -23,13 +23,13 @@ export const breakpoint = (breakpoints, margins) => `;
 
   /* 태블릿 */
   @media (max-width: ${breakpoints.tablet}) {
-    margin-left: ${margins.tablet};
-    margin-right: ${margins.tablet};
+    padding-left: ${margins.tablet};
+    padding-right: ${margins.tablet};
   }
 
   /* 모바일 */
   @media (max-width: ${breakpoints.mobile}) {
-    margin-left: ${margins.mobile};
-    margin-right: ${margins.mobile};
+    padding-left: ${margins.mobile};
+    padding-right: ${margins.mobile};
   }
 `;

@@ -5,10 +5,12 @@ import { formatToYYMMDD } from "../../utils/format";
 import { BiCommentDetail } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import authStore from "../../stores/authStore";
+import { useResponsive } from "../../hooks/useResponsive";
 
 const PostCard = ({ post }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = authStore();
+  const { isMobile } = useResponsive();
 
   // 게시글 상세 페이지로 이동
   const handleGoToDetail = useCallback(() => {
@@ -40,7 +42,7 @@ const PostCard = ({ post }) => {
           <AuthorInfo>
             <ProfileImageWrapper></ProfileImageWrapper>
 
-            <NickName>익명의유저</NickName>
+            {isMobile && <NickName>익명의유저</NickName>}
           </AuthorInfo>
         </Meta>
       </CardButton>
@@ -169,17 +171,11 @@ const ProfileImage = styled.img`
 `;
 
 const NickName = styled.div`
-  display: none;
   font-weight: 400;
   font-size: 14px;
   line-height: 150%;
   letter-spacing: -0.3%;
   color: ${({ theme }) => theme.colors.gray900};
-
-  /* 모바일 */
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    display: block;
-  }
 `;
 
 export default PostCard;

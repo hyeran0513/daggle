@@ -11,6 +11,7 @@ import CommentForm from "../components/comments/CommentForm";
 import { FiChevronLeft } from "react-icons/fi";
 import Loading from "../components/ui/Loading";
 import SEO from "../components/SEO/SEO";
+import { useResponsive } from "../hooks/useResponsive";
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const PostDetail = () => {
   const { data: comments, isLoading: commentsLoading } = useCommentsData(id);
   const { mutate: deletePost } = useDeletePost();
   const navigate = useNavigate();
+  const { isMobile } = useResponsive();
 
   // 삭제 핸들러
   const handleDelete = useCallback(() => {
@@ -56,11 +58,13 @@ const PostDetail = () => {
       />
 
       <Container>
-        <NavigatorBar>
-          <BackButton onClick={handleBack}>
-            <FiChevronLeft />
-          </BackButton>
-        </NavigatorBar>
+        {isMobile && (
+          <NavigatorBar>
+            <BackButton onClick={handleBack}>
+              <FiChevronLeft />
+            </BackButton>
+          </NavigatorBar>
+        )}
 
         <PostContainer>
           <PostHead>
@@ -130,19 +134,14 @@ const NavigatorBar = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  display: none;
+  display: flex;
+  align-items: center;
   margin: 0 auto;
   padding: 0 16px;
   width: 100%;
   height: 56px;
   background-color: ${({ theme }) => theme.colors.white};
   z-index: 101;
-
-  /* 모바일 */
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    display: flex;
-    align-items: center;
-  }
 `;
 
 const BackButton = styled.button`

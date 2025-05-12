@@ -11,6 +11,7 @@ import useInputChange from "../hooks/useInputChange";
 import TextField from "../components/ui/TextField";
 import TextareaField from "../components/ui/TextareaField";
 import SEO from "../components/SEO/SEO";
+import { useResponsive } from "../hooks/useResponsive";
 
 const PostWrite = () => {
   const [state, dispatch] = usePostForm();
@@ -19,6 +20,7 @@ const PostWrite = () => {
   const maxLength = 300;
   const { mutate } = useCreatePost();
   const navigate = useNavigate();
+  const { isMobile } = useResponsive();
 
   // 내용 삭제 버튼 핸들러
   const handleDeleteContent = useCallback(() => {
@@ -68,13 +70,17 @@ const PostWrite = () => {
       <Container>
         <PostContainer>
           <PostHead>
-            <BackButton onClick={handleBack}>
-              <FiChevronLeft />
-            </BackButton>
+            {isMobile && (
+              <BackButton onClick={handleBack}>
+                <FiChevronLeft />
+              </BackButton>
+            )}
 
             <Title>게시글 작성</Title>
 
-            <SubmitButton onClick={handleSubmit}>등록</SubmitButton>
+            {isMobile && (
+              <SubmitButton onClick={handleSubmit}>등록</SubmitButton>
+            )}
           </PostHead>
 
           <Form>
@@ -103,11 +109,13 @@ const PostWrite = () => {
         </PostContainer>
 
         {/* 등록 버튼 */}
-        <ButtonWrapper>
-          <Button size="large" onClick={handleSubmit}>
-            등록하기
-          </Button>
-        </ButtonWrapper>
+        {!isMobile && (
+          <ButtonWrapper>
+            <Button size="large" onClick={handleSubmit}>
+              등록하기
+            </Button>
+          </ButtonWrapper>
+        )}
       </Container>
     </>
   );
@@ -181,16 +189,9 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 48px;
-
-  /* 모바일 */
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    display: none;
-  }
 `;
 
 const BackButton = styled.button`
-  display: none;
-
   svg {
     font-size: 24px;
   }
@@ -204,17 +205,11 @@ const BackButton = styled.button`
 `;
 
 const SubmitButton = styled.button`
-  display: none;
   margin-left: auto;
   font-weight: 700;
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.3%;
-
-  /* 모바일 */
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    display: block;
-  }
 `;
 
 export default PostWrite;

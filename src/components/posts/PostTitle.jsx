@@ -3,10 +3,12 @@ import styled from "styled-components";
 import Button from "../ui/Button";
 import { useNavigate } from "react-router-dom";
 import authStore from "../../stores/authStore";
+import { useResponsive } from "../../hooks/useResponsive";
 
 const PostTitle = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = authStore();
+  const { isMobile } = useResponsive();
 
   // 게시글 작성 페이지로 이동
   const handleGoToWrite = useCallback(() => {
@@ -23,11 +25,13 @@ const PostTitle = () => {
       <Title>게시판</Title>
 
       {/* 글쓰기 버튼 */}
-      <ButtonWrapper>
-        <Button variant="purple" size="small" onClick={handleGoToWrite}>
-          글쓰기
-        </Button>
-      </ButtonWrapper>
+      {!isMobile && (
+        <ButtonWrapper>
+          <Button variant="purple" size="small" onClick={handleGoToWrite}>
+            글쓰기
+          </Button>
+        </ButtonWrapper>
+      )}
     </Wrapper>
   );
 };
@@ -62,11 +66,6 @@ const Title = styled.h3`
   }
 `;
 
-const ButtonWrapper = styled.div`
-  /* 모바일 */
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    display: none;
-  }
-`;
+const ButtonWrapper = styled.div``;
 
 export default PostTitle;

@@ -34,10 +34,6 @@ const HeaderContainer = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray300};
   box-shadow: 0px 9px 10px 0px rgba(232, 232, 232, 0.25);
   z-index: 100;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    display: none;
-  }
 `;
 
 const HeaderInner = styled.div`
