@@ -2,15 +2,15 @@ import PostTitle from "../components/posts/PostTitle";
 import styled from "styled-components";
 import { breakpoint } from "../styles/mixins";
 import PortfolioCarousel from "../components/portfolio/PortfolioCarousel";
-import useWindowWidth from "../hooks/useWindowWidth";
 import FloatingButton from "../components/ui/FloatingButton";
 import PostWithPagination from "../components/pagination/PostWithPagination";
 import PostWithInfiniteScroll from "../components/pagination/PostWithInfiniteScroll";
 import SEO from "../components/SEO/SEO";
 import { motion } from "framer-motion";
+import { useResponsive } from "../hooks/useResponsive";
 
 const Home = () => {
-  const isMobile = useWindowWidth(642);
+  const { isMobile } = useResponsive();
 
   return (
     <>
